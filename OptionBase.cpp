@@ -1,0 +1,1 @@
+// OptionBase is abstract base class.

@@ -44,8 +44,7 @@ void MCSimulation::run(const OptionBase& option, const ModelBase& model, const T
 	for (auto& th : threads)
 	{
 		th.join();
-	}
-
+	};
 
 	Eigen::VectorXd strPay = option.ComputePayoffs(stock_prices);
 

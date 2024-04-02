@@ -54,6 +54,9 @@
     <ClCompile Include="ValuationMethodBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="rv.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ApplicationBase.h">
@@ -96,6 +99,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ValuationMethodBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rv.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -153,6 +153,7 @@
     <ClCompile Include="ModelBase.cpp" />
     <ClCompile Include="OptionBase.cpp" />
     <ClCompile Include="PseudoFactory.cpp" />
+    <ClCompile Include="rv.cpp" />
     <ClCompile Include="Valuation.cpp" />
     <ClCompile Include="ValuationBase.cpp" />
     <ClCompile Include="ValuationMethodBase.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="ModelBase.h" />
     <ClInclude Include="OptionBase.h" />
     <ClInclude Include="PseudoFactory.h" />
+    <ClInclude Include="rv.h" />
     <ClInclude Include="TermStructureBase.h" />
     <ClInclude Include="Valuation.h" />
     <ClInclude Include="ValuationMethodBase.h" />

@@ -26,7 +26,12 @@ public:
     char GetMethodType() const { return Meth_type_; }
     char GetApplicationtype() const { return app_type_; }
     char GetTermStructureType() const { return T_type_; }
-    
+    double GetSeed() const { return seed_; }
+
+    char GetRandomGeneratorType() const
+    {
+	    return generator_type_;
+    }
 
 private:
     char P_type_;   	// process type
@@ -43,10 +48,12 @@ private:
     long M_;     		// number of sample paths
     long N_;     		// number of time steps
     long num_threads_;  // number of threads
+    double seed_;
 
     char Acc_type_;		// accumulator type
     char Meth_type_;   	// method type
     char app_type_;    	// application type
+    char generator_type_; // random generator type
 
   
 };

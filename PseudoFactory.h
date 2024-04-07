@@ -2,6 +2,7 @@
 
 #ifndef PseudoFactoryH
 #define PseudoFactoryH
+#include "RandomBase.h"
 
 class OptionBase;
 class ModelBase;
@@ -20,6 +21,7 @@ class PseudoFactory
 public:
 
 	ApplicationBase* CreateApplication(); //gets called in application wrapper. return Valuation class
+	RandomBase* CreateRandomBase();
 	OptionBase* CreateOption();
 	ModelBase* CreateModel();
 	TermStructureBase* CreateTermStructure();
@@ -45,6 +47,7 @@ public:
 	long GetM() const;
 	long GetN() const;
 	long GetNumThreads() const;
+	double GetSeed() const;
 
 private:
 

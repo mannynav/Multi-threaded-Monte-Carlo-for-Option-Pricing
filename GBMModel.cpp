@@ -5,10 +5,17 @@ GBMModel::GBMModel(double S0, double r, double sigma) : S0_(S0), r_(r), sigma_(s
 {
 }
 
+GBMModel::~GBMModel()
+{
+	delete generator_;
+}
+
 GBMModel::GBMModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.Getr()), sigma_(factory.Getsig())
 {
 	dt_ = factory.GetT() / factory.GetN();
 	drift_ = (r_ - 0.5 * sigma_ * sigma_) * dt_;
+
+	generator_ = factory.CreateRandomBase();
 }
 
 

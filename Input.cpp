@@ -19,6 +19,7 @@ Input::Input()
     M_ = 1000000;
     N_ = 100;
     num_threads_ = 16;
+    seed_ = 1;
 
     O_type_ = 'c';   	// c for call,  p  for put
     P_type_ = 'g';   	// g for gbm
@@ -27,5 +28,6 @@ Input::Input()
     app_type_ = 'v';   	// v for valuation application
 
     Acc_type_ = 'p'; 	// p for plain accumulator
+    generator_type_ = 'm'; // m for mersenne twister
 
 }

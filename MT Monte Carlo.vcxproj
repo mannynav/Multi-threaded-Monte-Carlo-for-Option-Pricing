@@ -154,6 +154,7 @@
     <ClCompile Include="OptionBase.cpp" />
     <ClCompile Include="PseudoFactory.cpp" />
     <ClCompile Include="RandomBase.cpp" />
+    <ClCompile Include="RandomMersenneTwister.cpp" />
     <ClCompile Include="rv.cpp" />
     <ClCompile Include="Valuation.cpp" />
     <ClCompile Include="ValuationBase.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="OptionBase.h" />
     <ClInclude Include="PseudoFactory.h" />
     <ClInclude Include="RandomBase.h" />
+    <ClInclude Include="RandomMersenneTwister.h" />
     <ClInclude Include="rv.h" />
     <ClInclude Include="TermStructureBase.h" />
     <ClInclude Include="Valuation.h" />

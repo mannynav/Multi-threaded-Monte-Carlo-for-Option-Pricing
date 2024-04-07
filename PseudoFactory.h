@@ -12,6 +12,8 @@ class ValuationMethodBase;
 class ApplicationBase;
 class AccumulatorBase;
 
+class RandomBase;
+
 class Input;
 class Output;
 
@@ -19,14 +21,12 @@ class PseudoFactory
 {
 
 public:
-
 	ApplicationBase* CreateApplication(); //gets called in application wrapper. return Valuation class
 	RandomBase* CreateRandomBase();
 	OptionBase* CreateOption();
 	ModelBase* CreateModel();
 	TermStructureBase* CreateTermStructure();
 	ValuationMethodBase* CreateValuationMethod();
-	
 
 
 	void SetInput(Input* inp) { input_ = inp; }

@@ -5,11 +5,6 @@ GBMModel::GBMModel(double S0, double r, double sigma) : S0_(S0), r_(r), sigma_(s
 {
 }
 
-GBMModel::~GBMModel()
-{
-	delete generator_;
-}
-
 GBMModel::GBMModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.Getr()), sigma_(factory.Getsig())
 {
 	dt_ = factory.GetT() / factory.GetN();
@@ -19,11 +14,19 @@ GBMModel::GBMModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.Ge
 }
 
 
+GBMModel::~GBMModel()
+{
+	delete generator_;
+}
+
+
 void GBMModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const
 {
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 	std::mt19937 gen(seed);
 	std::normal_distribution<double> nd(0, 1);
+
+
 
 	double sqrtdt = std::sqrt(dt_);
 

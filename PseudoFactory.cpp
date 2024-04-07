@@ -38,10 +38,14 @@ long PseudoFactory::GetM() const { return input_->GetM(); }
 long PseudoFactory::GetN() const { return input_->GetN(); }
 long PseudoFactory::GetNumThreads() const { return input_->GetNumThreads(); }
 
+
+
 double PseudoFactory::GetSeed() const
 {
 	return input_->GetSeed();
 }
+
+
 
 OptionBase* PseudoFactory::CreateOption()
 {
@@ -115,12 +119,12 @@ ApplicationBase* PseudoFactory::CreateApplication()
 
 RandomBase* PseudoFactory::CreateRandomBase()
 {
-	char random_type = input_->GetRandomGeneratorType();
+	char gen_type = input_->GetRandomGeneratorType();
 	std::cout << "Creating random" << '\n';
 
-	switch (random_type)
+	switch (gen_type)
 	{
-			case 'm': return new RandomMersenneTwister(*this);
+	case 'm': return new RandomMersenneTwister(*this);
 		break;
 	default: throw std::runtime_error("PseudoFactory::CreateRandom:  Bad character");
 	}

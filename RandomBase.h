@@ -17,7 +17,6 @@ class RandomBase
 
 public:
 
-	explicit RandomBase(const PseudoFactory& factory);
 	virtual ~RandomBase() {}
 	virtual void SeedGenerator(unsigned int seed) = 0;
 	virtual boost::mt19937& GetGenerator() = 0;

@@ -5,7 +5,7 @@ GBMModel::GBMModel(double S0, double r, double sigma) : S0_(S0), r_(r), sigma_(s
 {
 }
 
-GBMModel::GBMModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.Getr()), sigma_(factory.Getsig())
+GBMModel::GBMModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.Getr()), sigma_(factory.Getsig()), N_(factory.GetN()), T_(factory.GetT())
 {
 	dt_ = factory.GetT() / factory.GetN();
 	drift_ = (r_ - 0.5 * sigma_ * sigma_) * dt_;
@@ -22,10 +22,15 @@ GBMModel::~GBMModel()
 
 void GBMModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const
 {
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-	std::mt19937 gen(seed);
-	std::normal_distribution<double> nd(0, 1);
+	
+	/*std::mt19937 gen(seed);
+	std::normal_distribution<double> nd(0, 1);*/
 
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	generator_->SeedGenerator(seed);
+	boost::mt19937 rng = generator_->GetGenerator();
+	boost::normal_distribution<> nd1(0.0, 1.0);
+	boost::variate_generator<boost::mt19937&, boost::normal_distribution<> > rnorm(rng, nd1);
 
 
 	double sqrtdt = std::sqrt(dt_);
@@ -36,11 +41,15 @@ void GBMModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths
 		paths(i, 0) = S0_; // Set initial price
 		int num_paths_per_update = 200000;
 
-		for (int j = 0; j < 100; ++j)
-		{
-			double random_number = nd(gen);
+		std::vector<double> variates(N_);
+		std::generate(variates.begin(), variates.end(), rnorm);
 
-			paths(i, j + 1) = paths(i, j) * exp(drift_ + sigma_ * sqrtdt * random_number);
+		for (int j = 0; j < N_; ++j)
+		{
+			//double random_number = nd(gen);
+			//paths(i, j + 1) = paths(i, j) * exp(drift_ + sigma_ * sqrtdt * random_number);
+
+			paths(i, j + 1) = paths(i, j) * exp(drift_ + sigma_ * sqrtdt * variates[j]);
 		}
 
 		if ((i + 1) % num_paths_per_update == 0)

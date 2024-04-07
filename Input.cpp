@@ -16,7 +16,7 @@ Input::Input()
     X_ = 100;
     T_ = 1;
 
-    M_ = 1000000;
+    M_ = 1600000;
     N_ = 100;
     num_threads_ = 16;
     seed_ = 1;

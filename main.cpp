@@ -40,9 +40,21 @@ int main(int argc, char* argv[])
 	Application_Wrapper app;
 	app.run();
 
+    double d1 = (std::log(100 / 100) + (0.05 + 0.30 * 0.30 / 2.0) * 0.5) / (0.30 * sqrt(0.5));
+    double delta = boost::math::cdf(boost::math::normal_distribution<>(0.0, 1.0), d1);
 
-    double bs_call_price = black_scholes_call_price(100, 100, 1, 0.05, 0.20);
+    double vegaNum = std::exp(-d1 * d1 / 2) / sqrt(2 * 3.14159265358979323846);
+    double vegaDenom = 100 * sqrt(0.5);
+
+    double bs_gamma = (1 / (100 * 0.3 * sqrt(0.5))) * vegaNum;
+
+    double bs_call_price = black_scholes_call_price(100, 100, 0.5, 0.05, 0.30);
     std::cout << "BS price: " << bs_call_price << std::endl;
+    std::cout << "BS delta: " << delta << std::endl;
+    std::cout << "BS vega: " << vegaDenom * vegaNum << std::endl;
+    std::cout << "BS gamma: " << bs_gamma << std::endl;
+    std::cout << "Finished main! " << std::endl;
+
 
 	std::cout << "Finished main! " << std::endl;
    

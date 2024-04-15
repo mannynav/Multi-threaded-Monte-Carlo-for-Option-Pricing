@@ -147,6 +147,7 @@
     <ClCompile Include="EuroCallOption.cpp" />
     <ClCompile Include="FlatTermStructure.cpp" />
     <ClCompile Include="GBMModel.cpp" />
+    <ClCompile Include="HestonModel.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MCSimulation.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="EuroCallOption.h" />
     <ClInclude Include="FlatTermStructure.h" />
     <ClInclude Include="GBMModel.h" />
+    <ClInclude Include="HestonModel.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="MCGatherer.h" />
     <ClInclude Include="MCSimulation.h" />

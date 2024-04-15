@@ -46,6 +46,8 @@ void MCSimulation::run(const OptionBase& option, const ModelBase& model, const T
 		th.join();
 	};
 
+	std::cout << stock_prices << std::endl;
+
 	Eigen::VectorXd strPay = option.ComputePayoffs(stock_prices);
 
 	auto mc_gatherer = std::make_unique<MCGatherer>();

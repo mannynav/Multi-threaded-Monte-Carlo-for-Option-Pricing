@@ -29,7 +29,6 @@ void GBMModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths
 	boost::normal_distribution<> nd1(0.0, 1.0);
 	boost::variate_generator<boost::mt19937&, boost::normal_distribution<> > rnorm(rng, nd1);
 
-
 	double sqrtdt = std::sqrt(dt_);
 
 	// Simulate paths within the designated range

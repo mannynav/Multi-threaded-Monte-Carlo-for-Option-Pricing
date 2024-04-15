@@ -126,6 +126,6 @@ RandomBase* PseudoFactory::CreateRandomBase()
 	{
 	case 'm': return new RandomMersenneTwister(*this);
 		break;
-	default: throw std::runtime_error("PseudoFactory::CreateRandom:  Bad character");
+	default: throw std::runtime_error("PseudoFactory::CreateRandomBase:  Bad character");
 	}
 }

@@ -22,9 +22,6 @@ GBMModel::~GBMModel()
 
 void GBMModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const
 {
-	
-	/*std::mt19937 gen(seed);
-	std::normal_distribution<double> nd(0, 1);*/
 
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 	generator_->SeedGenerator(seed);
@@ -46,9 +43,6 @@ void GBMModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths
 
 		for (int j = 0; j < N_; ++j)
 		{
-			//double random_number = nd(gen);
-			//paths(i, j + 1) = paths(i, j) * exp(drift_ + sigma_ * sqrtdt * random_number);
-
 			paths(i, j + 1) = paths(i, j) * exp(drift_ + sigma_ * sqrtdt * variates[j]);
 		}
 

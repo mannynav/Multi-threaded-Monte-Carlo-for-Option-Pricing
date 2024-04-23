@@ -1,22 +1,21 @@
-
+#pragma once
 #include <Eigen/Dense>
 #include "OptionBase.h"
 
-#ifndef EUROCALLOPTION_H
-#define EUROCALLOPTION_H
+#ifndef ASIANCALLOPTION_H
+#define ASIANCALLOPTION_H
 
 class PseudoFactory;
 
-class EuroCallOption : public OptionBase
+class AsianCallOption : public OptionBase
 {
 public:
 
-	explicit EuroCallOption() = default;
-	EuroCallOption(double strike, double expiry);
-	EuroCallOption(const PseudoFactory& factory);
+	explicit AsianCallOption() = default;
+	AsianCallOption(double strike, double expiry);
+	AsianCallOption(const PseudoFactory& factory);
 
 	double ComputePayoff(double final_price) const override;
-
 	Eigen::VectorXd ComputePayoffs(Eigen::MatrixXd& stock_prices) const override;
 
 private:
@@ -24,7 +23,5 @@ private:
 	double strike_{};
 	double expiry_{};
 
-
-
 };
-#endif // EUROCALLOPTION_H
+#endif // ASIANCALLOPTION_H

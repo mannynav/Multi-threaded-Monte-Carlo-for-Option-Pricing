@@ -7,7 +7,7 @@ MCSimulation::MCSimulation()
 }
 
 MCSimulation::MCSimulation(PseudoFactory& factory) : number_of_paths_(factory.GetM()), number_of_steps_(factory.GetN()),
-                                                     num_threads_(factory.GetNumThreads())
+                                                     num_threads_(factory.GetNumThreads()), gatherer_(std::make_unique<MCGatherer>())
 {
 }
 
@@ -50,20 +50,17 @@ void MCSimulation::run(const OptionBase& option, const ModelBase& model, const T
 
 	Eigen::VectorXd strPay = option.ComputePayoffs(stock_prices);
 
-	auto mc_gatherer = std::make_unique<MCGatherer>();
+	std::cout << strPay << std::endl;
 
-	std::pair<double, double> accumulatedResults = mc_gatherer->accumulate(strPay);
+	const std::pair<double, double> accumulatedResults = gatherer_->accumulate(strPay);
 
 	double discount = ts.Get_MT();
-
 
 	std::cout << "MC price: " << discount * accumulatedResults.first << std::endl;
 	std::cout << "standard error: " << accumulatedResults.second << std::endl;
 
 
 	auto end_time = std::chrono::high_resolution_clock::now();
-
-	// Calculate elapsed time
 	auto duration = std::chrono::duration_cast<std::chrono::seconds>(end_time - start_time);
 
 	std::cout << "Simulation took: " << duration.count() << " s\n";

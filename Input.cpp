@@ -9,25 +9,40 @@
 Input::Input()
 {
 
-    S_0_ = 100;
-    r_ = 0.05;
-    sig_ = 0.20;
+    s0_ = 100;
+    r_ = 0.1;
+    sig_ = 0.30;
 
-    X_ = 100;
+    x_ = 100;
     T_ = 1;
 
-    M_ = 16;
-    N_ = 8;
-    num_threads_ = 16;
+    v0_ = 0.010201;
+    meanreversion_ = 6.21;
+    ltmean_ = 0.019;
+    volvol_ = 0.61;
+    correlation_ = -0.70;
+    PsiC = 1.5;
+
+    ThetaVG_ = -0.1436;
+    BetaVg_ = 0.3;
+    SigmaVG_ = 0.1213;
+
+    M_ = 10;
+    N_ = 1;
+    num_threads_ = 1;
     seed_ = 1;
 
-    O_type_ = 'c';   	// c for call,  p  for put
-    P_type_ = 'g';   	// g for gbm
+    O_type_ = 'a';   	// c for call,  a for asian call
+
+    P_type_ = 'g';   	// g for gbm, h for heston sv, v for variance gamma
+
     T_type_ = 'f';   	// f for flat term structure
-    Meth_type_ = 'm';  	// p for plain MC
+
+    meth_type_ = 'm';  	// p for plain MC
+
     app_type_ = 'v';   	// v for valuation application
 
-    Acc_type_ = 'p'; 	// p for plain accumulator
+    acc_type_ = 'p'; 	// p for plain accumulator
     generator_type_ = 'm'; // m for mersenne twister
 
 }

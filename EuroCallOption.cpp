@@ -2,17 +2,11 @@
 #include "PseudoFactory.h"
 
 
-EuroCallOption::EuroCallOption()
-{
-}
-
 EuroCallOption::EuroCallOption(double strike, double expiry) : strike_(strike), expiry_(expiry)
-{
-}
+{}
 
 EuroCallOption::EuroCallOption(const PseudoFactory& factory) : strike_(factory.GetX()), expiry_(factory.GetT())
-{
-}
+{}
 
 double EuroCallOption::ComputePayoff(double final_price) const
 {

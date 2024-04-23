@@ -11,13 +11,8 @@ namespace RandomVariableStatisticalFunctions
 {
 
 	double normVariate();
-
-
-
-
-
-
-
+	double rand_uniform();
+	double inverseQNorm(double p,int err);
 
 
 }

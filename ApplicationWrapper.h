@@ -5,10 +5,8 @@
 
 
 class PseudoFactory;
-class Output;
-class Input;
-class StopWatch;
 class ApplicationBase;
+class Input;
 
 
 class Application_Wrapper
@@ -16,13 +14,12 @@ class Application_Wrapper
 public:
     Application_Wrapper();
     ~Application_Wrapper();
-
-    void run();
+    void run() const;
 
 private:
-    PseudoFactory* fac_;
-    Input* inp_;          // owns this pointer
-    ApplicationBase* app_;
+    std::unique_ptr<PseudoFactory> fac_;
+    std::unique_ptr<ApplicationBase> app_;
+    Input* inp_;
 };
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX

@@ -2,6 +2,7 @@
 
 #ifndef ValuationH
 #define ValuationH
+#include <memory>
 
 
 class Output;
@@ -19,21 +20,16 @@ class Valuation : public ApplicationBase
 {
 public:
 	explicit Valuation(PseudoFactory& factory);
-	~Valuation();
-
-
+	virtual ~Valuation();
 	void run() override;
 
 private:
 
 	//Make this shared pointer
-	OptionBase* option_;
-	ModelBase* model_;
-	TermStructureBase* term_structure_;
-
-	ValuationMethodBase* method_; //will return the MCSimulation object
-
-
+	std::unique_ptr<OptionBase> option_;
+	std::unique_ptr<ModelBase> model_;
+	std::unique_ptr<TermStructureBase> term_structure_;
+	std::unique_ptr<ValuationMethodBase> method_;
 };
 
 

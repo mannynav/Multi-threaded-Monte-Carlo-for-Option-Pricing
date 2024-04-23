@@ -66,6 +66,12 @@
     <ClCompile Include="HestonModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VarianceGammaModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AsianCallOption.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ApplicationBase.h">
@@ -120,6 +126,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HestonModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VarianceGammaModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AsianCallOption.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

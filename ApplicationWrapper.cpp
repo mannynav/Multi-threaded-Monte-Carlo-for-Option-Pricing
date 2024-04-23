@@ -1,44 +1,32 @@
-
 #include <iostream>
 
 #include "PseudoFactory.h"
-#include "Input.h"
 #include "ApplicationBase.h"
 #include "ApplicationWrapper.h"
+#include "Input.h"
 
-
-//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-//	constructor
-//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 Application_Wrapper::Application_Wrapper()
-    : app_(0)
+	: fac_(std::make_unique<PseudoFactory>())
 {
-    fac_ = new PseudoFactory;      // owns this pointer
-    inp_ = new Input;              // owns this pointer
+	std::cout << "Application wrapper constructor: creating application" << '\n';
 
-    fac_->SetInput(inp_);
+	inp_ = new Input;
 
-    std::cout << "Applicaiton wrapper constructor: creating application" << std::endl;
-    app_ = fac_->CreateApplication();
+	fac_->SetInput(inp_);
+	app_ = fac_->CreateApplication();
 }
 
 Application_Wrapper::~Application_Wrapper()
 {
-    delete fac_;
-    delete inp_;
-    delete app_;
+	delete inp_;
 }
 
-//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-//	run
-//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-void Application_Wrapper::run()
+void Application_Wrapper::run() const
 {
-    std::cout << "Application_Wrapper::run \n";
+	std::cout << "Application_Wrapper::run \n";
 
-    //This delegates to Valuation::run() which delegates to MC Simulation
-    app_->run();
-
+	//This delegates to Valuation::run() which delegates to MC Simulation
+	app_->run();
 }

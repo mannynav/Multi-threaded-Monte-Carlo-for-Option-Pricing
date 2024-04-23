@@ -11,9 +11,12 @@
 
 #include "OptionBase.h"
 #include "EuroCallOption.h"
+#include "AsianCallOption.h"
 
 #include "ModelBase.h"
 #include "GBMModel.h"
+#include "HestonModel.h"
+#include "VarianceGammaModel.h"
 
 #include "TermStructureBase.h"
 #include "FlatTermStructure.h"
@@ -28,26 +31,43 @@
 double PseudoFactory::GetS0() const { return input_->GetS0(); }
 double PseudoFactory::Getr() const { return input_->Getr(); }
 double PseudoFactory::Getsig() const { return input_->Getsig(); }
-char PseudoFactory::GetPtype() const { return input_->GetPtype(); }
 
 double PseudoFactory::GetX() const { return input_->GetX(); }
 double PseudoFactory::GetT() const { return input_->GetT(); }
-char PseudoFactory::GetOptionType() const { return input_->GetOptionType(); }
 
 long PseudoFactory::GetM() const { return input_->GetM(); }
 long PseudoFactory::GetN() const { return input_->GetN(); }
 long PseudoFactory::GetNumThreads() const { return input_->GetNumThreads(); }
-
-
-
 double PseudoFactory::GetSeed() const
 {
 	return input_->GetSeed();
 }
 
+double PseudoFactory::GetV0() const { return input_->GetV0(); }
+double PseudoFactory::GetMeanReversion() const { return input_->GetMeanReversion(); }
+double PseudoFactory::GetLtMean() const { return input_->GetLtMean(); }
+double PseudoFactory::GetVolVol() const { return input_->GetVolVol(); }
+double PseudoFactory::GetCorrelation() const { return input_->GetCorrelation(); }
+double PseudoFactory::GetPsiC() const { return input_->GetPsiC(); }
 
+char PseudoFactory::GetPType() const { return input_->GetPtype(); }
+char PseudoFactory::GetOptionType() const { return input_->GetOptionType(); }
 
-OptionBase* PseudoFactory::CreateOption()
+double PseudoFactory::GetBetaVG() const 
+{
+	return input_->GetBetaVG();
+}
+double PseudoFactory::GetSigmaVG() const
+{
+	return input_->GetSigmaVG();
+
+}
+double PseudoFactory::GetThetaVG() const
+{
+	return input_->GetThetaVG();
+}
+
+std::unique_ptr<OptionBase> PseudoFactory::CreateOption()
 {
 	char option_type = GetOptionType();
 	std::cout << "Creating option" << '\n';
@@ -55,64 +75,70 @@ OptionBase* PseudoFactory::CreateOption()
 	switch (option_type)
 	{
 	case 'c':
-		return new EuroCallOption(*this);
-		break;
+		//return new EuroCallOption(*this);
+		return std::make_unique<EuroCallOption>(*this);
+	case 'a':
+				return std::make_unique<AsianCallOption>(*this);
 
 	default:
 		throw std::invalid_argument("CreateOption: Bad character. Invalid option type");
 	}
 }
 
-ModelBase* PseudoFactory::CreateModel()
+std::unique_ptr<ModelBase> PseudoFactory::CreateModel()
 {
 	char p_type = input_->GetPtype();
 	std::cout << "Creating model" << '\n';
 
 	switch (p_type)
 	{
-	case 'g': return new GBMModel(*this);
-		break;
+	case 'g':
+		return std::make_unique<GBMModel>(*this);
+	case 'h':
+		return std::make_unique<HestonModel>(*this);
+	case 'v':
+		return std::make_unique<VarianceGammaModel>(*this);
+
 	default: throw std::runtime_error("PseudoFactory::CreateModel:  Bad character");
 	}
 }
 
-TermStructureBase* PseudoFactory::CreateTermStructure()
+std::unique_ptr<TermStructureBase> PseudoFactory::CreateTermStructure()
 {
 	char ts_type = input_->GetTermStructureType();
 	std::cout << "Creating term structure" << '\n';
 
 	switch (ts_type)
 	{
-	case 'f': return new FlatTermStructure(*this);
-		break;
-
+	case 'f':
+		return std::make_unique<FlatTermStructure>(*this);
 	default: throw std::invalid_argument("Invalid term structure type");
 	}
 }
 
 
-ValuationMethodBase* PseudoFactory::CreateValuationMethod()
+std::unique_ptr<ValuationMethodBase> PseudoFactory::CreateValuationMethod()
 {
 	char meth_type = input_->GetMethodType();
 	std::cout << "Creating valuation method which is MC" << '\n';
 
 	switch (meth_type)
 	{
-	case 'm': return new MCSimulation(*this);
-		break;
+	case 'm': 
+		return std::make_unique<MCSimulation>(*this);
 	default: throw std::runtime_error("PseudoFactory::CreateMethod:  Bad character");
 	}
 }
 
-ApplicationBase* PseudoFactory::CreateApplication()
+std::unique_ptr<ApplicationBase>PseudoFactory::CreateApplication()
 {
-	char app_type = input_->GetApplicationtype();
+	char app_type = input_->GetApplicationType();
 	std::cout << "Creating application" << '\n';
 
 	switch (app_type)
 	{
-	case 'v': return new Valuation(*this);
-		break;
+	case 'v':
+		return std::make_unique<Valuation>(*this);
 	default: throw std::runtime_error("PseudoFactory::CreateApplication:  Bad character");
 	}
 }

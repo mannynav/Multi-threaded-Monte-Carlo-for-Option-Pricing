@@ -28,6 +28,7 @@ public:
 
 private:
 
+	std::unique_ptr<MCGatherer> gatherer_;
 	int number_of_paths_{};
 	int number_of_steps_{};
 	int num_threads_{};

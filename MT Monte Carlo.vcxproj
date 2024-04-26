@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnalyticalFormulas.cpp" />
     <ClCompile Include="ApplicationWrapper.cpp" />
     <ClCompile Include="AsianCallOption.cpp" />
     <ClCompile Include="EuroCallOption.cpp" />
@@ -172,12 +173,16 @@
     <ClCompile Include="VarianceGammaModel.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnalyticalFormulas.h" />
     <ClInclude Include="ApplicationBase.h" />
     <ClInclude Include="ApplicationWrapper.h" />
     <ClInclude Include="AsianCallOption.h" />
     <ClInclude Include="EuroCallOption.h" />
     <ClInclude Include="FlatTermStructure.h" />
     <ClInclude Include="GBMModel.h" />
+    <ClInclude Include="GreekDelta.h" />
+    <ClInclude Include="GreekGamma.h" />
+    <ClInclude Include="GreekVega.h" />
     <ClInclude Include="HestonModel.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="MCGatherer.h" />

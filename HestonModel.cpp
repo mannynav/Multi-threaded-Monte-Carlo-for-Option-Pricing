@@ -52,70 +52,17 @@ HestonModel::~HestonModel()
 double HestonModel::Next_V(double V) const
 {
 
+	double delta = 4 * meanreversion_ * ltmean_ / volvol_ / volvol_;
+	double c = 1 / (4 * meanreversion_) * volvol_ * volvol_ * (1 - expression_);
+	double kappa_bar = 4 * meanreversion_ * V * expression_ / (volvol_ * volvol_ * (1 - expression_));
 
-	//std::cout << "V: " << V << std::endl;
+	boost::random::non_central_chi_squared_distribution<> dist(delta, kappa_bar);
+	boost::variate_generator<boost::mt19937&, boost::random::non_central_chi_squared_distribution<> > chrnorm(generator_->GetGenerator(), dist);
+	
 
-	//double m_ = ltmean_ + (V - ltmean_) * expression_;
-
-	//std::cout << "m_: " << m_ << std::endl;
-
-	//double s2_ = (V * volvol_ * volvol_ * expression_) * (1 - expression_) / meanreversion_
-	//	+ ((ltmean_ * volvol_ * volvol_) * (1 - expression_) * (1 - expression_)) / (2 * meanreversion_);
-
-	//std::cout << "s2_: " << s2_ << std::endl;
-
-	//This value must be less than or equal to 2 and greater than or equal to 1
-	//double psi_ = s2_ / (m_ * m_);
-
-	//std::cout << "Psi: " << psi_ << std::endl;
+	double sample = c * chrnorm();
 
 
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-	boost::random::mt19937 rng(seed);
-	boost::random::uniform_real_distribution<> distribution(0.0, std::nextafter(1.0, 2.0));
-
-
-	//boost::random::non_central_chi_squared_distribution<> dist( dof_,ncp_*V);
-	////boost::random::non_central_chi_squared_distribution<> s();
-	//boost::variate_generator<boost::mt19937&, boost::random::non_central_chi_squared_distribution<> > chrnorm(rng, dist);
-	//double nccs = chrnorm();
-	//std::cout << "nccs: " << nccs << std::endl;
-	//return cbar_ * nccs;
-	//std::cout << "nccs: " << nccs << std::endl;
-
-
-	double u = distribution(rng);
-
-	double m = mean(meanreversion_, ltmean_, volvol_, dt_, V);
-	double s2 = variance(meanreversion_, ltmean_, volvol_, dt_, V);
-
-	if (s2/m*m <= PsiC_) {
-
-		double b2_ = 2*m*m/s2 - 1 + std::sqrt(2*m*m/s2) * std::sqrt(2*m*m/s2 - 1);
-		double b = std::sqrt(b2_);
-		double a_ = m / (1 + b2_);
-
-		double z = rv::normVariate();
-
-		return a_ * std::pow(b+z,2);
-	}
-	else {
-
-		double c = (s2 / m / m - 1) / (s2 / m / m + 1.0);
-		double d = (1.0 - c) / m;
-
-		if (u <= c) {
-
-			std::cout << "First if: " << std::endl;
-			return 0;
-		}
-
-		if (c < u && u <= 1) {
-
-			return 1 / d * std::log((1.0 - c) / (1.0 - u));
-
-		}
-	}
 }
 
 void HestonModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const
@@ -147,7 +94,7 @@ void HestonModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& pa
 
 			//std::cout << "Variates: " << variates[j] << std::endl;
 
-			paths(i, j+1) = paths(i, j) * std::exp(k0_ + k1_*FillCirPath_[j])*std::exp(k2_*FillCirPath_[j+1] + std::sqrt(k3_*FillCirPath_[j]+k4_*FillCirPath_[j+1]) * variates[j]);
+			paths(i, j + 1) = paths(i, j) * std::exp(k0_ + k1_ * FillCirPath_[j] + k2_ * FillCirPath_[j + 1] + std::sqrt((1 - corr_ * corr_) * FillCirPath_[j])) * variates[j];
 		}
 
 

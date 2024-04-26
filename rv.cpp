@@ -24,7 +24,6 @@ double RandomVariableStatisticalFunctions::rand_uniform()
 
 }
 
-
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 //
 // double ltqnorm(double p)

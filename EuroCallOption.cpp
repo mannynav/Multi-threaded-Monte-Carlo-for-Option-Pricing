@@ -1,11 +1,7 @@
 #include "EuroCallOption.h"
 #include "PseudoFactory.h"
 
-
-EuroCallOption::EuroCallOption(double strike, double expiry) : strike_(strike), expiry_(expiry)
-{}
-
-EuroCallOption::EuroCallOption(const PseudoFactory& factory) : strike_(factory.GetX()), expiry_(factory.GetT())
+EuroCallOption::EuroCallOption(const PseudoFactory& factory) : strike_(factory.GetX()), expiry_(factory.GetT()), delta(factory), vega(factory), gamma(factory)
 {}
 
 double EuroCallOption::ComputePayoff(double final_price) const
@@ -24,3 +20,19 @@ Eigen::VectorXd EuroCallOption::ComputePayoffs(Eigen::MatrixXd& stock_prices) co
 
 	return vectorized_version_of_payoffs;
 }
+
+std::map<std::string, double> EuroCallOption::ComputeGreeks(Eigen::MatrixXd& stock_prices) const
+{
+
+	std::map<std::string, double> Greeks;
+
+	Greeks["Delta"] = delta.ComputeDeltaPathwise(stock_prices);
+	Greeks["Vega"] = vega.ComputeVegaPathwise(stock_prices);
+	Greeks["Gamma"] = gamma.ComputeGammaLRPW(stock_prices);
+
+	return Greeks;
+
+
+}
+
+

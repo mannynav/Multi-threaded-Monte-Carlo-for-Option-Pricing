@@ -17,6 +17,7 @@ public:
 
 	double ComputePayoff(double final_price) const override;
 	Eigen::VectorXd ComputePayoffs(Eigen::MatrixXd& stock_prices) const override;
+	std::map<std::string, double> ComputeGreeks(Eigen::MatrixXd& stock_prices) const override;
 
 private:
 

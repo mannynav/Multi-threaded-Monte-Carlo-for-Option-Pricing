@@ -26,3 +26,8 @@ Eigen::VectorXd AsianCallOption::ComputePayoffs(Eigen::MatrixXd& stock_prices) c
 
 	return vectorized_version_of_payoffs;
 }
+
+std::map<std::string, double> AsianCallOption::ComputeGreeks(Eigen::MatrixXd& stock_prices) const
+{
+	return {};
+}

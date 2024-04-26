@@ -1,5 +1,7 @@
 #include "MCSimulation.h"
 
+#include <map>
+
 #include "PseudoFactory.h"
 
 MCSimulation::MCSimulation()
@@ -46,17 +48,23 @@ void MCSimulation::run(const OptionBase& option, const ModelBase& model, const T
 		th.join();
 	};
 
-	std::cout << stock_prices << std::endl;
+	//std::cout << stock_prices << std::endl;
 
 	Eigen::VectorXd strPay = option.ComputePayoffs(stock_prices);
 
-	std::cout << strPay << std::endl;
+	//std::cout << strPay << std::endl;
 
 	const std::pair<double, double> accumulatedResults = gatherer_->accumulate(strPay);
+
+	std::map<std::string, double> GreekMap = option.ComputeGreeks(stock_prices);
 
 	double discount = ts.Get_MT();
 
 	std::cout << "MC price: " << discount * accumulatedResults.first << std::endl;
+	std::cout << "MC delta: " << discount * GreekMap["Delta"] << std::endl;
+	std::cout << "MC vega: " << discount * GreekMap["Vega"] << std::endl;
+	std::cout << "MC gamma: " << discount * GreekMap["Gamma"] << std::endl;
+
 	std::cout << "standard error: " << accumulatedResults.second << std::endl;
 
 

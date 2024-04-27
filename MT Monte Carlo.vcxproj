@@ -157,6 +157,7 @@
     <ClCompile Include="EuroCallOption.cpp" />
     <ClCompile Include="FlatTermStructure.cpp" />
     <ClCompile Include="GBMModel.cpp" />
+    <ClCompile Include="HestonDiscretizationBase.cpp" />
     <ClCompile Include="HestonModel.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="GreekDelta.h" />
     <ClInclude Include="GreekGamma.h" />
     <ClInclude Include="GreekVega.h" />
+    <ClInclude Include="HestonDiscretizationBase.h" />
     <ClInclude Include="HestonModel.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="MCGatherer.h" />

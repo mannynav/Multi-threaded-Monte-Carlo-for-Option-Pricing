@@ -3,6 +3,7 @@
 #include "ModelBase.h"
 #include "PseudoFactory.h"
 #include "RandomBase.h"
+#include "HestonDiscretizationBase.h"
 
 #ifndef HESTONMODEL_H
 #define HESTONMODEL_H
@@ -33,44 +34,27 @@ private:
 	double k0_{};
 	double k1_{};
 	double k2_{};
-	double k3_{};
-	double k4_{};
 
 	double y1_ = 0.5;
 	double y2_ = 0.5;
 
 	double expression_;
+	double sqrt_expression_;
+	double delta_;
+	double c_;
 
-	double Next_V(double V) const;
-	mutable std::vector<double> FillCirPath_;
+	//HestoDiscretizationBase* descritization;
+
+	double next_v(double V) const;
+
+	mutable std::vector<double> cir_path_;
 
 	double dt_{};
-	double drift_{};
 	double N_{};
 	double T_{};
 
-	double cbar_{};
-	double dof_{};
-	double ncp_{};
-
-
 	RandomBase* generator_{};
-	double mean(double meanreversion, double ltmean, double volvol, double dt, double v) const
-	{
-		double delta = 4 * meanreversion * ltmean / (volvol * volvol);
-		double c = volvol * volvol / (4 * meanreversion) * (1 - std::exp(-meanreversion * dt));
-		double kappabar = 4 * meanreversion * std::exp(-meanreversion * dt) * v / (volvol * volvol * (1 - std::exp(-meanreversion * dt)));
-		double E_V = c * (delta + kappabar);
-		return E_V;
-	}
-	double variance(double meanreversion, double ltmean, double volvol, double dt, double v) const
-	{
+	std::vector<double> generate_CIR_path(boost::mt19937 & rng) const;
 
-		double delta = 4* meanreversion * ltmean / (volvol * volvol);
-		double c = volvol * volvol / (4 * meanreversion) * (1 - std::exp(-meanreversion * dt));
-		double kappabar = 4 * meanreversion * std::exp(-meanreversion * dt) * v / (volvol * volvol * (1 - std::exp(-meanreversion * dt)));
-		double VarV = c * c * (2 * delta + 4 * kappabar);
-		return VarV;
-	}
 };
 #endif // HESTONMODEL_H

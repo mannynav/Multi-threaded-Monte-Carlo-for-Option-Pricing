@@ -2,6 +2,20 @@
 #include <stdexcept>
 #include <boost/math/distributions/normal.hpp>
 
+std::pair<double, double> AnalyticalFormulas::calculate_d1_d2(double S0, double K, double T, double r, double sigma)
+{
+
+	double d1{};
+	double d2{};
+
+	d1 = (std::log(S0 / K) + (r + 0.5 * sigma * sigma) * T) / (sigma * std::sqrt(T));
+	d2 = d1 - sigma * std::sqrt(T);
+
+	std::pair<double, double> pair{ d1,d2 };
+	return pair;
+
+}
+
 
 double AnalyticalFormulas::Black_Scholes_Call(double S0, double K, double T, double r, double sigma)
 {
@@ -9,7 +23,7 @@ double AnalyticalFormulas::Black_Scholes_Call(double S0, double K, double T, dou
 	{
 		throw std::invalid_argument("Invalid input parameters (spot price, strike price, or time to maturity must be positive).");
 	}
-	std::pair<double, double> d1_d2 = calculate_d1_d2(S0, K, T, r, sigma);
+	std::pair<double, double> d1_d2 = AnalyticalFormulas::calculate_d1_d2(S0, K, T, r, sigma);
 	double d1 = d1_d2.first;
 	double d2 = d1_d2.second;
 

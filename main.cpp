@@ -17,9 +17,9 @@ int main(int argc, char* argv[])
 	Application_Wrapper app;
 	app.run();
 
-	double bs_call = af::Black_Scholes_Call(100, 100, 0.5, 0.05, 0.30);
+	//double bs_call = af::Black_Scholes_Call(100, 100, 0.5, 0.05, 0.30);
 
-    std::cout << "BS price: " << bs_call << std::endl;
+    //std::cout << "BS price: " << bs_call << std::endl;
 
     std::cout << "Finished main! " << std::endl;
 

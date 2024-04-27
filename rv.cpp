@@ -138,3 +138,14 @@ double RandomVariableStatisticalFunctions::inverseQNorm(double p, int err)
     }
 	
 }
+
+
+double RandomVariableStatisticalFunctions::NonCentral_CS_Sample(boost::mt19937& rng, double delta, double lambda)
+{
+    boost::random::non_central_chi_squared_distribution<> nccs(delta, lambda);
+
+    boost::variate_generator<boost::mt19937&, boost::random::non_central_chi_squared_distribution<>> NonCentral_CS_Sample(rng, nccs);
+
+    return NonCentral_CS_Sample();
+
+}

@@ -75,6 +75,9 @@
     <ClCompile Include="AnalyticalFormulas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="HestonDiscretizationBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ApplicationBase.h">
@@ -147,6 +150,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AnalyticalFormulas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HestonDiscretizationBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

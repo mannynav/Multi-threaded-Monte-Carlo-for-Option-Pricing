@@ -11,6 +11,8 @@ namespace RandomVariableStatisticalFunctions
 	double rand_uniform();
 	double inverseQNorm(double p,int err);
 
+	double NonCentral_CS_Sample(boost::mt19937&, double delta, double lamba);
+
 
 }
 

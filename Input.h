@@ -16,6 +16,11 @@ public:
 	double GetX() const { return x_; }
 	double GetT() const { return T_; }
 
+	long GetM() const { return M_; }
+	long GetN() const { return N_; }
+	long GetNumThreads() const { return num_threads_; }
+
+
 	double GetV0() const { return v0_; }
 	double GetMeanReversion() const { return meanreversion_; }
 	double GetLtMean() const { return ltmean_; }
@@ -23,25 +28,35 @@ public:
 	double GetCorrelation() const { return correlation_; }
 	double GetPsiC() const { return PsiC; }
 
-	long GetM() const { return M_; }
-	long GetN() const { return N_; }
-	long GetNumThreads() const { return num_threads_; }
+	double GetCorrXV() const { return corrXV_; }
+	double GetCorrXR() const { return corrXR_; }
+
+
+	double GetEta() const { return eta_; }
+	double GetLambda() const { return lambda_; }
+
+
+	double GetBetaVG() const { return BetaVg_; }
+	double GetThetaVG() const { return ThetaVG_; }
+	double GetSigmaVG() const { return SigmaVG_; }
+
+
 
 
 	char GetPtype() const { return P_type_; }
 	char GetOptionType() const { return O_type_; }
 	char GetMethodType() const { return meth_type_; }
-	char GetApplicationType() const { return app_type_; }
 	char GetTermStructureType() const { return T_type_; }
-	double GetSeed() const { return seed_; }
+	char GetApplicationType() const { return app_type_; }
 
+	char GetBrownianMotionPathType() const { return Brownian_Path_Type_; }
+	double GetShift() const { return shift_for_drift_; }
+	
+
+	double GetSeed() const { return seed_; }
 	char GetRandomGeneratorType() const {return generator_type_; }
 
-	double GetBetaVG() const {return BetaVg_;}
-
-	double GetThetaVG() const {return ThetaVG_;}
-
-	double GetSigmaVG() const {return SigmaVG_;}
+	
 
 private:
 	double s0_;
@@ -56,12 +71,17 @@ private:
 	long num_threads_;
 	double seed_;
 
-	double v0_;
+	double v0_;					//Heston model parameters
 	double meanreversion_;
 	double ltmean_;
 	double volvol_;
 	double correlation_;
+	double corrXV_;
+	double corrXR_;
 	double PsiC;
+
+	double eta_;				//Hull White parameters
+	double lambda_;
 
 	double BetaVg_{};
 	double ThetaVG_{};
@@ -70,6 +90,9 @@ private:
 	char P_type_; // process type
 	char O_type_; // option type
 	char T_type_; // term structure type
+
+	char Brownian_Path_Type_;
+	double shift_for_drift_;
 
 
 	char acc_type_; // accumulator type

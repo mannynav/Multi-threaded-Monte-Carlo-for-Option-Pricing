@@ -1,3 +1,5 @@
+#pragma once
+
 #include "ModelBase.h"
 #include "PseudoFactory.h"
 #include "RandomBase.h"
@@ -6,6 +8,7 @@
 #define GBMMODEL_H
 
 class PseudoFactory;
+class BrownianMotionPathBase;
 
 class GBMModel : public ModelBase
 
@@ -26,6 +29,7 @@ private:
 	double N_{};
 	double T_{};
 
+	BrownianMotionPathBase* path_;
 	RandomBase* generator_{};
 };
 #endif // GBMMODEL_H

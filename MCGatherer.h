@@ -2,6 +2,9 @@
 #include <utility>
 #include <Eigen/Dense>
 
+class ImportanceSampling;
+class ModelBase;
+
 
 class MCGatherer
 {
@@ -9,8 +12,14 @@ class MCGatherer
 public:
 	virtual ~MCGatherer() {}
 
-	virtual std::pair<double, double> accumulate(const Eigen::VectorXd& payoffs) const
+	virtual std::pair<double, double> accumulate(const Eigen::VectorXd& payoffs, const ModelBase& model) const
 	{
+		
+		//double RN = model.GetRadonNikodym();
+
+		//Apply RN to the payoff
+		//auto payoff = payoff
+
 		double mean_payoff = payoffs.mean();
 
 		double sum_squared_devs = 0.0;
@@ -27,11 +36,7 @@ public:
 		return results;
 	}
 
-
 private:
-
-
-
 
 
 };

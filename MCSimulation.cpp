@@ -34,15 +34,12 @@ void MCSimulation::run(const OptionBase& option, const ModelBase& model, const T
 		int start = i * workload;
 		int end = (i == num_threads_ - 1) ? number_of_paths_ : start + workload;
 
-		// threads.push_back(std::thread(&GBMModel::simulate_paths, model, start, end, std::ref(stock_prices)));
-
 		threads.push_back(std::thread([&model, start, end, &stock_prices]()
 		{
 			model.simulate_paths(start, end, stock_prices);
 		}));
 	}
 
-	// Wait for threads to finish
 	for (auto& th : threads)
 	{
 		th.join();
@@ -50,11 +47,11 @@ void MCSimulation::run(const OptionBase& option, const ModelBase& model, const T
 
 	//std::cout << stock_prices << std::endl;
 
-	Eigen::VectorXd strPay = option.ComputePayoffs(stock_prices);
+	Eigen::VectorXd payoffs = option.ComputePayoffs(stock_prices);
 
 	//std::cout << strPay << std::endl;
 
-	const std::pair<double, double> accumulatedResults = gatherer_->accumulate(strPay);
+	const std::pair<double, double> accumulatedResults = gatherer_->accumulate(payoffs, model);
 
 	std::map<std::string, double> GreekMap = option.ComputeGreeks(stock_prices);
 

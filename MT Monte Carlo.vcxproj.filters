@@ -13,18 +13,27 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Models">
+      <UniqueIdentifier>{88e86d4c-a723-41bf-be6c-ca0a1d109bec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Models\BrownianPaths">
+      <UniqueIdentifier>{3bc93481-7fb7-42f3-9581-29f9b109ee3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Models">
+      <UniqueIdentifier>{daa2cb6e-61f1-4556-81ea-c80141051bcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Options">
+      <UniqueIdentifier>{8777d53e-d7a7-4e4a-ae05-93ae1b2c862b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\I/O">
+      <UniqueIdentifier>{e5fe6710-9ba3-43c1-b280-71287cced3da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ApplicationWrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EuroCallOption.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="FlatTermStructure.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GBMModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Input.cpp">
@@ -34,12 +43,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MCSimulation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelBase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="OptionBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PseudoFactory.cpp">
@@ -63,20 +66,44 @@
     <ClCompile Include="RandomMersenneTwister.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="HestonModel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="VarianceGammaModel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AsianCallOption.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="AnalyticalFormulas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="HestonDiscretizationBase.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BrownianMotionPathBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlainBrownianPath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImportanceSampling.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VarianceGammaModel.cpp">
+      <Filter>Source Files\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="HestonModel.cpp">
+      <Filter>Source Files\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="GBMModel.cpp">
+      <Filter>Source Files\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="EuroCallOption.cpp">
+      <Filter>Source Files\Options</Filter>
+    </ClCompile>
+    <ClCompile Include="AsianCallOption.cpp">
+      <Filter>Source Files\Options</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelBase.cpp">
+      <Filter>Source Files\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="OptionBase.cpp">
+      <Filter>Source Files\Options</Filter>
+    </ClCompile>
+    <ClCompile Include="HestonHullWhiteModel.cpp">
+      <Filter>Source Files\Models</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -90,9 +117,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FlatTermStructure.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GBMModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Input.h">
@@ -131,12 +155,6 @@
     <ClInclude Include="RandomMersenneTwister.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HestonModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VarianceGammaModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AsianCallOption.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -154,6 +172,27 @@
     </ClInclude>
     <ClInclude Include="HestonDiscretizationBase.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HestonModel.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="GBMModel.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="VarianceGammaModel.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="BrownianMotionPathBase.h">
+      <Filter>Header Files\Models\BrownianPaths</Filter>
+    </ClInclude>
+    <ClInclude Include="PlainBrownianPath.h">
+      <Filter>Header Files\Models\BrownianPaths</Filter>
+    </ClInclude>
+    <ClInclude Include="ImportanceSampling.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HestonHullWhiteModel.h">
+      <Filter>Header Files\Models</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

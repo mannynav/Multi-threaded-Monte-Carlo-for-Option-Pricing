@@ -41,11 +41,7 @@ HestonModel::~HestonModel()
 
 double HestonModel::next_v(double V) const
 {
-	/*double kappaBar = (4.0 * meanreversion_ * V * expression_) / (volvol_ * volvol_ * (1.0 - expression_));
-	double sample = c_ * rv::NonCentral_CS_Sample(delta_, kappaBar);*/
-
 	return 0.0;
-
 }
 
 std::vector<double> HestonModel::generate_CIR_path(boost::mt19937& rng) const
@@ -56,7 +52,6 @@ std::vector<double> HestonModel::generate_CIR_path(boost::mt19937& rng) const
 	{
 		double kappaBar = (4.0 * meanreversion_ * cir_path_[i] * expression_) / (volvol_ * volvol_ * (1.0 - expression_));
 		kappaBar += 0.000000001;
-		//std::cout << "Kappa" << kappaBar << std::endl;
 		double sample = rv::NonCentral_CS_Sample(rng, delta_, kappaBar);
 		cir_path_[i + 1] = c_ * sample;
 	}
@@ -86,7 +81,6 @@ void HestonModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& pa
 
 		for (int j = 0; j < N_; ++j)
 		{
-			cir_path_[j+1] = next_v(cir_path_[j]);
 			paths(i, j + 1) = paths(i, j) * std::exp(k0_ + k1_ * variates_CIR[j] + k2_ * variates_CIR[j + 1] + std::sqrt((1 - corr_ * corr_)*dt_ * variates_CIR[j]) * variates[j]);
 		}
 

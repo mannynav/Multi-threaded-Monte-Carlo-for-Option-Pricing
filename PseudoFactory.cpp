@@ -16,6 +16,7 @@
 #include "ModelBase.h"
 #include "GBMModel.h"
 #include "HestonModel.h"
+#include "HestonHullWhiteModel.h"
 #include "VarianceGammaModel.h"
 
 #include "TermStructureBase.h"
@@ -25,6 +26,8 @@
 
 #include <stdexcept>
 
+
+#include "PlainBrownianPath.h"
 #include "RandomMersenneTwister.h"
 
 
@@ -50,22 +53,31 @@ double PseudoFactory::GetVolVol() const { return input_->GetVolVol(); }
 double PseudoFactory::GetCorrelation() const { return input_->GetCorrelation(); }
 double PseudoFactory::GetPsiC() const { return input_->GetPsiC(); }
 
+double PseudoFactory::GetCorrXR() const { return input_->GetCorrXR(); }
+double PseudoFactory::GetCorrXV() const { return input_->GetCorrXV(); }
+
+double PseudoFactory::GetEta() const
+{
+	return input_->GetEta();
+}
+
+double PseudoFactory::GetLambda() const
+{
+	return input_->GetLambda();
+}
+
+
+
+
 char PseudoFactory::GetPType() const { return input_->GetPtype(); }
 char PseudoFactory::GetOptionType() const { return input_->GetOptionType(); }
 
-double PseudoFactory::GetBetaVG() const 
-{
-	return input_->GetBetaVG();
-}
-double PseudoFactory::GetSigmaVG() const
-{
-	return input_->GetSigmaVG();
+double PseudoFactory::GetBetaVG() const {return input_->GetBetaVG(); }
+double PseudoFactory::GetSigmaVG() const { return input_->GetSigmaVG(); }
 
-}
-double PseudoFactory::GetThetaVG() const
-{
-	return input_->GetThetaVG();
-}
+double PseudoFactory::GetShift() const { return input_->GetShift(); }
+
+double PseudoFactory::GetThetaVG() const{ return input_->GetThetaVG(); }
 
 std::unique_ptr<OptionBase> PseudoFactory::CreateOption()
 {
@@ -75,10 +87,9 @@ std::unique_ptr<OptionBase> PseudoFactory::CreateOption()
 	switch (option_type)
 	{
 	case 'c':
-		//return new EuroCallOption(*this);
 		return std::make_unique<EuroCallOption>(*this);
 	case 'a':
-				return std::make_unique<AsianCallOption>(*this);
+		return std::make_unique<AsianCallOption>(*this);
 
 	default:
 		throw std::invalid_argument("CreateOption: Bad character. Invalid option type");
@@ -99,8 +110,28 @@ std::unique_ptr<ModelBase> PseudoFactory::CreateModel()
 	case 'v':
 		return std::make_unique<VarianceGammaModel>(*this);
 
+	case 'H':
+		return std::make_unique<HestonHullWhiteModel>(*this);
+
 	default: throw std::runtime_error("PseudoFactory::CreateModel:  Bad character");
 	}
+}
+
+BrownianMotionPathBase* PseudoFactory::CreateBrownianMotionPath()
+{
+	char type = input_->GetBrownianMotionPathType();
+
+	std::cout << "Creating Brownian Path Object" << std::endl;
+
+	switch(type)
+	{
+	case 'p':
+		return new PlainBrownianPath;
+
+	default: throw std::runtime_error("PseudoFactory::CreateModel:  Bad character");
+
+	}
+
 }
 
 std::unique_ptr<TermStructureBase> PseudoFactory::CreateTermStructure()
@@ -115,7 +146,6 @@ std::unique_ptr<TermStructureBase> PseudoFactory::CreateTermStructure()
 	default: throw std::invalid_argument("Invalid term structure type");
 	}
 }
-
 
 std::unique_ptr<ValuationMethodBase> PseudoFactory::CreateValuationMethod()
 {

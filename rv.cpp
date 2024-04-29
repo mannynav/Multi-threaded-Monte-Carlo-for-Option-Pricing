@@ -1,10 +1,11 @@
 #include "rv.h"
 
+#include <chrono>
+
 boost::mt19937 rng;
 
 double RandomVariableStatisticalFunctions::normVariate()
 {
-
     boost::normal_distribution<> nd(0.0, 1.0);
 
     boost::variate_generator<boost::mt19937&, boost::normal_distribution<> >
@@ -13,7 +14,17 @@ double RandomVariableStatisticalFunctions::normVariate()
     return rnorm();
 }
 
-double RandomVariableStatisticalFunctions::rand_uniform()
+double RandomVariableStatisticalFunctions::normVariate(boost::mt19937& rng)
+{
+		boost::normal_distribution<> nd(0.0, 1.0);
+
+	boost::variate_generator<boost::mt19937&, boost::normal_distribution<> >
+		rnorm(rng, nd);
+
+	return rnorm();
+}
+
+double RandomVariableStatisticalFunctions::rand_uniform(boost::mt19937& rng)
 {
     boost::uniform_real<> uni(0.0, 1.0);
 

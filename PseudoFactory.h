@@ -6,9 +6,12 @@
 #include "RandomBase.h"
 #include <memory>
 
+#include "PlainBrownianPath.h"
+
 class OptionBase;
 class ModelBase;
 class TermStructureBase;
+class BrownianMotionPathBase;
 
 class ValuationMethodBase;
 class ApplicationBase;
@@ -24,18 +27,20 @@ class PseudoFactory
 
 public:
 	std::unique_ptr<ApplicationBase> CreateApplication();
-	std::unique_ptr<OptionBase> CreateOption();
-	std::unique_ptr<ModelBase> CreateModel();
-	std::unique_ptr<TermStructureBase> CreateTermStructure();
 	std::unique_ptr<ValuationMethodBase> CreateValuationMethod();
+
+	std::unique_ptr<OptionBase> CreateOption();
+
+	std::unique_ptr<ModelBase> CreateModel();
+	BrownianMotionPathBase* CreateBrownianMotionPath();
+
+	std::unique_ptr<TermStructureBase> CreateTermStructure();
+
 	RandomBase* CreateRandomBase();
 
-	void SetInput(Input* inp)
-	{
-		input_ = inp;
-	}
-
+	void SetInput(Input* inp){input_ = inp;}
 	void SetOutput(Output* out) { output_ = out; }
+
 	Output* GetOutput() const { return output_; }
 
 
@@ -58,12 +63,20 @@ public:
 	double GetCorrelation() const;
 	double GetPsiC() const;
 
+	double GetCorrXR() const;
+	double GetCorrXV() const;
+
+	double GetEta() const;
+	double GetLambda() const;
+
 	char GetPType() const;
 	char GetOptionType() const;
 
 	double GetBetaVG() const ;
 	double GetThetaVG() const;
 	double GetSigmaVG() const;
+
+	double GetShift() const;
 
 private:
 

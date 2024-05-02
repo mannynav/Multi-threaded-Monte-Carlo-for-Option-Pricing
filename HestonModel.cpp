@@ -1,56 +1,47 @@
-
 #include "HestonModel.h"
 #include <random>
 #include "rv.h"
 #include <boost/random.hpp>
 
 
-HestonModel::HestonModel(double S0, double r, double sigma) : S0_(S0), r_(r), sigma_(sigma)
+HestonModel::HestonModel(double S0, double r, double sigma) : S0_(S0), r_(r), sigma_(sigma), expression_(0),
+                                                              sqrt_expression_(0),
+                                                              delta_(0), c_(0)
 {
 }
 
-HestonModel::HestonModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.Getr()), sigma_(factory.Getsig()), N_(factory.GetN()), T_(factory.GetT()),
-V_0_(factory.GetV0()), meanreversion_(factory.GetMeanReversion()), ltmean_(factory.GetLtMean()), volvol_(factory.GetVolVol()), corr_(factory.GetCorrelation()), PsiC_(factory.GetPsiC())
+HestonModel::HestonModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.Getr()), sigma_(factory.Getsig()),
+                                                   V_0_(factory.GetV0()), corr_(factory.GetCorrelation()),
+                                                   volvol_(factory.GetVolVol()),
+                                                   meanreversion_(factory.GetMeanReversion()),
+                                                   ltmean_(factory.GetLtMean()), PsiC_(factory.GetPsiC()),
+                                                   N_(factory.GetN()), T_(factory.GetT())
 {
-
-	std::cout << "S0: " << S0_ << '\n';
-	std::cout << "V0:" << V_0_ << '\n';
-
-	cir_path_.resize(N_+1);
+	cir_path_.resize(N_ + 1);
 
 	dt_ = factory.GetT() / factory.GetN();
 	expression_ = std::exp(-meanreversion_ * dt_);
 	sqrt_expression_ = std::exp(1 - corr_ * corr_) * dt_;
 
-	k0_ = (r_ - corr_*meanreversion_*ltmean_/volvol_) * dt_;
+	k0_ = (r_ - corr_ * meanreversion_ * ltmean_ / volvol_) * dt_;
 	k1_ = (((corr_ * meanreversion_) / volvol_) - 0.5) * dt_ - corr_ / volvol_;
 	k2_ = corr_ / volvol_;
 
 	delta_ = 4.0 * meanreversion_ * ltmean_ / (volvol_ * volvol_);
-	c_ = (1.0 / (4.0*meanreversion_)) * volvol_*volvol_* (1 - expression_);
+	c_ = (1.0 / (4.0 * meanreversion_)) * volvol_ * volvol_ * (1 - expression_);
 
 	generator_ = factory.CreateRandomBase();
 }
 
 
-HestonModel::~HestonModel()
-{
-	delete generator_;
-}
-
-
-double HestonModel::next_v(double V) const
-{
-	return 0.0;
-}
-
 std::vector<double> HestonModel::generate_CIR_path(boost::mt19937& rng) const
 {
 	cir_path_[0] = V_0_;
 
-	for(int i = 0; i<N_; ++i)
+	for (int i = 0; i < N_; ++i)
 	{
-		double kappaBar = (4.0 * meanreversion_ * cir_path_[i] * expression_) / (volvol_ * volvol_ * (1.0 - expression_));
+		double kappaBar = (4.0 * meanreversion_ * cir_path_[i] * expression_) / (volvol_ * volvol_ * (1.0 -
+			expression_));
 		kappaBar += 0.000000001;
 		double sample = rv::NonCentral_CS_Sample(rng, delta_, kappaBar);
 		cir_path_[i + 1] = c_ * sample;
@@ -66,7 +57,7 @@ void HestonModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& pa
 	generator_->SeedGenerator(seed);
 	boost::mt19937 rng = generator_->GetGenerator();
 	boost::normal_distribution<> nd1(0.0, 1.0);
-	boost::variate_generator<boost::mt19937&, boost::normal_distribution<> > rnorm(rng, nd1);
+	boost::variate_generator<boost::mt19937&, boost::normal_distribution<>> rnorm(rng, nd1);
 
 	// Simulate paths within the designated range
 	for (int i = start_idx; i < end_idx; ++i)
@@ -76,12 +67,14 @@ void HestonModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& pa
 		std::vector<double> variates(N_);
 		std::generate(variates.begin(), variates.end(), rnorm);
 
-		std::vector<double> variates_CIR{ generate_CIR_path(rng) };
+		std::vector<double> variates_CIR{generate_CIR_path(rng)};
 
 
 		for (int j = 0; j < N_; ++j)
 		{
-			paths(i, j + 1) = paths(i, j) * std::exp(k0_ + k1_ * variates_CIR[j] + k2_ * variates_CIR[j + 1] + std::sqrt((1 - corr_ * corr_)*dt_ * variates_CIR[j]) * variates[j]);
+			paths(i, j + 1) = paths(i, j) * std::exp(
+				k0_ + k1_ * variates_CIR[j] + k2_ * variates_CIR[j + 1] + std::sqrt(
+					(1 - corr_ * corr_) * dt_ * variates_CIR[j]) * variates[j]);
 		}
 
 

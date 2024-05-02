@@ -23,18 +23,12 @@ public:
 
 		for (int i = 0; i < ExpiryPrice.size(); ++i) {
 			if (ExpiryPrice(i) > strike_) {
-
-
 				extracted(i) = ExpiryPrice(i) * (std::log(ExpiryPrice(i) / S0_) - (r_ + sigma_ * sigma_ / 2.0) * T_);
-
-
 			}
 		}
 
 		double result = extracted.mean() / sigma_;
-
 		return result;
-
 	}
 
 private:

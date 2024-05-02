@@ -11,7 +11,7 @@ void PlainBrownianPath::GeneratePath(std::vector<double>& path, boost::mt19937& 
 	boost::normal_distribution<> nd(0.0, 1);
 	boost::random::variate_generator<boost::mt19937&, boost::normal_distribution<>> rnorm(rng, nd);
 
-	std::generate(path.begin(), path.end(), rnorm);
+	std::ranges::generate(path, rnorm);
 
 }
 

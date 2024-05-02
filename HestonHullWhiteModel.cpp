@@ -40,12 +40,6 @@ HestonHullWhiteModel::HestonHullWhiteModel(PseudoFactory& factory) : S0_(factory
 }
 
 
-HestonHullWhiteModel::~HestonHullWhiteModel()
-{
-	delete generator_;
-}
-
-
 double HestonHullWhiteModel::f0(double t) const
 {
 	double fwdBond = ZCB(t + differentiationStep_);
@@ -152,13 +146,15 @@ void HestonHullWhiteModel::simulate_paths(int start_idx, int end_idx, Eigen::Mat
 				pathR_[j] * dt_ + k0_ + k1_ * variates_CIR[j] + k2_ * variates_CIR[j + 1] + std::sqrt(
 					k3_ * cir_path_[j]) * variates[j]);
 
+			std::cout << Mt_[j] << std::endl;
+
 			Mt_[j + 1] = Mt_[j] * std::exp(0.5 * (pathR_[j + 1] + pathR_[j]) * dt_);
 
 			timeDt_[j + 1] = timeDt_[j] + dt_;
 		}
 
 
-		if ((i + 1) % 200000 == 0)
+		if ((i + 1) % 20000 == 0)
 		{
 			std::cout << "Paths simulated: " << i + 1 << std::endl;
 		}

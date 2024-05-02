@@ -16,8 +16,17 @@ class HestonModel : public ModelBase
 public:
 	HestonModel(double S0, double r, double sigma);
 	HestonModel(PseudoFactory& factory);
-	virtual ~HestonModel();
+	~HestonModel() = default;
 	void simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const override;
+	std::vector<double> get_likelihood_ratio() const override
+	{
+		std::vector<double> W;
+		return W;
+	}
+	double Get_MT() const override
+	{
+		return std::exp(r_ * T_);
+	}
 
 private:
 	double S0_{};
@@ -45,15 +54,13 @@ private:
 
 	//HestoDiscretizationBase* descritization;
 
-	double next_v(double V) const;
-
 	mutable std::vector<double> cir_path_;
 
 	double dt_{};
 	double N_{};
 	double T_{};
 
-	RandomBase* generator_{};
+	std::unique_ptr<RandomBase> generator_{};
 	std::vector<double> generate_CIR_path(boost::mt19937 & rng) const;
 
 };

@@ -19,12 +19,6 @@ VarianceGammaModel::VarianceGammaModel(PseudoFactory& factory) : s0_(factory.Get
 }
 
 
-VarianceGammaModel::~VarianceGammaModel()
-{
-	delete generator_;
-}
-
-
 void VarianceGammaModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const
 {
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();

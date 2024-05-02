@@ -15,14 +15,21 @@ class VarianceGammaModel : public ModelBase
 public:
 	VarianceGammaModel(double S0, double r, double sigma);
 	VarianceGammaModel(PseudoFactory& factory);
-	~VarianceGammaModel();
+	~VarianceGammaModel() = default;
 	void simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const override;
+	std::vector<double> get_likelihood_ratio() const override
+	{
+		std::vector<double> W;
+		return W;
+	}
+	double Get_MT() const override
+	{
+		return std::exp(r_ * T_);
+	}
 
 private:
-
 	double s0_{};
 	double r_{};
-
 
 	double mu_Vg_{};
 	double theta_{};
@@ -34,6 +41,6 @@ private:
 	double N_{};
 	double T_{};
 
-	RandomBase* generator_{};
+	std::unique_ptr<RandomBase> generator_{};
 };
 #endif // GBMMODEL_H

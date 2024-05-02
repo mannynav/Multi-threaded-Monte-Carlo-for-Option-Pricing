@@ -12,6 +12,7 @@
 #include "OptionBase.h"
 #include "EuroCallOption.h"
 #include "AsianCallOption.h"
+#include "FloatingLookBackCall.h"
 
 #include "ModelBase.h"
 #include "GBMModel.h"
@@ -28,6 +29,8 @@
 
 
 #include "PlainBrownianPath.h"
+#include "ImportanceSampledPath.h"
+
 #include "RandomMersenneTwister.h"
 
 
@@ -71,12 +74,9 @@ double PseudoFactory::GetLambda() const
 
 char PseudoFactory::GetPType() const { return input_->GetPtype(); }
 char PseudoFactory::GetOptionType() const { return input_->GetOptionType(); }
-
 double PseudoFactory::GetBetaVG() const {return input_->GetBetaVG(); }
 double PseudoFactory::GetSigmaVG() const { return input_->GetSigmaVG(); }
-
 double PseudoFactory::GetShift() const { return input_->GetShift(); }
-
 double PseudoFactory::GetThetaVG() const{ return input_->GetThetaVG(); }
 
 std::unique_ptr<OptionBase> PseudoFactory::CreateOption()
@@ -90,6 +90,8 @@ std::unique_ptr<OptionBase> PseudoFactory::CreateOption()
 		return std::make_unique<EuroCallOption>(*this);
 	case 'a':
 		return std::make_unique<AsianCallOption>(*this);
+	/*case '1':
+		return std::make_unique<FloatingLookBackCall>(*this);*/
 
 	default:
 		throw std::invalid_argument("CreateOption: Bad character. Invalid option type");
@@ -127,6 +129,8 @@ BrownianMotionPathBase* PseudoFactory::CreateBrownianMotionPath()
 	{
 	case 'p':
 		return new PlainBrownianPath;
+	case 'i':
+		return new ImportanceSampledPath(*this);
 
 	default: throw std::runtime_error("PseudoFactory::CreateModel:  Bad character");
 
@@ -173,15 +177,16 @@ std::unique_ptr<ApplicationBase>PseudoFactory::CreateApplication()
 	}
 }
 
-RandomBase* PseudoFactory::CreateRandomBase()
+std::unique_ptr<RandomBase> PseudoFactory::CreateRandomBase()
 {
 	char gen_type = input_->GetRandomGeneratorType();
 	std::cout << "Creating random" << '\n';
 
 	switch (gen_type)
 	{
-	case 'm': return new RandomMersenneTwister(*this);
-		break;
+	case 'm': 
+		return std::make_unique<RandomMersenneTwister>(*this);
+
 	default: throw std::runtime_error("PseudoFactory::CreateRandomBase:  Bad character");
 	}
 }

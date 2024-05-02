@@ -15,10 +15,17 @@ public:
 	virtual std::pair<double, double> accumulate(const Eigen::VectorXd& payoffs, const ModelBase& model) const
 	{
 		
-		//double RN = model.GetRadonNikodym();
+		//std::vector<double> RN = model.get_likelihood_ratio();
 
-		//Apply RN to the payoff
-		//auto payoff = payoff
+		//Eigen::VectorXd newPayoffs = Eigen::VectorXd(payoffs.size());
+		//for (int i = 0; i < payoffs.size(); i++)
+		//{
+		//	newPayoffs[i] = payoffs[i] * RN[i];
+		//}
+		//
+
+		////payoffs for IS
+		//double mean_payoff = newPayoffs.mean();
 
 		double mean_payoff = payoffs.mean();
 

@@ -7,9 +7,3 @@ FlatTermStructure::FlatTermStructure(PseudoFactory& factory) : T_(factory.GetT()
 {
 }
 
-
-double FlatTermStructure::Get_MT() const
-{
-	double discount = std::exp(-T_ * r_);
-	return discount;
-}

@@ -9,7 +9,11 @@ namespace AnalyticalFormulas
 	double Black_Scholes_Call(double S0, double K, double T, double r, double sigma);
 	double Black_Scholes_Put(double S0, double K, double T, double r, double sigma);
 
-	//add greeks
+	double delta(double S0, double K, double r, double sigma, double t, bool isCall);
+	double gamma(double S0, double K, double r, double sigma, double t);
+	double vega(double S0, double K, double r, double sigma, double t);
+	double theta(double S0, double K, double r, double sigma, double t, bool isCall);
+
 
 
 

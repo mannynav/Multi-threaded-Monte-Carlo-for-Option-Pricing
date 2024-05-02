@@ -36,7 +36,8 @@ public:
 
 	std::unique_ptr<TermStructureBase> CreateTermStructure();
 
-	RandomBase* CreateRandomBase();
+	//RandomBase* CreateRandomBase();
+	std::unique_ptr<RandomBase> CreateRandomBase();
 
 	void SetInput(Input* inp){input_ = inp;}
 	void SetOutput(Output* out) { output_ = out; }

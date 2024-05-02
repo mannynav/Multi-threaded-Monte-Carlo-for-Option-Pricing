@@ -24,7 +24,6 @@ public:
 		for (int i = 0; i < ExpiryPrice.size(); ++i) {
 			if (ExpiryPrice(i) > strike_) {
 				extracted(i) = ExpiryPrice(i);
-
 			}
 		}
 

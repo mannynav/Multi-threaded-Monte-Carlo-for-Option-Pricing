@@ -157,11 +157,12 @@
     <ClCompile Include="BrownianMotionPathBase.cpp" />
     <ClCompile Include="EuroCallOption.cpp" />
     <ClCompile Include="FlatTermStructure.cpp" />
+    <ClCompile Include="FloatingLookBackCall.cpp" />
     <ClCompile Include="GBMModel.cpp" />
     <ClCompile Include="HestonDiscretizationBase.cpp" />
     <ClCompile Include="HestonHullWhiteModel.cpp" />
     <ClCompile Include="HestonModel.cpp" />
-    <ClCompile Include="ImportanceSampling.cpp" />
+    <ClCompile Include="ImportanceSampledPath.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MCSimulation.cpp" />
@@ -172,6 +173,7 @@
     <ClCompile Include="RandomBase.cpp" />
     <ClCompile Include="RandomMersenneTwister.cpp" />
     <ClCompile Include="rv.cpp" />
+    <ClCompile Include="StochasticTermStructure.cpp" />
     <ClCompile Include="Valuation.cpp" />
     <ClCompile Include="ValuationBase.cpp" />
     <ClCompile Include="ValuationMethodBase.cpp" />
@@ -185,6 +187,7 @@
     <ClInclude Include="BrownianMotionPathBase.h" />
     <ClInclude Include="EuroCallOption.h" />
     <ClInclude Include="FlatTermStructure.h" />
+    <ClInclude Include="FloatingLookBackCall.h" />
     <ClInclude Include="GBMModel.h" />
     <ClInclude Include="GreekDelta.h" />
     <ClInclude Include="GreekGamma.h" />
@@ -192,7 +195,7 @@
     <ClInclude Include="HestonDiscretizationBase.h" />
     <ClInclude Include="HestonHullWhiteModel.h" />
     <ClInclude Include="HestonModel.h" />
-    <ClInclude Include="ImportanceSampling.h" />
+    <ClInclude Include="ImportanceSampledPath.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="MCGatherer.h" />
     <ClInclude Include="MCSimulation.h" />
@@ -203,6 +206,7 @@
     <ClInclude Include="RandomBase.h" />
     <ClInclude Include="RandomMersenneTwister.h" />
     <ClInclude Include="rv.h" />
+    <ClInclude Include="StochasticTermStructure.h" />
     <ClInclude Include="TermStructureBase.h" />
     <ClInclude Include="Valuation.h" />
     <ClInclude Include="ValuationMethodBase.h" />

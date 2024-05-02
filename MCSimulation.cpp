@@ -8,8 +8,10 @@ MCSimulation::MCSimulation()
 {
 }
 
-MCSimulation::MCSimulation(PseudoFactory& factory) : number_of_paths_(factory.GetM()), number_of_steps_(factory.GetN()),
-                                                     num_threads_(factory.GetNumThreads()), gatherer_(std::make_unique<MCGatherer>())
+MCSimulation::MCSimulation(PseudoFactory& factory) : gatherer_(std::make_unique<MCGatherer>()),
+                                                     number_of_paths_(factory.GetM()),
+                                                     number_of_steps_(factory.GetN()),
+                                                     num_threads_(factory.GetNumThreads())
 {
 }
 
@@ -34,28 +36,28 @@ void MCSimulation::run(const OptionBase& option, const ModelBase& model, const T
 		int start = i * workload;
 		int end = (i == num_threads_ - 1) ? number_of_paths_ : start + workload;
 
-		threads.push_back(std::thread([&model, start, end, &stock_prices]()
+		threads.emplace_back([&model, start, end, &stock_prices]()
 		{
 			model.simulate_paths(start, end, stock_prices);
-		}));
+		});
 	}
 
 	for (auto& th : threads)
 	{
 		th.join();
-	};
+	}
 
 	//std::cout << stock_prices << std::endl;
 
 	Eigen::VectorXd payoffs = option.ComputePayoffs(stock_prices);
 
-	//std::cout << strPay << std::endl;
-
 	const std::pair<double, double> accumulatedResults = gatherer_->accumulate(payoffs, model);
 
 	std::map<std::string, double> GreekMap = option.ComputeGreeks(stock_prices);
 
-	double discount = ts.Get_MT();
+	double discount = ts.Get_MT(model);
+
+	std::cout << "Discount: " << discount << std::endl;
 
 	std::cout << "MC price: " << discount * accumulatedResults.first << std::endl;
 	std::cout << "MC delta: " << discount * GreekMap["Delta"] << std::endl;

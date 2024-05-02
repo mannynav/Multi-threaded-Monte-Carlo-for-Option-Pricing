@@ -5,7 +5,7 @@ GBMModel::GBMModel(double S0, double r, double sigma) : S0_(S0), r_(r), sigma_(s
 {
 }
 
-GBMModel::GBMModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.Getr()), sigma_(factory.Getsig()), N_(factory.GetN()), T_(factory.GetT())
+GBMModel::GBMModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.Getr()), sigma_(factory.Getsig()), N_(factory.GetN()), T_(factory.GetT()), M_(factory.GetM())
 {
 	dt_ = factory.GetT() / factory.GetN();
 
@@ -20,7 +20,6 @@ GBMModel::GBMModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.Ge
 
 GBMModel::~GBMModel()
 {
-	delete generator_;
 	delete path_;
 }
 
@@ -41,16 +40,39 @@ void GBMModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths
 
 		std::vector<double> variates(N_);
 
+		//Variates will be filled with sqrt(dt)*Z, Z is standard normal
 		path_->GeneratePath(variates,rng);
 
 		for (int j = 0; j < N_; ++j)
 		{
 			paths(i, j + 1) = paths(i, j) * exp(drift_ + sigma_ * sqrtdt * variates[j]);
+
+			//test paths for IS, sqrt(dt)*Z is the variate!
+			//paths(i, j + 1) = paths(i, j) * exp(drift_ + sigma_ * variates[j]);
+
 		}
 
-		if ((i + 1) % 20000 == 0)
+		if ((i + 1) % 200000 == 0)
 		{
 			std::cout << "Paths simulated: " << i + 1 << std::endl;
 		}
 	}
+}
+
+std::vector<double> GBMModel::get_likelihood_ratio() const
+{
+	//HARD coded shift for now!
+	double theta = -0.5 / sigma_;
+
+	std::vector<double> lr = path_->likelihood_ratio();
+
+	std::vector<double> RN{};
+
+	for(int i = 0; i< M_;++i)
+	{
+		double result = std::exp(-0.5*theta*theta*T_  + theta * lr[i]);
+		RN.push_back(result);
+	}
+
+	return RN;
 }

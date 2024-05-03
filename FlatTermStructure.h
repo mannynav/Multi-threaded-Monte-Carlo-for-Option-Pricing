@@ -11,7 +11,7 @@ class FlatTermStructure : public TermStructureBase
 public:
 	explicit FlatTermStructure() = default;
 
-	FlatTermStructure(PseudoFactory& factory);
+	FlatTermStructure(const PseudoFactory& factory);
 
 	double Get_MT(const ModelBase& model) const override
 	{

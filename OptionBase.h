@@ -16,6 +16,8 @@
 #include <boost/random.hpp>
 #include <boost/random/normal_distribution.hpp>
 
+class ModelBase;
+
 class OptionBase
 {
 public:
@@ -23,7 +25,7 @@ public:
 
     virtual double ComputePayoff(const double) const = 0;
     virtual Eigen::VectorXd ComputePayoffs(Eigen::MatrixXd& stock_prices) const = 0;
-    virtual std::map<std::string, double> ComputeGreeks(Eigen::MatrixXd& matrix) const = 0;
+    virtual std::map<std::string, double> ComputeGreeks(Eigen::MatrixXd& matrix,const ModelBase& model) const = 0;
 };
 
 

@@ -37,6 +37,12 @@
     <Filter Include="Source Files\Models\BrownianPath">
       <UniqueIdentifier>{aa84b933-d532-46ff-8b3c-6db8a85ba760}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Greeks">
+      <UniqueIdentifier>{5388b7c3-6d2b-402e-b058-c41fa93e816c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Greeks">
+      <UniqueIdentifier>{c6efc42a-71c1-4abf-bd61-e21869a17ade}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ApplicationWrapper.cpp">
@@ -119,6 +125,18 @@
     </ClCompile>
     <ClCompile Include="StochasticTermStructure.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GreekBase.cpp">
+      <Filter>Source Files\Greeks</Filter>
+    </ClCompile>
+    <ClCompile Include="PathwiseGreeks.cpp">
+      <Filter>Source Files\Greeks</Filter>
+    </ClCompile>
+    <ClCompile Include="LikelihoodRatioGreeks.cpp">
+      <Filter>Source Files\Greeks</Filter>
+    </ClCompile>
+    <ClCompile Include="AntitheticPath.cpp">
+      <Filter>Source Files\Models\BrownianPath</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -214,6 +232,18 @@
     </ClInclude>
     <ClInclude Include="StochasticTermStructure.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GreekBase.h">
+      <Filter>Header Files\Greeks</Filter>
+    </ClInclude>
+    <ClInclude Include="PathwiseGreeks.h">
+      <Filter>Header Files\Greeks</Filter>
+    </ClInclude>
+    <ClInclude Include="LikelihoodRatioGreeks.h">
+      <Filter>Header Files\Greeks</Filter>
+    </ClInclude>
+    <ClInclude Include="AntitheticPath.h">
+      <Filter>Header Files\Models\BrownianPaths</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

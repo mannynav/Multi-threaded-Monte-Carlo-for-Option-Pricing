@@ -56,6 +56,8 @@ public:
 	double GetSeed() const { return seed_; }
 	char GetRandomGeneratorType() const {return generator_type_; }
 
+	char GetGreekType() const { return greek_type_; }
+
 	
 
 private:
@@ -99,6 +101,7 @@ private:
 	char meth_type_; // method type
 	char app_type_; // application type
 	char generator_type_; // random generator type
+	char greek_type_;  //type of greeks
 };
 
 

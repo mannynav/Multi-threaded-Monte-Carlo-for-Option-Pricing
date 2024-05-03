@@ -15,12 +15,10 @@ Valuation::Valuation(PseudoFactory& factory) : model_(nullptr), term_structure_(
 	model_ = factory.CreateModel();
 	method_ = factory.CreateValuationMethod();
 	term_structure_ = factory.CreateTermStructure();
-};
-
+}
 Valuation::~Valuation()
-{
-	
-};
+= default
+;
 
 void Valuation::run()
 {

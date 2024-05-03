@@ -47,13 +47,12 @@ void MCSimulation::run(const OptionBase& option, const ModelBase& model, const T
 		th.join();
 	}
 
-	//std::cout << stock_prices << std::endl;
 
 	Eigen::VectorXd payoffs = option.ComputePayoffs(stock_prices);
 
 	const std::pair<double, double> accumulatedResults = gatherer_->accumulate(payoffs, model);
 
-	std::map<std::string, double> GreekMap = option.ComputeGreeks(stock_prices);
+	std::map<std::string, double> GreekMap = option.ComputeGreeks(stock_prices,model);
 
 	double discount = ts.Get_MT(model);
 

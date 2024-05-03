@@ -25,7 +25,6 @@ public:
 
 private:
 
-	//Make this shared pointer
 	std::unique_ptr<OptionBase> option_;
 	std::unique_ptr<ModelBase> model_;
 	std::unique_ptr<TermStructureBase> term_structure_;

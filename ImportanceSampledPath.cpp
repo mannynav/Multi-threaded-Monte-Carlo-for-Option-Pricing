@@ -10,11 +10,9 @@
 
 ImportanceSampledPath::ImportanceSampledPath(const PseudoFactory& factory) : T_(factory.GetT()), N_(factory.GetN()), dt_(T_/N_)
 {
-	drift_ = 0.0;
-	sigma_ = 0.0;
 }
 
-void ImportanceSampledPath::GeneratePath(std::vector<double>& path, boost::mt19937& rng) const
+void ImportanceSampledPath::GeneratePath(std::vector<double>& path, boost::mt19937& rng) 
 {
 	double sqrtdt = std::sqrt(dt_);
 

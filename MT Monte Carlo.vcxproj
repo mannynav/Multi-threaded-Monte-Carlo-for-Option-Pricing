@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AnalyticalFormulas.cpp" />
+    <ClCompile Include="AntitheticPath.cpp" />
     <ClCompile Include="ApplicationWrapper.cpp" />
     <ClCompile Include="AsianCallOption.cpp" />
     <ClCompile Include="BrownianMotionPathBase.cpp" />
@@ -159,15 +160,18 @@
     <ClCompile Include="FlatTermStructure.cpp" />
     <ClCompile Include="FloatingLookBackCall.cpp" />
     <ClCompile Include="GBMModel.cpp" />
+    <ClCompile Include="GreekBase.cpp" />
     <ClCompile Include="HestonDiscretizationBase.cpp" />
     <ClCompile Include="HestonHullWhiteModel.cpp" />
     <ClCompile Include="HestonModel.cpp" />
     <ClCompile Include="ImportanceSampledPath.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="LikelihoodRatioGreeks.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MCSimulation.cpp" />
     <ClCompile Include="ModelBase.cpp" />
     <ClCompile Include="OptionBase.cpp" />
+    <ClCompile Include="PathwiseGreeks.cpp" />
     <ClCompile Include="PlainBrownianPath.cpp" />
     <ClCompile Include="PseudoFactory.cpp" />
     <ClCompile Include="RandomBase.cpp" />
@@ -181,6 +185,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnalyticalFormulas.h" />
+    <ClInclude Include="AntitheticPath.h" />
     <ClInclude Include="ApplicationBase.h" />
     <ClInclude Include="ApplicationWrapper.h" />
     <ClInclude Include="AsianCallOption.h" />
@@ -189,6 +194,7 @@
     <ClInclude Include="FlatTermStructure.h" />
     <ClInclude Include="FloatingLookBackCall.h" />
     <ClInclude Include="GBMModel.h" />
+    <ClInclude Include="GreekBase.h" />
     <ClInclude Include="GreekDelta.h" />
     <ClInclude Include="GreekGamma.h" />
     <ClInclude Include="GreekVega.h" />
@@ -197,10 +203,12 @@
     <ClInclude Include="HestonModel.h" />
     <ClInclude Include="ImportanceSampledPath.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="LikelihoodRatioGreeks.h" />
     <ClInclude Include="MCGatherer.h" />
     <ClInclude Include="MCSimulation.h" />
     <ClInclude Include="ModelBase.h" />
     <ClInclude Include="OptionBase.h" />
+    <ClInclude Include="PathwiseGreeks.h" />
     <ClInclude Include="PlainBrownianPath.h" />
     <ClInclude Include="PseudoFactory.h" />
     <ClInclude Include="RandomBase.h" />

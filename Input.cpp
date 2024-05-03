@@ -45,8 +45,8 @@ Input::Input()
     BetaVg_ = 0.3;
     SigmaVG_ = 0.1213;
 
-    M_ = 100000;
-    N_ = 10;
+    M_ = 160000;
+    N_ = 5;
     num_threads_ = 1;
     seed_ = 1;
 
@@ -60,7 +60,7 @@ Input::Input()
 
     //Heston_Discretization_Type = 'a';       // a for almost exact scheme, q for quadratic exponential scheme
 
-    T_type_ = 'f';   	                    // f for flat term structure
+	T_type_ = 'f';   	                    // f for flat term structure, s for stochastic term structure
 
     meth_type_ = 'm';  	                    // p for plain MC
 
@@ -69,5 +69,7 @@ Input::Input()
     acc_type_ = 'p'; 	                    // p for plain accumulator
 
     generator_type_ = 'm';                  // m for mersenne twister
+
+    greek_type_ = 'p';                      // p for path wise, l for likelihood ratio.
 
 }

@@ -22,6 +22,8 @@ class RandomBase;
 class Input;
 class Output;
 
+class GreekBase;
+
 class PseudoFactory
 {
 
@@ -36,8 +38,9 @@ public:
 
 	std::unique_ptr<TermStructureBase> CreateTermStructure();
 
-	//RandomBase* CreateRandomBase();
 	std::unique_ptr<RandomBase> CreateRandomBase();
+
+	GreekBase* CreateGreek();
 
 	void SetInput(Input* inp){input_ = inp;}
 	void SetOutput(Output* out) { output_ = out; }
@@ -78,6 +81,8 @@ public:
 	double GetSigmaVG() const;
 
 	double GetShift() const;
+
+	char GetGreekType() const;
 
 private:
 

@@ -43,6 +43,12 @@
     <Filter Include="Header Files\Greeks">
       <UniqueIdentifier>{c6efc42a-71c1-4abf-bd61-e21869a17ade}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Term Structure">
+      <UniqueIdentifier>{b4281aa4-9f12-4d8c-af96-fd8f5d23322b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Method">
+      <UniqueIdentifier>{08b408bc-994d-4a33-b3c6-bb6d1bd1ddee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ApplicationWrapper.cpp">
@@ -111,9 +117,6 @@
     <ClCompile Include="Input.cpp">
       <Filter>Source Files\I/O</Filter>
     </ClCompile>
-    <ClCompile Include="HestonDiscretizationBase.cpp">
-      <Filter>Source Files\Models</Filter>
-    </ClCompile>
     <ClCompile Include="BrownianMotionPathBase.cpp">
       <Filter>Source Files\Models\BrownianPath</Filter>
     </ClCompile>
@@ -146,28 +149,7 @@
     <ClInclude Include="ApplicationWrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EuroCallOption.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FlatTermStructure.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MCGatherer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MCSimulation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="OptionBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="PseudoFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TermStructureBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Valuation.h">
@@ -185,9 +167,6 @@
     <ClInclude Include="RandomMersenneTwister.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AsianCallOption.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GreekDelta.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -198,9 +177,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AnalyticalFormulas.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HestonDiscretizationBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HestonModel.h">
@@ -221,17 +197,11 @@
     <ClInclude Include="HestonHullWhiteModel.h">
       <Filter>Header Files\Models</Filter>
     </ClInclude>
-    <ClInclude Include="FloatingLookBackCall.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ImportanceSampledPath.h">
       <Filter>Header Files\Models\BrownianPaths</Filter>
     </ClInclude>
     <ClInclude Include="ModelBase.h">
       <Filter>Header Files\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="StochasticTermStructure.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GreekBase.h">
       <Filter>Header Files\Greeks</Filter>
@@ -244,6 +214,36 @@
     </ClInclude>
     <ClInclude Include="AntitheticPath.h">
       <Filter>Header Files\Models\BrownianPaths</Filter>
+    </ClInclude>
+    <ClInclude Include="EuroCallOption.h">
+      <Filter>Header Files\Options</Filter>
+    </ClInclude>
+    <ClInclude Include="AsianCallOption.h">
+      <Filter>Header Files\Options</Filter>
+    </ClInclude>
+    <ClInclude Include="FloatingLookBackCall.h">
+      <Filter>Header Files\Options</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Header Files\Input/Output</Filter>
+    </ClInclude>
+    <ClInclude Include="TermStructureBase.h">
+      <Filter>Header Files\Term Structure</Filter>
+    </ClInclude>
+    <ClInclude Include="StochasticTermStructure.h">
+      <Filter>Header Files\Term Structure</Filter>
+    </ClInclude>
+    <ClInclude Include="FlatTermStructure.h">
+      <Filter>Header Files\Term Structure</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionBase.h">
+      <Filter>Header Files\Options</Filter>
+    </ClInclude>
+    <ClInclude Include="MCGatherer.h">
+      <Filter>Header Files\Method</Filter>
+    </ClInclude>
+    <ClInclude Include="MCSimulation.h">
+      <Filter>Header Files\Method</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

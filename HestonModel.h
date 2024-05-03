@@ -3,7 +3,7 @@
 #include "ModelBase.h"
 #include "PseudoFactory.h"
 #include "RandomBase.h"
-#include "HestonDiscretizationBase.h"
+
 
 #ifndef HESTONMODEL_H
 #define HESTONMODEL_H
@@ -14,7 +14,7 @@ class HestonModel : public ModelBase
 
 {
 public:
-	HestonModel(double S0, double r, double sigma);
+	
 	HestonModel(PseudoFactory& factory);
 	~HestonModel() = default;
 	void simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const override;

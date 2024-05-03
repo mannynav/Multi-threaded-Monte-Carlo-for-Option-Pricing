@@ -1,6 +1,5 @@
 #pragma once
 
-
 class ModelBase;
 
 class TermStructureBase

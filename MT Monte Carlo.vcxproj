@@ -161,7 +161,6 @@
     <ClCompile Include="FloatingLookBackCall.cpp" />
     <ClCompile Include="GBMModel.cpp" />
     <ClCompile Include="GreekBase.cpp" />
-    <ClCompile Include="HestonDiscretizationBase.cpp" />
     <ClCompile Include="HestonHullWhiteModel.cpp" />
     <ClCompile Include="HestonModel.cpp" />
     <ClCompile Include="ImportanceSampledPath.cpp" />
@@ -198,7 +197,6 @@
     <ClInclude Include="GreekDelta.h" />
     <ClInclude Include="GreekGamma.h" />
     <ClInclude Include="GreekVega.h" />
-    <ClInclude Include="HestonDiscretizationBase.h" />
     <ClInclude Include="HestonHullWhiteModel.h" />
     <ClInclude Include="HestonModel.h" />
     <ClInclude Include="ImportanceSampledPath.h" />

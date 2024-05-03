@@ -10,7 +10,6 @@
 #include "PseudoFactory.h"
 #include "ModelBase.h"
 #include "RandomBase.h"
-#include "HestonDiscretizationBase.h"
 
 #ifndef HESTONHULLWHITEMODEL
 #define HESTONHULLWHITEMODEL
@@ -18,26 +17,28 @@
 
 class PseudoFactory;
 
-class HestonHullWhiteModel : public ModelBase {
+class HestonHullWhiteModel : public ModelBase
+{
 public:
 	HestonHullWhiteModel(PseudoFactory& factory);
-	~HestonHullWhiteModel() = default;
+	~HestonHullWhiteModel() override = default;
 	void simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const override;
+
 	std::vector<double> get_likelihood_ratio() const override
 	{
 		std::vector<double> W;
 		return W;
 	}
+
 	double Get_MT() const override
 	{
 		return Mt_.back();
-
 	}
 
 private:
 	double S0_{};
 
-	double V_0_{};					//Heston Parameters
+	double V_0_{};						//Heston Parameters
 	double corrXR_{};
 	double corrXV_{};
 	double volvol_{};
@@ -45,10 +46,10 @@ private:
 	double ltmean_{};
 	double PsiC_{};
 
-	double eta_{};					//Hull-White Parameters	
+	double eta_{};						//Hull-White Parameters	
 	double lambda_{};
 
-	double k0_{};					//Parameters for asset simulation and necessary parameters for QE to work with the Hull-White model.
+	double k0_{};						//Parameters for asset simulation and necessary parameters for QE scheme to work with the Hull-White model.
 	double k1_{};
 	double k2_{};
 	double k3_{};
@@ -57,11 +58,11 @@ private:
 
 	double expression_{};
 	double dt_{};
-	double differentiationStep_{};			//Used for numerical differentiation
+	double differentiationStep_{};		//Used for numerical differentiation
 	double N_{};
 	double T_{};
 
-	double ZCB(double t) const { return std::exp(-0.1 * t); }			//Hard coded initial bond curve
+	double ZCB(double t) const { return std::exp(-0.1 * t); }	//Hard coded initial bond curve
 	double GetM_T() const { return Mt_.back(); }
 	double f0(double t) const;
 	double theta(double t) const;

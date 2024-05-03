@@ -3,13 +3,6 @@
 #include "rv.h"
 #include <boost/random.hpp>
 
-
-HestonModel::HestonModel(double S0, double r, double sigma) : S0_(S0), r_(r), sigma_(sigma), expression_(0),
-                                                              sqrt_expression_(0),
-                                                              delta_(0), c_(0)
-{
-}
-
 HestonModel::HestonModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.Getr()), sigma_(factory.Getsig()),
                                                    V_0_(factory.GetV0()), corr_(factory.GetCorrelation()),
                                                    volvol_(factory.GetVolVol()),
@@ -56,8 +49,9 @@ void HestonModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& pa
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 	generator_->SeedGenerator(seed);
 	boost::mt19937 rng = generator_->GetGenerator();
-	boost::normal_distribution<> nd1(0.0, 1.0);
-	boost::variate_generator<boost::mt19937&, boost::normal_distribution<>> rnorm(rng, nd1);
+
+	boost::normal_distribution<> nd(0.0, 1.0);
+	boost::variate_generator<boost::mt19937&, boost::normal_distribution<>> rnorm(rng, nd);
 
 	// Simulate paths within the designated range
 	for (int i = start_idx; i < end_idx; ++i)
@@ -65,7 +59,7 @@ void HestonModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& pa
 		paths(i, 0) = S0_;
 
 		std::vector<double> variates(N_);
-		std::generate(variates.begin(), variates.end(), rnorm);
+		std::ranges::generate(variates, rnorm);
 
 		std::vector<double> variates_CIR{generate_CIR_path(rng)};
 

@@ -8,12 +8,13 @@
 #define VARIANCEGAMMAMODEL_H
 
 class PseudoFactory;
+class BrownianMotionPathBase;
 
 class VarianceGammaModel : public ModelBase
 
 {
 public:
-	VarianceGammaModel(double S0, double r, double sigma);
+	
 	VarianceGammaModel(PseudoFactory& factory);
 	~VarianceGammaModel() = default;
 	void simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const override;
@@ -41,6 +42,7 @@ private:
 	double N_{};
 	double T_{};
 
+	BrownianMotionPathBase* path_{};
 	std::unique_ptr<RandomBase> generator_{};
 };
 #endif // GBMMODEL_H

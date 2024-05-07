@@ -157,6 +157,7 @@
     <ClCompile Include="AsianCallOption.cpp" />
     <ClCompile Include="BrownianMotionPathBase.cpp" />
     <ClCompile Include="EuroCallOption.cpp" />
+    <ClCompile Include="EuroUpInCallOption.cpp" />
     <ClCompile Include="FlatTermStructure.cpp" />
     <ClCompile Include="FloatingLookBackCall.cpp" />
     <ClCompile Include="GBMModel.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="AsianCallOption.h" />
     <ClInclude Include="BrownianMotionPathBase.h" />
     <ClInclude Include="EuroCallOption.h" />
+    <ClInclude Include="EuroUpInCallOption.h" />
     <ClInclude Include="FlatTermStructure.h" />
     <ClInclude Include="FloatingLookBackCall.h" />
     <ClInclude Include="GBMModel.h" />

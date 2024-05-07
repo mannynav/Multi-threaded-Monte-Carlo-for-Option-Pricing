@@ -52,8 +52,6 @@ private:
 	double delta_;
 	double c_;
 
-	//HestoDiscretizationBase* descritization;
-
 	mutable std::vector<double> cir_path_;
 
 	double dt_{};

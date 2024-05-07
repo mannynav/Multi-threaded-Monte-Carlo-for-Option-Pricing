@@ -52,11 +52,9 @@ void MCSimulation::run(const OptionBase& option, const ModelBase& model, const T
 
 	const std::pair<double, double> accumulatedResults = gatherer_->accumulate(payoffs, model);
 
-	std::map<std::string, double> GreekMap = option.ComputeGreeks(stock_prices,model);
+	std::map<std::string, double> GreekMap = option.ComputeGreeks(stock_prices, model);
 
 	double discount = ts.Get_MT(model);
-
-	std::cout << "Discount: " << discount << std::endl;
 
 	std::cout << "MC price: " << discount * accumulatedResults.first << std::endl;
 	std::cout << "MC delta: " << discount * GreekMap["Delta"] << std::endl;

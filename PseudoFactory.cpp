@@ -12,6 +12,7 @@
 #include "OptionBase.h"
 #include "EuroCallOption.h"
 #include "AsianCallOption.h"
+#include "EuroUpInCallOption.h"
 #include "FloatingLookBackCall.h"
 
 #include "ModelBase.h"
@@ -88,8 +89,8 @@ std::unique_ptr<OptionBase> PseudoFactory::CreateOption()
 		return std::make_unique<EuroCallOption>(*this);
 	case 'a':
 		return std::make_unique<AsianCallOption>(*this);
-	/*case '1':
-		return std::make_unique<FloatingLookBackCall>(*this);*/
+	case '1':
+		return std::make_unique<EuroUpInCallOption>(*this);
 
 	default:
 		throw std::invalid_argument("CreateOption: Bad character. Invalid option type");
@@ -109,7 +110,6 @@ std::unique_ptr<ModelBase> PseudoFactory::CreateModel()
 		return std::make_unique<HestonModel>(*this);
 	case 'v':
 		return std::make_unique<VarianceGammaModel>(*this);
-
 	case 'H':
 		return std::make_unique<HestonHullWhiteModel>(*this);
 
@@ -131,11 +131,8 @@ BrownianMotionPathBase* PseudoFactory::CreateBrownianMotionPath()
 		return new ImportanceSampledPath(*this);
 	case 'a':
 		return new AntitheticPath(*this);
-
 	default: throw std::runtime_error("PseudoFactory::CreateModel:  Bad character");
-
 	}
-
 }
 
 std::unique_ptr<TermStructureBase> PseudoFactory::CreateTermStructure()
@@ -186,7 +183,7 @@ std::unique_ptr<RandomBase> PseudoFactory::CreateRandomBase()
 	char gen_type = input_->GetRandomGeneratorType();
 	std::cout << "Creating random" << '\n';
 
-	switch (gen_type)
+	switch(gen_type)
 	{
 	case 'm': 
 		return std::make_unique<RandomMersenneTwister>(*this);
@@ -207,7 +204,5 @@ GreekBase* PseudoFactory::CreateGreek()
 		//return new LikelihoodRatioGreeks(*this);
 
 	default: throw std::runtime_error("PseudoFactory::CreateGreek:  Bad character");
-
 	}
-
 }

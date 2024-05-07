@@ -4,9 +4,6 @@
 #include <Eigen/Dense>
 #include <map>
 
-#include "GreekDelta.h"
-#include "GreekGamma.h"
-#include "GreekVega.h"
 
 #ifndef EUROCALLOPTION_H
 #define EUROCALLOPTION_H

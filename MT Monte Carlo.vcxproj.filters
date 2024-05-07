@@ -141,6 +141,9 @@
     <ClCompile Include="AntitheticPath.cpp">
       <Filter>Source Files\Models\BrownianPath</Filter>
     </ClCompile>
+    <ClCompile Include="EuroUpInCallOption.cpp">
+      <Filter>Source Files\Options</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ApplicationBase.h">
@@ -244,6 +247,9 @@
     </ClInclude>
     <ClInclude Include="MCSimulation.h">
       <Filter>Header Files\Method</Filter>
+    </ClInclude>
+    <ClInclude Include="EuroUpInCallOption.h">
+      <Filter>Header Files\Options</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

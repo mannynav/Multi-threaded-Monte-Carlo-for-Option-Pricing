@@ -15,11 +15,9 @@ int main(int argc, char* argv[])
 {
 
     std::cout << "Main method" << std::endl;
+
 	Application_Wrapper app;
 	app.run();
 
-
-    std::cout << "Finished main! " << std::endl;
-
-   
+	return 0;
 }

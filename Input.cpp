@@ -21,12 +21,6 @@ Input::Input()
     x_ = 100.0;
     T_ = 1;
 
-	std::cout << "BS Call:" << AnalyticalFormulas::Black_Scholes_Call(s0_, x_, T_, r_, sig_) << '\n';
-	std::cout << "BS Delta:" << AnalyticalFormulas::delta(s0_, x_, r_, sig_, T_,true) << '\n';
-	std::cout << "BS Vega:" << AnalyticalFormulas::vega(s0_, x_, r_, sig_, T_) << '\n';
-	std::cout << "BS gamma:" << AnalyticalFormulas::gamma(s0_, x_, r_, sig_, T_) << '\n';
-
-
     v0_ = 0.04;
     meanreversion_ = 0.5;
     ltmean_ = 0.04;
@@ -45,16 +39,24 @@ Input::Input()
     BetaVg_ = 0.3;
     SigmaVG_ = 0.1213;
 
-    M_ = 4;
-    N_ = 6;
+    M_ = 10;
+    N_ = 10;
     num_threads_ = 1;
     seed_ = 1;
 
-    O_type_ = 'c';   	                    // c for call,  a for asian call, 1 for floating look back call
 
-	P_type_ = 'v';   	                    // g for gbm, h for heston sv, H for heston hull white, v for variance gamma. H is not implemented for more than 1 thread
+    std::cout << "BS Call:" << AnalyticalFormulas::Black_Scholes_Call(s0_, x_, T_, r_, sig_) << '\n';
+    std::cout << "BS Delta:" << AnalyticalFormulas::delta(s0_, x_, r_, sig_, T_, true) << '\n';
+    std::cout << "BS Vega:" << AnalyticalFormulas::vega(s0_, x_, r_, sig_, T_) << '\n';
+    std::cout << "BS gamma:" << AnalyticalFormulas::gamma(s0_, x_, r_, sig_, T_) << '\n';
 
-    Brownian_Path_Type_ = 'a';               //p for plain brownian (All models), a for antithetic paths (GBM model), i for importance sampled path
+
+
+    O_type_ = '1';   	                    // c for call,  a for asian call, 1 for up-in call option, 2 for floating look back call
+
+	P_type_ = 'g';   	                    // g for gbm, h for heston sv, H for heston hull white, v for variance gamma. H is not implemented for more than 1 thread
+
+    Brownian_Path_Type_ = 'p';               //p for plain brownian (All models), a for antithetic paths (GBM model), i for importance sampled path
     shift_for_drift_ = 0.0;                  //ONLY FOR IMPORTANCE SAMPLING
 
 

@@ -15,7 +15,7 @@ Delta, vega and gamma can be computed for the Euro call option and Delta can be 
 There are two term structure classes that inherit from a single base class. The flat term term structure is used for the GBM, VG and HSV models while the stochastic term structure is used for the Heston Hull-White hybrid model since the short rate will follow the Hull-White process and needs to be accumulated and used as the numeraire.
 
 # Tests #
-Tests are implemented using Google's unit testing framework. Google test and Google mock will be used where appropriate.
+Tests will be implemented using Google's unit testing framework. Google test and Google mock will be used where appropriate.
 
 
 

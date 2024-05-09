@@ -16,7 +16,7 @@ class ValuationMethodBase
 public:
     virtual ~ValuationMethodBase() {}
     virtual void run(const OptionBase& opt, const ModelBase& gbm, const TermStructureBase& ts) = 0;
-    //virtual void RegisterOutput(Output& out) = 0;
+	virtual void OutputResults(const TermStructureBase& ts, const ModelBase& model) const = 0;
 };
 
 

@@ -20,10 +20,9 @@ class ModelBase
 {
 public:
     virtual ~ModelBase() {}
-    virtual void simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const  =0;
+    virtual Eigen::MatrixXd simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const  =0;
     virtual std::vector<double> get_likelihood_ratio() const = 0;
     virtual double Get_MT() const = 0;
-
 };
 
 

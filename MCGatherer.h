@@ -2,8 +2,12 @@
 #include <utility>
 #include <Eigen/Dense>
 
+#include "TermStructureBase.h"
+
+
 class ImportanceSampling;
 class ModelBase;
+class TermStructureBase;
 
 
 class MCGatherer
@@ -12,7 +16,7 @@ class MCGatherer
 public:
 	virtual ~MCGatherer() {}
 
-	virtual std::pair<double, double> accumulate(const Eigen::VectorXd& payoffs, const ModelBase& model) const
+	virtual void accumulate(const Eigen::VectorXd& payoffs, const ModelBase& model)
 	{
 		
 		//std::vector<double> RN = model.get_likelihood_ratio();
@@ -27,23 +31,28 @@ public:
 		////payoffs for IS
 		//double mean_payoff = newPayoffs.mean();
 
-		double mean_payoff = payoffs.mean();
+		mean_payoff_ = payoffs.mean();
+
 
 		double sum_squared_devs = 0.0;
 		for (double value : payoffs) {
-			sum_squared_devs += std::pow(value - mean_payoff, 2);
+			sum_squared_devs += std::pow(value - mean_payoff_, 2);
 		}
 
 		double variance = sum_squared_devs / (payoffs.size() - 1); // Unbiased sample variance
 		double std_deviation = std::sqrt(variance);
 		double standard_error = std_deviation / std::sqrt(payoffs.size());
+	}
 
-		std::pair<double, double> results{ mean_payoff,standard_error };
+	std::pair<double,double> GetResults(const TermStructureBase& ts,const ModelBase& model) const {
 
-		return results;
+		double discount = ts.Get_MT(model);
+		return std::make_pair(mean_payoff_ * discount, standard_error_);
 	}
 
 private:
 
+	double mean_payoff_{};
+	double standard_error_{};
 
 };

@@ -17,7 +17,7 @@ public:
 	
 	HestonModel(PseudoFactory& factory);
 	~HestonModel() = default;
-	void simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const override;
+	Eigen::MatrixXd simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const override;
 	std::vector<double> get_likelihood_ratio() const override
 	{
 		std::vector<double> W;

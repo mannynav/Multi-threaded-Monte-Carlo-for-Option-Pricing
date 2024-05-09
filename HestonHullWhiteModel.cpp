@@ -106,7 +106,7 @@ std::vector<double> HestonHullWhiteModel::generate_CIR_path(boost::mt19937& rng)
 }
 
 
-void HestonHullWhiteModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const
+Eigen::MatrixXd HestonHullWhiteModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const
 {
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 	generator_->SeedGenerator(seed);
@@ -151,9 +151,11 @@ void HestonHullWhiteModel::simulate_paths(int start_idx, int end_idx, Eigen::Mat
 			timeDt_[j + 1] = timeDt_[j] + dt_;
 		}
 
-		if ((i + 1) % 20000 == 0)
+		if ((i + 1) % 200000 == 0)
 		{
 			std::cout << "Paths simulated: " << i + 1 << std::endl;
 		}
 	}
+
+	return paths;
 }

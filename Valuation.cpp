@@ -16,12 +16,14 @@ Valuation::Valuation(PseudoFactory& factory) : model_(nullptr), term_structure_(
 	method_ = factory.CreateValuationMethod();
 	term_structure_ = factory.CreateTermStructure();
 }
-Valuation::~Valuation()
-= default
-;
+Valuation::~Valuation() = default;
 
 void Valuation::run()
 {
 	std::cout << "Valuation::run()" << std::endl;
+
 	method_->run(*option_, *model_, *term_structure_);
+
+	method_->OutputResults(*term_structure_,*model_);
+	
 }

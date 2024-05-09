@@ -14,7 +14,6 @@
 #include "ValuationMethodBase.h"
 
 class PseudoFactory;
-class GBMModel;
 
 
 class MCSimulation : public ValuationMethodBase
@@ -25,6 +24,7 @@ public:
     explicit MCSimulation();
     MCSimulation(PseudoFactory& factory);
 	void run(const OptionBase& option, const ModelBase& model, const TermStructureBase& ts) override;
+	void OutputResults(const TermStructureBase& ts, const ModelBase& model) const;
 
 private:
 

@@ -1,10 +1,6 @@
 #include "GBMModel.h"
 #include "rv.h"
 
-GBMModel::GBMModel(double S0, double r, double sigma) : S0_(S0), r_(r), sigma_(sigma)
-{
-}
-
 GBMModel::GBMModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.Getr()), sigma_(factory.Getsig()), N_(factory.GetN()), T_(factory.GetT()), M_(factory.GetM())
 {
 	dt_ = factory.GetT() / factory.GetN();
@@ -24,7 +20,7 @@ GBMModel::~GBMModel()
 }
 
 
-void GBMModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const
+Eigen::MatrixXd GBMModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const
 {
 
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
@@ -58,6 +54,8 @@ void GBMModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths
 			std::cout << "Paths simulated: " << i + 1 << std::endl;
 		}
 	}
+
+	return paths;
 }
 
 std::vector<double> GBMModel::get_likelihood_ratio() const

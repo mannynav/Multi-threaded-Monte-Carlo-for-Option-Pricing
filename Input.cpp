@@ -40,7 +40,7 @@ Input::Input()
     SigmaVG_ = 0.1213;
 
     M_ = 10;
-    N_ = 10;
+    N_ = 100;
     num_threads_ = 1;
     seed_ = 1;
 
@@ -52,7 +52,7 @@ Input::Input()
 
 
 
-    O_type_ = '1';   	                    // c for call,  a for asian call, 1 for up-in call option, 2 for floating look back call
+    O_type_ = 'c';   	                    // c for call,  a for asian call, 1 for up-in call option, 2 for floating look back call
 
 	P_type_ = 'g';   	                    // g for gbm, h for heston sv, H for heston hull white, v for variance gamma. H is not implemented for more than 1 thread
 

@@ -1,7 +1,5 @@
 #include "MCSimulation.h"
-
 #include <map>
-
 #include "PseudoFactory.h"
 
 MCSimulation::MCSimulation()
@@ -50,22 +48,29 @@ void MCSimulation::run(const OptionBase& option, const ModelBase& model, const T
 
 	Eigen::VectorXd payoffs = option.ComputePayoffs(stock_prices);
 
-	const std::pair<double, double> accumulatedResults = gatherer_->accumulate(payoffs, model);
+	gatherer_->accumulate(payoffs, model);
 
 	std::map<std::string, double> GreekMap = option.ComputeGreeks(stock_prices, model);
 
-	double discount = ts.Get_MT(model);
 
-	std::cout << "MC price: " << discount * accumulatedResults.first << std::endl;
-	std::cout << "MC delta: " << discount * GreekMap["Delta"] << std::endl;
+	/*std::cout << "MC delta: " << discount * GreekMap["Delta"] << std::endl;
 	std::cout << "MC vega: " << discount * GreekMap["Vega"] << std::endl;
-	std::cout << "MC gamma: " << discount * GreekMap["Gamma"] << std::endl;
-
-	std::cout << "standard error: " << accumulatedResults.second << std::endl;
-
+	std::cout << "MC gamma: " << discount * GreekMap["Gamma"] << std::endl;*/
 
 	auto end_time = std::chrono::high_resolution_clock::now();
 	auto duration = std::chrono::duration_cast<std::chrono::seconds>(end_time - start_time);
 
 	std::cout << "Simulation took: " << duration.count() << " s\n";
 }
+
+
+void MCSimulation::OutputResults(const TermStructureBase& ts, const ModelBase& model) const
+{
+
+	std::pair<double, double> results = gatherer_->GetResults(ts, model);
+
+	std::cout << "MC price: " << results.first << std::endl;
+	std::cout << "standard error: " << results.second << std::endl;
+}
+
+

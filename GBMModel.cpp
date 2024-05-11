@@ -48,9 +48,6 @@ void GBMModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths
 			//std::cout << "Variates: " << variates[j] << std::endl;
 			paths(i, j + 1) = paths(i, j) * exp(drift_ + sigma_ * sqrtdt * variates[j]);
 
-			//test paths for IS, sqrt(dt)*Z is the variate!
-			//paths(i, j + 1) = paths(i, j) * exp(drift_ + sigma_ * variates[j]);
-
 		}
 
 		if ((i + 1) % 200000 == 0)

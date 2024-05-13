@@ -14,10 +14,9 @@ class GBMModel : public ModelBase
 
 {
 public:
-	GBMModel(double S0, double r, double sigma);
 	GBMModel(PseudoFactory& factory);
 	~GBMModel();
-	void simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const override;
+	Eigen::MatrixXd simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const override;
 	std::vector<double> get_likelihood_ratio() const override;
 	double Get_MT() const override
 	{

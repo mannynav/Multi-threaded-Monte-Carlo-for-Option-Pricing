@@ -14,7 +14,6 @@
 #include "ValuationMethodBase.h"
 
 class PseudoFactory;
-class GBMModel;
 
 
 class MCSimulation : public ValuationMethodBase

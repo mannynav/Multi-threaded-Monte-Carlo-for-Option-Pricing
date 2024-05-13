@@ -6,6 +6,7 @@
 
 class ImportanceSampling;
 class ModelBase;
+class TermStructureBase;
 
 
 class MCGatherer
@@ -31,6 +32,7 @@ public:
 
 		mean_payoff_ = payoffs.mean();
 
+
 		double sum_squared_devs = 0.0;
 		for (double value : payoffs) {
 			sum_squared_devs += std::pow(value - mean_payoff_, 2);
@@ -42,7 +44,8 @@ public:
 
 		std::pair<double, double> results{ mean_payoff_,standard_error_ };
 
-		return results;
+		double discount = ts.Get_MT(model);
+		return std::make_pair(mean_payoff_ * discount, standard_error_);
 	}
 
 	std::pair<double, double> GetResults(const TermStructureBase& ts, const ModelBase& model) const {

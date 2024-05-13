@@ -1,6 +1,8 @@
 #include "MCSimulation.h"
 #include <map>
 #include "PseudoFactory.h"
+#include <future>
+#include <tbb/parallel_for.h>
 
 MCSimulation::MCSimulation()
 {
@@ -19,32 +21,28 @@ void MCSimulation::run(const OptionBase& option, const ModelBase& model, const T
 
 	Eigen::MatrixXd stock_prices(number_of_paths_, number_of_steps_ + 1);
 
-	// Vector to store threads
 	std::vector<std::thread> threads;
-
-	// Workload per thread
+	
 	int workload = number_of_paths_ / num_threads_;
 
 	auto start_time = std::chrono::high_resolution_clock::now();
 
-
-	// Launch threads (with a small adjustment if workload doesn't divide evenly)
 	for (int i = 0; i < num_threads_; ++i)
 	{
 		int start = i * workload;
 		int end = (i == num_threads_ - 1) ? number_of_paths_ : start + workload;
 
 		threads.emplace_back([&model, start, end, &stock_prices]()
-		{
-			model.simulate_paths(start, end, stock_prices);
-		});
+			{
+				model.simulate_paths(start, end, stock_prices);
+			});
 	}
+
 
 	for (auto& th : threads)
 	{
 		th.join();
 	}
-
 
 	Eigen::VectorXd payoffs = option.ComputePayoffs(stock_prices);
 

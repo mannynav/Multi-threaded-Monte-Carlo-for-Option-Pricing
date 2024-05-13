@@ -34,7 +34,9 @@ public:
 	std::unique_ptr<OptionBase> CreateOption();
 
 	std::unique_ptr<ModelBase> CreateModel();
-	BrownianMotionPathBase* CreateBrownianMotionPath();
+
+	std::unique_ptr<BrownianMotionPathBase> CreateBrownianMotionPath();
+ 	//BrownianMotionPathBase* CreateBrownianMotionPath();
 
 	std::unique_ptr<TermStructureBase> CreateTermStructure();
 
@@ -43,9 +45,6 @@ public:
 	GreekBase* CreateGreek();
 
 	void SetInput(Input* inp){input_ = inp;}
-	void SetOutput(Output* out) { output_ = out; }
-
-	Output* GetOutput() const { return output_; }
 
 
 	double GetS0() const;
@@ -76,6 +75,13 @@ public:
 	char GetPType() const;
 	char GetOptionType() const;
 
+	double GetUJ() const;
+	double GetSigmaJ() const;
+	double GetLambdaJ() const;
+
+	double GetADD() const;
+	double GetSigmaDD() const;
+
 	double GetBetaVG() const ;
 	double GetThetaVG() const;
 	double GetSigmaVG() const;
@@ -87,7 +93,6 @@ public:
 private:
 
 	Input* input_ = nullptr;
-	Output* output_ = nullptr;
 
 };
 

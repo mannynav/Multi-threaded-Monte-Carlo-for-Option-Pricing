@@ -35,11 +35,24 @@ public:
 	double GetEta() const { return eta_; }
 	double GetLambda() const { return lambda_; }
 
+	double GetUJ() const { return uJ_;}						//Merton Model Parameters
+	double GetSigmaJ() const { return sigmaJ_; }
+	double GetLambdaJ() const { return lambdaJ_; }
 
-	double GetBetaVG() const { return BetaVg_; }
+	double GetADD() const
+	{
+		return aDD_;
+	}
+
+	double GetSigmaDD() const
+	{
+		return sigmaDD_;
+	}
+
+
+	double GetBetaVG() const { return BetaVg_; }			//Variance Gamma model parameters
 	double GetThetaVG() const { return ThetaVG_; }
 	double GetSigmaVG() const { return SigmaVG_; }
-
 
 
 
@@ -85,17 +98,23 @@ private:
 	double eta_;				//Hull White parameters
 	double lambda_;
 
-	double BetaVg_{};
+	double uJ_{};				//Merton parameters	
+	double sigmaJ_{};
+	double lambdaJ_{};
+
+	double aDD_{};				//Displaced Diffusion parameters
+	double sigmaDD_{};
+
+	double BetaVg_{};			//Variance Gamma parameters
 	double ThetaVG_{};
 	double SigmaVG_{};
 
-	char P_type_; // process type
+	char P_type_;				// process type
 	char O_type_; // option type
 	char T_type_; // term structure type
 
 	char Brownian_Path_Type_;
 	double shift_for_drift_;
-
 
 	char acc_type_; // accumulator type
 	char meth_type_; // method type

@@ -4,17 +4,18 @@
 #include "PseudoFactory.h"
 #include "RandomBase.h"
 
-#ifndef GBMMODEL_H
-#define GBMMODEL_H
+#ifndef MERTONMODEL_H
+#define MERTONMODEL_H
 
 class PseudoFactory;
 class BrownianMotionPathBase;
 
-class GBMModel : public ModelBase 
+
+class MertonModel : public ModelBase
 {
 public:
-	GBMModel(PseudoFactory& factory);
-	~GBMModel() = default;
+	MertonModel(PseudoFactory& factory);
+	~MertonModel() = default;
 	Eigen::MatrixXd simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const override;
 	double Get_MT() const override
 	{
@@ -26,8 +27,12 @@ private:
 	double r_{};
 	double sigma_{};
 
+	double uJ_{};
+	double sigmaJ{};
+	double lambdaJ_{};
+	double nu_{};
+
 	double dt_{};
-	double drift_{};
 
 	double M_{};
 	double N_{};
@@ -35,5 +40,7 @@ private:
 
 	std::unique_ptr<BrownianMotionPathBase> path_{};
 	std::unique_ptr<RandomBase> generator_{};
+
 };
-#endif // GBMMODEL_H
+
+#endif

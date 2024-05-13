@@ -153,9 +153,9 @@
   <ItemGroup>
     <ClCompile Include="AnalyticalFormulas.cpp" />
     <ClCompile Include="AntitheticPath.cpp" />
-    <ClCompile Include="ApplicationWrapper.cpp" />
     <ClCompile Include="AsianCallOption.cpp" />
     <ClCompile Include="BrownianMotionPathBase.cpp" />
+    <ClCompile Include="DisplacedDiffusionModel.cpp" />
     <ClCompile Include="EuroCallOption.cpp" />
     <ClCompile Include="EuroUpInCallOption.cpp" />
     <ClCompile Include="FlatTermStructure.cpp" />
@@ -169,6 +169,7 @@
     <ClCompile Include="LikelihoodRatioGreeks.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MCSimulation.cpp" />
+    <ClCompile Include="MertonModel.cpp" />
     <ClCompile Include="ModelBase.cpp" />
     <ClCompile Include="OptionBase.cpp" />
     <ClCompile Include="PathwiseGreeks.cpp" />
@@ -187,9 +188,9 @@
     <ClInclude Include="AnalyticalFormulas.h" />
     <ClInclude Include="AntitheticPath.h" />
     <ClInclude Include="ApplicationBase.h" />
-    <ClInclude Include="ApplicationWrapper.h" />
     <ClInclude Include="AsianCallOption.h" />
     <ClInclude Include="BrownianMotionPathBase.h" />
+    <ClInclude Include="DisplacedDiffusionModel.h" />
     <ClInclude Include="EuroCallOption.h" />
     <ClInclude Include="EuroUpInCallOption.h" />
     <ClInclude Include="FlatTermStructure.h" />
@@ -206,6 +207,7 @@
     <ClInclude Include="LikelihoodRatioGreeks.h" />
     <ClInclude Include="MCGatherer.h" />
     <ClInclude Include="MCSimulation.h" />
+    <ClInclude Include="MertonModel.h" />
     <ClInclude Include="ModelBase.h" />
     <ClInclude Include="OptionBase.h" />
     <ClInclude Include="PathwiseGreeks.h" />

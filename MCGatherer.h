@@ -15,7 +15,7 @@ class MCGatherer
 public:
 	virtual ~MCGatherer() {}
 
-	virtual std::pair<double, double> accumulate(const Eigen::VectorXd& payoffs, const ModelBase& model)
+	virtual void accumulate(const Eigen::VectorXd& payoffs, const ModelBase& model)
 	{
 		
 		//std::vector<double> RN = model.get_likelihood_ratio();
@@ -41,11 +41,6 @@ public:
 		double variance = sum_squared_devs / (payoffs.size() - 1); // Unbiased sample variance
 		double std_deviation = std::sqrt(variance);
 		standard_error_ = std_deviation / std::sqrt(payoffs.size());
-
-		std::pair<double, double> results{ mean_payoff_,standard_error_ };
-
-		double discount = ts.Get_MT(model);
-		return std::make_pair(mean_payoff_ * discount, standard_error_);
 	}
 
 	std::pair<double, double> GetResults(const TermStructureBase& ts, const ModelBase& model) const {

@@ -15,6 +15,7 @@ class EuroCallOption : public OptionBase
 {
 public:
 
+	EuroCallOption(double strike, double expiry) : strike_(strike), expiry_(expiry) {}
 	EuroCallOption(PseudoFactory& factory);
 
 	double ComputePayoff(double final_price) const override;

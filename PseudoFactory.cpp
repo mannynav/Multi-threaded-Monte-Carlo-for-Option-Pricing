@@ -20,6 +20,8 @@
 #include "HestonModel.h"
 #include "HestonHullWhiteModel.h"
 #include "VarianceGammaModel.h"
+#include "MertonModel.h"
+#include "DisplacedDiffusionModel.h"
 
 #include "TermStructureBase.h"
 #include "FlatTermStructure.h"
@@ -66,6 +68,9 @@ double PseudoFactory::GetCorrXV() const { return input_->GetCorrXV(); }
 double PseudoFactory::GetEta() const { return input_->GetEta(); }
 double PseudoFactory::GetLambda() const{ return input_->GetLambda();}
 
+double PseudoFactory::GetADD() const { return input_->GetADD(); }
+double PseudoFactory::GetSigmaDD() const { return input_->GetSigmaDD(); }
+
 double PseudoFactory::GetBetaVG() const {return input_->GetBetaVG(); }
 double PseudoFactory::GetSigmaVG() const { return input_->GetSigmaVG(); }
 double PseudoFactory::GetShift() const { return input_->GetShift(); }
@@ -73,9 +78,14 @@ double PseudoFactory::GetThetaVG() const{ return input_->GetThetaVG(); }
 
 char PseudoFactory::GetPType() const { return input_->GetPtype(); }
 char PseudoFactory::GetOptionType() const { return input_->GetOptionType(); }
+
+double PseudoFactory::GetUJ() const { return input_->GetUJ();}
+double PseudoFactory::GetSigmaJ() const {return input_->GetSigmaJ();}
+double PseudoFactory::GetLambdaJ() const { return input_->GetLambdaJ(); }
+
+
+
 char PseudoFactory::GetGreekType() const{return input_->GetGreekType(); }
-
-
 
 
 std::unique_ptr<OptionBase> PseudoFactory::CreateOption()
@@ -112,12 +122,16 @@ std::unique_ptr<ModelBase> PseudoFactory::CreateModel()
 		return std::make_unique<VarianceGammaModel>(*this);
 	case 'H':
 		return std::make_unique<HestonHullWhiteModel>(*this);
+	case 'm':
+		return std::make_unique<MertonModel>(*this);
+	case 'd':
+		return std::make_unique<DisplacedDiffusionModel>(*this);
 
 	default: throw std::runtime_error("PseudoFactory::CreateModel:  Bad character");
 	}
 }
 
-BrownianMotionPathBase* PseudoFactory::CreateBrownianMotionPath()
+std::unique_ptr<BrownianMotionPathBase> PseudoFactory::CreateBrownianMotionPath()
 {
 	char type = input_->GetBrownianMotionPathType();
 
@@ -126,11 +140,10 @@ BrownianMotionPathBase* PseudoFactory::CreateBrownianMotionPath()
 	switch(type)
 	{
 	case 'p':
-		return new PlainBrownianPath;
-	case 'i':
-		return new ImportanceSampledPath(*this);
+		return std::make_unique<PlainBrownianPath>();
 	case 'a':
-		return new AntitheticPath(*this);
+		return std::make_unique<AntitheticPath>(*this);
+
 	default: throw std::runtime_error("PseudoFactory::CreateModel:  Bad character");
 	}
 }
@@ -174,6 +187,7 @@ std::unique_ptr<ApplicationBase>PseudoFactory::CreateApplication()
 	{
 	case 'v':
 		return std::make_unique<Valuation>(*this);
+
 	default: throw std::runtime_error("PseudoFactory::CreateApplication:  Bad character");
 	}
 }
@@ -200,8 +214,6 @@ GreekBase* PseudoFactory::CreateGreek()
 	{
 	case 'p':
 		return new PathwiseGreeks(*this);
-	//case 'l':
-		//return new LikelihoodRatioGreeks(*this);
 
 	default: throw std::runtime_error("PseudoFactory::CreateGreek:  Bad character");
 	}

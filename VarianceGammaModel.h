@@ -18,11 +18,6 @@ public:
 	VarianceGammaModel(PseudoFactory& factory);
 	~VarianceGammaModel() = default;
 	Eigen::MatrixXd simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const override;
-	std::vector<double> get_likelihood_ratio() const override
-	{
-		std::vector<double> W;
-		return W;
-	}
 	double Get_MT() const override
 	{
 		return std::exp(r_ * T_);
@@ -42,7 +37,7 @@ private:
 	double N_{};
 	double T_{};
 
-	BrownianMotionPathBase* path_{};
+	std::unique_ptr<BrownianMotionPathBase> path_{};
 	std::unique_ptr<RandomBase> generator_{};
 };
 #endif // GBMMODEL_H

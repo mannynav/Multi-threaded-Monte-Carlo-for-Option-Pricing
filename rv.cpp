@@ -150,6 +150,16 @@ double RandomVariableStatisticalFunctions::inverseQNorm(double p, int err)
 	
 }
 
+double RandomVariableStatisticalFunctions::poisson_jumps(const double lambda)
+{
+
+    boost::poisson_distribution<> pois(lambda);
+    boost::variate_generator<boost::mt19937&, boost::poisson_distribution<>> poisRNG(rng, pois);
+
+    return poisRNG();
+
+}
+
 
 double RandomVariableStatisticalFunctions::NonCentral_CS_Sample(boost::mt19937& rng, double delta, double lambda)
 {

@@ -14,12 +14,6 @@ GBMModel::GBMModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.Ge
 }
 
 
-GBMModel::~GBMModel()
-{
-	delete path_;
-}
-
-
 Eigen::MatrixXd GBMModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const
 {
 
@@ -55,20 +49,3 @@ Eigen::MatrixXd GBMModel::simulate_paths(int start_idx, int end_idx, Eigen::Matr
 	return paths;
 }
 
-std::vector<double> GBMModel::get_likelihood_ratio() const
-{
-	//HARD coded shift for now!
-	double theta = -0.5 / sigma_;
-
-	std::vector<double> lr = path_->likelihood_ratio();
-
-	std::vector<double> RN{};
-
-	for(int i = 0; i< M_;++i)
-	{
-		double result = std::exp(-0.5*theta*theta*T_  + theta * lr[i]);
-		RN.push_back(result);
-	}
-
-	return RN;
-}

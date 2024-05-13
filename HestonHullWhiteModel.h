@@ -24,12 +24,6 @@ public:
 	~HestonHullWhiteModel() override = default;
 	Eigen::MatrixXd simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const override;
 
-	std::vector<double> get_likelihood_ratio() const override
-	{
-		std::vector<double> W;
-		return W;
-	}
-
 	double Get_MT() const override
 	{
 		return Mt_.back();

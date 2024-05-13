@@ -16,7 +16,7 @@ Input::Input()
 
     s0_ = 100.0;
     r_ = 0.1;
-    sig_ = 0.20;
+    sig_ = 0.152861;
 
     x_ = 100.0;
     T_ = 1;
@@ -35,26 +35,26 @@ Input::Input()
 
     PsiC = 1.5;
 
+    uJ_ = -0.8829;
+    sigmaJ_ = 0.0002719;
+    lambdaJ_ = 0.08134;
+
+    aDD_ = 1.0;
+    sigmaDD_ = 0.15;
+
     ThetaVG_ = -0.1436;
     BetaVg_ = 0.3;
     SigmaVG_ = 0.1213;
 
-    M_ = 10;
+    M_ = 100000;
     N_ = 100;
     num_threads_ = 1;
     seed_ = 1;
 
-
-    std::cout << "BS Call:" << AnalyticalFormulas::Black_Scholes_Call(s0_, x_, T_, r_, sig_) << '\n';
-    std::cout << "BS Delta:" << AnalyticalFormulas::delta(s0_, x_, r_, sig_, T_, true) << '\n';
-    std::cout << "BS Vega:" << AnalyticalFormulas::vega(s0_, x_, r_, sig_, T_) << '\n';
-    std::cout << "BS gamma:" << AnalyticalFormulas::gamma(s0_, x_, r_, sig_, T_) << '\n';
-
-
-
     O_type_ = 'c';   	                    // c for call,  a for asian call, 1 for up-in call option, 2 for floating look back call
 
 	P_type_ = 'g';   	                    // g for gbm, h for heston sv, H for heston hull white, v for variance gamma. H is not implemented for more than 1 thread
+											//m for merton model with fixed grid sampling, d for displaced diffusion
 
     Brownian_Path_Type_ = 'p';               //p for plain brownian (All models), a for antithetic paths (GBM model), i for importance sampled path
     shift_for_drift_ = 0.0;                  //ONLY FOR IMPORTANCE SAMPLING

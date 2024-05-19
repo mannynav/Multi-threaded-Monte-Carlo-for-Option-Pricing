@@ -39,22 +39,18 @@ public:
 	double GetSigmaJ() const { return sigmaJ_; }
 	double GetLambdaJ() const { return lambdaJ_; }
 
-	double GetADD() const
-	{
-		return aDD_;
-	}
+	double GetADD() const{return aDD_;}
 
-	double GetSigmaDD() const
-	{
-		return sigmaDD_;
-	}
-
+	double GetSigmaDD() const{return sigmaDD_;}
 
 	double GetBetaVG() const { return BetaVg_; }			//Variance Gamma model parameters
 	double GetThetaVG() const { return ThetaVG_; }
 	double GetSigmaVG() const { return SigmaVG_; }
 
-
+	double GetAlphaSABR() const { return alpha_; }			//SABR model parameters
+	double GetBetaSABR() const { return beta_; }
+	double GetRhoSABR() const { return rho_; }
+	double GetNuSABR() const { return nu_; }
 
 	char GetPtype() const { return P_type_; }
 	char GetOptionType() const { return O_type_; }
@@ -86,7 +82,7 @@ private:
 	long num_threads_;
 	double seed_;
 
-	double v0_;					//Heston model parameters
+	double v0_;					//Heston and Heston Hull-White model parameters
 	double meanreversion_;
 	double ltmean_;
 	double volvol_;
@@ -108,6 +104,11 @@ private:
 	double BetaVg_{};			//Variance Gamma parameters
 	double ThetaVG_{};
 	double SigmaVG_{};
+
+	double alpha_{};			//SABR parameters
+	double beta_{};
+	double rho_{};
+	double nu_{};
 
 	char P_type_;				// process type
 	char O_type_; // option type

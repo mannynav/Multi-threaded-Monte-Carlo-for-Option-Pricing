@@ -1,14 +1,11 @@
 #pragma once
 
 #include "ModelBase.h"
-#include "PseudoFactory.h"
 #include "RandomBase.h"
 
 #ifndef VARIANCEGAMMAMODEL_H
 #define VARIANCEGAMMAMODEL_H
 
-class PseudoFactory;
-class BrownianMotionPathBase;
 
 class VarianceGammaModel : public ModelBase
 

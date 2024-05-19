@@ -36,7 +36,6 @@ public:
 	std::unique_ptr<ModelBase> CreateModel();
 
 	std::unique_ptr<BrownianMotionPathBase> CreateBrownianMotionPath();
- 	//BrownianMotionPathBase* CreateBrownianMotionPath();
 
 	std::unique_ptr<TermStructureBase> CreateTermStructure();
 
@@ -85,6 +84,11 @@ public:
 	double GetBetaVG() const ;
 	double GetThetaVG() const;
 	double GetSigmaVG() const;
+
+	double GetAlphaSABR() const;
+	double GetBetaSABR() const;
+	double GetRhoSABR() const;
+	double GetNuSABR() const;
 
 	double GetShift() const;
 

@@ -147,6 +147,12 @@
     <ClCompile Include="DisplacedDiffusionModel.cpp">
       <Filter>Source Files\Models</Filter>
     </ClCompile>
+    <ClCompile Include="SABR.cpp">
+      <Filter>Source Files\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="TestEuroCallOption.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ApplicationBase.h">
@@ -255,6 +261,9 @@
       <Filter>Header Files\Models</Filter>
     </ClInclude>
     <ClInclude Include="DisplacedDiffusionModel.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="SABRModel.h">
       <Filter>Header Files\Models</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,21 +2,17 @@
 #pragma once
 
 #include "ModelBase.h"
-#include "PseudoFactory.h"
 #include "RandomBase.h"
 
 #ifndef DISPLACEDDIFFUSIONMODEL_H
 #define DISPLACEDDIFFUSIONMODEL_H
-
-class PseudoFactory;
-class BrownianMotionPathBase;
 
 class DisplacedDiffusionModel : public ModelBase
 
 {
 public:
 	DisplacedDiffusionModel(PseudoFactory& factory);
-	~DisplacedDiffusionModel();
+	~DisplacedDiffusionModel() = default;
 	Eigen::MatrixXd simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const override;
 	double Get_MT() const override
 	{
@@ -37,7 +33,6 @@ private:
 	double N_{};
 	double T_{};
 
-	//BrownianMotionPathBase* path_;
 	std::unique_ptr<BrownianMotionPathBase> path_;
 	std::unique_ptr<RandomBase> generator_{};
 };

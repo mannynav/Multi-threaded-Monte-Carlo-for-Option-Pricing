@@ -1,8 +1,6 @@
 #include "MCSimulation.h"
 #include <map>
 #include "PseudoFactory.h"
-#include <future>
-#include <tbb/parallel_for.h>
 
 MCSimulation::MCSimulation()
 {
@@ -44,7 +42,7 @@ void MCSimulation::run(const OptionBase& option, const ModelBase& model, const T
 		th.join();
 	}
 
-	//std::cout << stock_prices << std::endl;
+	std::cout << stock_prices << std::endl;
 
 	Eigen::VectorXd payoffs = option.ComputePayoffs(stock_prices);
 

@@ -9,13 +9,11 @@
 #include "TermStructureBase.h"
 
 
-Valuation::Valuation(PseudoFactory& factory) : model_(nullptr), term_structure_(nullptr), method_(nullptr)
-{
-	option_ = factory.CreateOption();
-	model_ = factory.CreateModel();
-	method_ = factory.CreateValuationMethod();
-	term_structure_ = factory.CreateTermStructure();
-}
+Valuation::Valuation(PseudoFactory& factory) : model_(factory.CreateModel()), 
+											   term_structure_(factory.CreateTermStructure()), 
+											   method_(factory.CreateValuationMethod()),
+										       option_(factory.CreateOption())
+{}
 Valuation::~Valuation() = default;
 
 void Valuation::run()

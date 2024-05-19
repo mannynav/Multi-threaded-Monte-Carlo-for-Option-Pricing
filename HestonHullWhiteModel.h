@@ -6,16 +6,11 @@
 // This class is not (yet) implemented for multi-threading.
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-#include "PseudoFactory.h"
 #include "ModelBase.h"
 #include "RandomBase.h"
 
 #ifndef HESTONHULLWHITEMODEL
 #define HESTONHULLWHITEMODEL
-
-
-class PseudoFactory;
 
 class HestonHullWhiteModel : public ModelBase
 {

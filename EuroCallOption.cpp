@@ -3,9 +3,14 @@
 #include "GreekBase.h"
 #include "PseudoFactory.h"
 
-EuroCallOption::EuroCallOption(PseudoFactory& factory) : strike_(factory.GetX()), expiry_(factory.GetT()),
-Greeks(factory.CreateGreek())
-{
+EuroCallOption::EuroCallOption(PseudoFactory& factory) : 
+														strike_(factory.GetX()), 
+														expiry_(factory.GetT()),
+														Greeks(factory.CreateGreek())
+{}
+
+EuroCallOption::~EuroCallOption() {
+	delete Greeks;
 }
 
 double EuroCallOption::ComputePayoff(double final_price) const

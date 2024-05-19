@@ -13,6 +13,7 @@
 #include <boost/math/distributions/normal.hpp>
 #include <boost/random.hpp>
 #include <boost/random/normal_distribution.hpp>
+#include "PseudoFactory.h"
 
 
 

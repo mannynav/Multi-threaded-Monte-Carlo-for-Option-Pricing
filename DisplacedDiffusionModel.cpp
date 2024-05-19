@@ -15,12 +15,6 @@ DisplacedDiffusionModel::DisplacedDiffusionModel(PseudoFactory& factory) : S0_(f
 }
 
 
-DisplacedDiffusionModel::~DisplacedDiffusionModel()
-{
-	//delete path_;
-}
-
-
 Eigen::MatrixXd DisplacedDiffusionModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const
 {
 

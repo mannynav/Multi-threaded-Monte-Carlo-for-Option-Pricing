@@ -5,9 +5,7 @@ GBMModel::GBMModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.Ge
 {
 	dt_ = factory.GetT() / factory.GetN();
 
-	double shift = factory.GetShift();
-
-	drift_ = ((r_+shift) - 0.5 * sigma_ * sigma_) * dt_;
+	drift_ = (r_ - 0.5 * sigma_ * sigma_) * dt_;
 
 	generator_ = factory.CreateRandomBase();
 	path_ = factory.CreateBrownianMotionPath();
@@ -21,6 +19,8 @@ Eigen::MatrixXd GBMModel::simulate_paths(int start_idx, int end_idx, Eigen::Matr
 	generator_->SeedGenerator(seed);
 	boost::mt19937 rng = generator_->GetGenerator();
 
+	
+
 	double sqrtdt = std::sqrt(dt_);
 
 	// Simulate paths within the designated range
@@ -31,7 +31,8 @@ Eigen::MatrixXd GBMModel::simulate_paths(int start_idx, int end_idx, Eigen::Matr
 		std::vector<double> variates(N_);
 
 		//Variates will be filled with sqrt(dt)*Z, Z is standard normal
-		path_->GeneratePath(variates,rng);
+		//path_->GeneratePath(variates,rng);
+		std::generate(variates.begin(), variates.end(), [&]() {return rv::GetNormalVariate(); });
 
 		for (int j = 0; j < N_; ++j)
 		{
@@ -40,7 +41,7 @@ Eigen::MatrixXd GBMModel::simulate_paths(int start_idx, int end_idx, Eigen::Matr
 
 		}
 
-		if ((i + 1) % 200000 == 0)
+		if ((i + 1) % 100000 == 0)
 		{
 			std::cout << "Paths simulated: " << i + 1 << std::endl;
 		}

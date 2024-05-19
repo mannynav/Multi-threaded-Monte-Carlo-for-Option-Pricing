@@ -1,16 +1,16 @@
+
+
 #pragma once
-
 #include "ModelBase.h"
-#include "RandomBase.h"
 
-#ifndef MERTONMODEL_H
-#define MERTONMODEL_H
+#ifndef SABRMODEL_H
+#define SABRMODEL_H
 
-class MertonModel : public ModelBase
+class SABRModel : public ModelBase
 {
 public:
-	MertonModel(PseudoFactory& factory);
-	~MertonModel() = default;
+	SABRModel(PseudoFactory& factory);
+	~SABRModel() = default;
 	Eigen::MatrixXd simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const override;
 	double Get_MT() const override
 	{
@@ -20,22 +20,22 @@ public:
 private:
 	double S0_{};
 	double r_{};
-	double sigma_{};
 
-	double uJ_{};
-	double sigmaJ{};
-	double lambdaJ_{};
+	double alpha_{};
+	double beta_{};
+	double rho_{};
 	double nu_{};
 
 	double dt_{};
+	double sqrtdt_{};
 
 	double M_{};
 	double N_{};
 	double T_{};
 
+	mutable std::vector<double> sigmaVec_{};
+
 	std::unique_ptr<BrownianMotionPathBase> path_{};
 	std::unique_ptr<RandomBase> generator_{};
-
 };
-
-#endif
+#endif // GBMMODEL_H

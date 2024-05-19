@@ -1,12 +1,14 @@
 
 #include <iostream>
-
 #include "ApplicationBase.h"
-#include "AnalyticalFormulas.h"
 #include "PseudoFactory.h"
 #include "Input.h"
 
-#include <gtest/gtest.h>
+
+#define BOOST_TEST_MODULE test
+#define BOOST_TEST_DYN_LINK
+#define BOOST_TEST_NO_MAIN
+#include <boost/test/unit_test.hpp>
 
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -30,9 +32,10 @@ int main(int argc, char* argv[])
 
 	app->run();
 
-   
-	testing::InitGoogleTest(&argc, argv);
-	RUN_ALL_TESTS();
+	std::cout << "Running tests" << std::endl;
+	boost::unit_test::unit_test_main(&init_unit_test, argc, argv);
+
+	delete Input_;
 
 
 	return 0;

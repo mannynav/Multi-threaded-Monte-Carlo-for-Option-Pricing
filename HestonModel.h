@@ -1,14 +1,11 @@
 #pragma once
 
 #include "ModelBase.h"
-#include "PseudoFactory.h"
 #include "RandomBase.h"
 
 
 #ifndef HESTONMODEL_H
 #define HESTONMODEL_H
-
-class PseudoFactory;
 
 class HestonModel : public ModelBase
 

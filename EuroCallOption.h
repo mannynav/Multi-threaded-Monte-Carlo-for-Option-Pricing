@@ -17,6 +17,7 @@ public:
 
 	EuroCallOption(double strike, double expiry) : strike_(strike), expiry_(expiry) {}
 	EuroCallOption(PseudoFactory& factory);
+	~EuroCallOption();
 
 	double ComputePayoff(double final_price) const override;
 	Eigen::VectorXd ComputePayoffs(Eigen::MatrixXd& stock_prices) const override;

@@ -22,6 +22,7 @@
 #include "VarianceGammaModel.h"
 #include "MertonModel.h"
 #include "DisplacedDiffusionModel.h"
+#include "SABRModel.h"
 
 #include "TermStructureBase.h"
 #include "FlatTermStructure.h"
@@ -76,15 +77,18 @@ double PseudoFactory::GetSigmaVG() const { return input_->GetSigmaVG(); }
 double PseudoFactory::GetShift() const { return input_->GetShift(); }
 double PseudoFactory::GetThetaVG() const{ return input_->GetThetaVG(); }
 
-char PseudoFactory::GetPType() const { return input_->GetPtype(); }
-char PseudoFactory::GetOptionType() const { return input_->GetOptionType(); }
+double PseudoFactory::GetAlphaSABR() const { return input_->GetAlphaSABR(); }
+double PseudoFactory::GetBetaSABR() const { return input_->GetBetaSABR(); }
+double PseudoFactory::GetRhoSABR() const { return input_->GetRhoSABR(); }
+double PseudoFactory::GetNuSABR() const { return input_->GetNuSABR(); }
 
-double PseudoFactory::GetUJ() const { return input_->GetUJ();}
-double PseudoFactory::GetSigmaJ() const {return input_->GetSigmaJ();}
+double PseudoFactory::GetUJ() const { return input_->GetUJ(); }
+double PseudoFactory::GetSigmaJ() const { return input_->GetSigmaJ(); }
 double PseudoFactory::GetLambdaJ() const { return input_->GetLambdaJ(); }
 
 
-
+char PseudoFactory::GetPType() const { return input_->GetPtype(); }
+char PseudoFactory::GetOptionType() const { return input_->GetOptionType(); }
 char PseudoFactory::GetGreekType() const{return input_->GetGreekType(); }
 
 
@@ -126,6 +130,8 @@ std::unique_ptr<ModelBase> PseudoFactory::CreateModel()
 		return std::make_unique<MertonModel>(*this);
 	case 'd':
 		return std::make_unique<DisplacedDiffusionModel>(*this);
+	case 's':
+		return std::make_unique<SABRModel>(*this);
 
 	default: throw std::runtime_error("PseudoFactory::CreateModel:  Bad character");
 	}
@@ -178,7 +184,7 @@ std::unique_ptr<ValuationMethodBase> PseudoFactory::CreateValuationMethod()
 	}
 }
 
-std::unique_ptr<ApplicationBase>PseudoFactory::CreateApplication()
+std::unique_ptr<ApplicationBase> PseudoFactory::CreateApplication()
 {
 	char app_type = input_->GetApplicationType();
 	std::cout << "Creating application" << '\n';

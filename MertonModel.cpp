@@ -27,20 +27,19 @@ Eigen::MatrixXd MertonModel::simulate_paths(int start_idx, int end_idx, Eigen::M
 	{
 		paths(i, 0) = S0_; // Set initial price
 
-		std::vector<double> variates(N_);
-
+		//std::vector<double> variates(N_);
+		std::vector<double> variatesPoisson(N_);
 
 		//Variates will be filled with sqrt(dt)*Z, Z is standard normal
-		path_->GeneratePath(variates, rng);
+		//path_->GeneratePath(variates, rng);
+		std::generate(variatesPoisson.begin(), variatesPoisson.end(), [&]() {return rv::Poisson_jumps(lambdaJ_ * dt_); });
 		
 
 		for (int j = 0; j < N_; ++j)
 		{
-			double pj = rv::poisson_jumps(lambdaJ_*dt_);
-			double jump_ = uJ_ * pj + sigmaJ * std::sqrt(pj);
+			double jump_ = uJ_ * variatesPoisson[j] + sigmaJ * std::sqrt(variatesPoisson[j]) * rv::GetNormalVariate();
 
-			//std::cout << "Variates: " << variates[j] << std::endl;
-			paths(i, j + 1) = paths(i, j) * std::exp(nu_ * dt_ + sigma_ * sqrtdt * variates[j] + jump_);
+			paths(i, j + 1) = paths(i, j) * std::exp(nu_ * dt_ + sigma_ * sqrtdt * rv::GetNormalVariate() + jump_);
 
 		}
 

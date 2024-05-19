@@ -178,7 +178,9 @@
     <ClCompile Include="RandomBase.cpp" />
     <ClCompile Include="RandomMersenneTwister.cpp" />
     <ClCompile Include="rv.cpp" />
+    <ClCompile Include="SABR.cpp" />
     <ClCompile Include="StochasticTermStructure.cpp" />
+    <ClCompile Include="TestEuroCallOption.cpp" />
     <ClCompile Include="Valuation.cpp" />
     <ClCompile Include="ValuationBase.cpp" />
     <ClCompile Include="ValuationMethodBase.cpp" />
@@ -216,6 +218,7 @@
     <ClInclude Include="RandomBase.h" />
     <ClInclude Include="RandomMersenneTwister.h" />
     <ClInclude Include="rv.h" />
+    <ClInclude Include="SABRModel.h" />
     <ClInclude Include="StochasticTermStructure.h" />
     <ClInclude Include="TermStructureBase.h" />
     <ClInclude Include="Valuation.h" />

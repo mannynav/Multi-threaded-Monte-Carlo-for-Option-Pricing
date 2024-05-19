@@ -1,14 +1,9 @@
 #pragma once
 
 #include "ModelBase.h"
-#include "PseudoFactory.h"
-#include "RandomBase.h"
 
 #ifndef GBMMODEL_H
 #define GBMMODEL_H
-
-class PseudoFactory;
-class BrownianMotionPathBase;
 
 class GBMModel : public ModelBase 
 {

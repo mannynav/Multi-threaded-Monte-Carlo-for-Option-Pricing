@@ -5,8 +5,6 @@
 #include <memory>
 
 
-class Output;
-
 class OptionBase;
 class ModelBase;
 class TermStructureBase;
@@ -20,7 +18,7 @@ class Valuation : public ApplicationBase
 {
 public:
 	explicit Valuation(PseudoFactory& factory);
-	virtual ~Valuation();
+	~Valuation();
 	void run() override;
 
 private:

@@ -42,8 +42,7 @@ Eigen::MatrixXd VarianceGammaModel::simulate_paths(int start_idx, int end_idx, E
 
 		for (int j = 0; j < N_; ++j)
 		{
-			std::cout << "Variates: " << variates[j] << std::endl;
-
+	
 			double X_bar = theta_ * gamma_variates[j] + sigmaVg_ * std::sqrt(gamma_variates[j]) * variates[j];
 
 			paths(i, j + 1) = paths(i, j) * std::exp(mu_Vg_ * dt_ + X_bar);

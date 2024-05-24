@@ -158,6 +158,7 @@
     <ClCompile Include="DisplacedDiffusionModel.cpp" />
     <ClCompile Include="EuroCallOption.cpp" />
     <ClCompile Include="EuroUpInCallOption.cpp" />
+    <ClCompile Include="FixedLookBackCall.cpp" />
     <ClCompile Include="FlatTermStructure.cpp" />
     <ClCompile Include="FloatingLookBackCall.cpp" />
     <ClCompile Include="GBMModel.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="DisplacedDiffusionModel.h" />
     <ClInclude Include="EuroCallOption.h" />
     <ClInclude Include="EuroUpInCallOption.h" />
+    <ClInclude Include="FixedLookBackCall.h" />
     <ClInclude Include="FlatTermStructure.h" />
     <ClInclude Include="FloatingLookBackCall.h" />
     <ClInclude Include="GBMModel.h" />

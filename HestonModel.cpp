@@ -44,7 +44,7 @@ std::vector<double> HestonModel::generate_CIR_path(boost::mt19937& rng) const
 }
 
 
-Eigen::MatrixXd HestonModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const
+void HestonModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const
 {
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 	generator_->SeedGenerator(seed);
@@ -77,6 +77,4 @@ Eigen::MatrixXd HestonModel::simulate_paths(int start_idx, int end_idx, Eigen::M
 			std::cout << "Paths simulated: " << i + 1 << std::endl;
 		}
 	}
-
-	return paths;
 }

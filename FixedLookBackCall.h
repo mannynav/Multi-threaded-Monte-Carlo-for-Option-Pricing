@@ -7,19 +7,19 @@
 #include <map>
 
 
-#ifndef FLOATINGLOOKBACKCALLOPTION_H
-#define FLOATINGLOOKBACKCALLOPTION_H
+#ifndef FIXEDLOOKBACKCALLOPTION_H
+#define FIXEDLOOKBACKCALLOPTION_H
 
 class PseudoFactory;
 class GreekBase;
 
-class FloatingLookBackCallOption : public OptionBase
+class FixedLookBackCallOption : public OptionBase
 {
 public:
 
-	FloatingLookBackCallOption(double strike, double expiry) : strike_(strike), expiry_(expiry) {}
-	FloatingLookBackCallOption(PseudoFactory& factory);
-	~FloatingLookBackCallOption();
+	FixedLookBackCallOption(double strike, double expiry) : strike_(strike), expiry_(expiry) {}
+	FixedLookBackCallOption(PseudoFactory& factory);
+	~FixedLookBackCallOption();
 
 	double ComputePayoff(double final_price) const override;
 	Eigen::VectorXd ComputePayoffs(Eigen::MatrixXd& stock_prices) const override;

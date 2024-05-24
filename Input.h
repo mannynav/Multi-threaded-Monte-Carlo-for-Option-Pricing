@@ -39,13 +39,12 @@ public:
 	double GetSigmaJ() const { return sigmaJ_; }
 	double GetLambdaJ() const { return lambdaJ_; }
 
-	double GetADD() const{return aDD_;}
-
+	double GetADD() const{return aDD_;}						//Displaced Diffusion model parameters
 	double GetSigmaDD() const{return sigmaDD_;}
 
-	double GetBetaVG() const { return BetaVg_; }			//Variance Gamma model parameters
-	double GetThetaVG() const { return ThetaVG_; }
-	double GetSigmaVG() const { return SigmaVG_; }
+	double GetC_VG() const { return C_VG_; }			//Variance Gamma model parameters
+	double GetG_VG() const { return G_VG_; }
+	double GetM_VG() const { return M_VG_; }
 
 	double GetAlphaSABR() const { return alpha_; }			//SABR model parameters
 	double GetBetaSABR() const { return beta_; }
@@ -101,9 +100,9 @@ private:
 	double aDD_{};				//Displaced Diffusion parameters
 	double sigmaDD_{};
 
-	double BetaVg_{};			//Variance Gamma parameters
-	double ThetaVG_{};
-	double SigmaVG_{};
+	double C_VG_{};				//Variance Gamma parameters
+	double G_VG_{};
+	double M_VG_{};
 
 	double alpha_{};			//SABR parameters
 	double beta_{};
@@ -111,17 +110,17 @@ private:
 	double nu_{};
 
 	char P_type_;				// process type
-	char O_type_; // option type
-	char T_type_; // term structure type
+	char O_type_;				// option type
+	char T_type_;				// term structure type
 
 	char Brownian_Path_Type_;
 	double shift_for_drift_;
 
-	char acc_type_; // accumulator type
-	char meth_type_; // method type
-	char app_type_; // application type
-	char generator_type_; // random generator type
-	char greek_type_;  //type of greeks
+	char acc_type_;				// accumulator type
+	char meth_type_;			// method type
+	char app_type_;				// application type
+	char generator_type_;		// random generator type
+	char greek_type_;			//type of greeks
 };
 
 

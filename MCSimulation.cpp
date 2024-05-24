@@ -42,9 +42,12 @@ void MCSimulation::run(const OptionBase& option, const ModelBase& model, const T
 		th.join();
 	}
 
-	std::cout << stock_prices << std::endl;
+
+	//std::cout << stock_prices << std::endl;
 
 	Eigen::VectorXd payoffs = option.ComputePayoffs(stock_prices);
+
+	//std::cout << payoffs << std::endl;
 
 	gatherer_->accumulate(payoffs, model);
 

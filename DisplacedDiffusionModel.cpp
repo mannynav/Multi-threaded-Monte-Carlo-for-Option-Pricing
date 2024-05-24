@@ -15,7 +15,7 @@ DisplacedDiffusionModel::DisplacedDiffusionModel(PseudoFactory& factory) : S0_(f
 }
 
 
-Eigen::MatrixXd DisplacedDiffusionModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const
+void DisplacedDiffusionModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const
 {
 
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
@@ -46,7 +46,5 @@ Eigen::MatrixXd DisplacedDiffusionModel::simulate_paths(int start_idx, int end_i
 			std::cout << "Paths simulated: " << i + 1 << std::endl;
 		}
 	}
-
-	return paths;
 }
 

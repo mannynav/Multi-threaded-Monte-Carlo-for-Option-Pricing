@@ -153,6 +153,9 @@
     <ClCompile Include="TestEuroCallOption.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FixedLookBackCall.cpp">
+      <Filter>Source Files\Options</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ApplicationBase.h">
@@ -265,6 +268,9 @@
     </ClInclude>
     <ClInclude Include="SABRModel.h">
       <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="FixedLookBackCall.h">
+      <Filter>Header Files\Options</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

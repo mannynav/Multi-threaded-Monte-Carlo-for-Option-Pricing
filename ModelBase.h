@@ -21,7 +21,7 @@ class ModelBase
 {
 public:
     virtual ~ModelBase() {}
-    virtual Eigen::MatrixXd simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const  =0;
+    virtual void simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const  =0;
     virtual double Get_MT() const = 0;
 };
 

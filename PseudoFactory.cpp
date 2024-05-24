@@ -14,6 +14,8 @@
 #include "AsianCallOption.h"
 #include "EuroUpInCallOption.h"
 #include "FloatingLookBackCall.h"
+#include "FixedLookBackCall.h"
+
 
 #include "ModelBase.h"
 #include "GBMModel.h"
@@ -72,10 +74,12 @@ double PseudoFactory::GetLambda() const{ return input_->GetLambda();}
 double PseudoFactory::GetADD() const { return input_->GetADD(); }
 double PseudoFactory::GetSigmaDD() const { return input_->GetSigmaDD(); }
 
-double PseudoFactory::GetBetaVG() const {return input_->GetBetaVG(); }
-double PseudoFactory::GetSigmaVG() const { return input_->GetSigmaVG(); }
+double PseudoFactory::GetCVG() const {return input_->GetC_VG(); }
+double PseudoFactory::GetGVG() const { return input_->GetG_VG(); }
+double PseudoFactory::GetMVG() const { return input_->GetM_VG(); }
+
 double PseudoFactory::GetShift() const { return input_->GetShift(); }
-double PseudoFactory::GetThetaVG() const{ return input_->GetThetaVG(); }
+
 
 double PseudoFactory::GetAlphaSABR() const { return input_->GetAlphaSABR(); }
 double PseudoFactory::GetBetaSABR() const { return input_->GetBetaSABR(); }
@@ -105,7 +109,10 @@ std::unique_ptr<OptionBase> PseudoFactory::CreateOption()
 		return std::make_unique<AsianCallOption>(*this);
 	case '1':
 		return std::make_unique<EuroUpInCallOption>(*this);
-
+	case '2':
+		return std::make_unique<FloatingLookBackCallOption>(*this);
+	case '3':
+			return std::make_unique<FixedLookBackCallOption>(*this);
 	default:
 		throw std::invalid_argument("CreateOption: Bad character. Invalid option type");
 	}
@@ -150,7 +157,7 @@ std::unique_ptr<BrownianMotionPathBase> PseudoFactory::CreateBrownianMotionPath(
 	case 'a':
 		return std::make_unique<AntitheticPath>(*this);
 
-	default: throw std::runtime_error("PseudoFactory::CreateModel:  Bad character");
+	default: throw std::runtime_error("PseudoFactory::CreateModel: Bad character");
 	}
 }
 

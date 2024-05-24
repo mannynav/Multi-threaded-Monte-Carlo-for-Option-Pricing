@@ -13,7 +13,7 @@ MertonModel::MertonModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(fact
 }
 
 
-Eigen::MatrixXd MertonModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const
+void MertonModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const
 {
 
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
@@ -30,8 +30,6 @@ Eigen::MatrixXd MertonModel::simulate_paths(int start_idx, int end_idx, Eigen::M
 		//std::vector<double> variates(N_);
 		std::vector<double> variatesPoisson(N_);
 
-		//Variates will be filled with sqrt(dt)*Z, Z is standard normal
-		//path_->GeneratePath(variates, rng);
 		std::generate(variatesPoisson.begin(), variatesPoisson.end(), [&]() {return rv::Poisson_jumps(lambdaJ_ * dt_); });
 		
 
@@ -48,7 +46,5 @@ Eigen::MatrixXd MertonModel::simulate_paths(int start_idx, int end_idx, Eigen::M
 			std::cout << "Paths simulated: " << i + 1 << std::endl;
 		}
 	}
-
-	return paths;
 }
 

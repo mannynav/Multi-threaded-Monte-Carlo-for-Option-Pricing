@@ -13,7 +13,7 @@ class DisplacedDiffusionModel : public ModelBase
 public:
 	DisplacedDiffusionModel(PseudoFactory& factory);
 	~DisplacedDiffusionModel() = default;
-	Eigen::MatrixXd simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const override;
+	void simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const override;
 	double Get_MT() const override
 	{
 		return std::exp(r_ * T_);

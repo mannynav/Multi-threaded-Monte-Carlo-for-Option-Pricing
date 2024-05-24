@@ -12,14 +12,12 @@ GBMModel::GBMModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.Ge
 }
 
 
-Eigen::MatrixXd GBMModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const
+void GBMModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const
 {
 
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-	generator_->SeedGenerator(seed);
-	boost::mt19937 rng = generator_->GetGenerator();
-
-	
+	//unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	//generator_->SeedGenerator(seed);
+	//boost::mt19937 rng = generator_->GetGenerator();
 
 	double sqrtdt = std::sqrt(dt_);
 
@@ -30,9 +28,14 @@ Eigen::MatrixXd GBMModel::simulate_paths(int start_idx, int end_idx, Eigen::Matr
 
 		std::vector<double> variates(N_);
 
+		static std::mutex gen_mutex;
+
 		//Variates will be filled with sqrt(dt)*Z, Z is standard normal
 		//path_->GeneratePath(variates,rng);
-		std::generate(variates.begin(), variates.end(), [&]() {return rv::GetNormalVariate(); });
+		{
+			std::lock_guard<std::mutex> lock(gen_mutex);
+			std::generate(variates.begin(), variates.end(), [&]() {return rv::GetNormalVariate(); });
+		}
 
 		for (int j = 0; j < N_; ++j)
 		{
@@ -41,12 +44,10 @@ Eigen::MatrixXd GBMModel::simulate_paths(int start_idx, int end_idx, Eigen::Matr
 
 		}
 
-		if ((i + 1) % 100000 == 0)
+		if ((i + 1) % 200000 == 0)
 		{
 			std::cout << "Paths simulated: " << i + 1 << std::endl;
 		}
 	}
-
-	return paths;
 }
 

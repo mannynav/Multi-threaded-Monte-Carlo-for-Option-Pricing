@@ -81,9 +81,9 @@ public:
 	double GetADD() const;
 	double GetSigmaDD() const;
 
-	double GetBetaVG() const ;
-	double GetThetaVG() const;
-	double GetSigmaVG() const;
+	double GetCVG() const ;
+	double GetGVG() const;
+	double GetMVG() const;
 
 	double GetAlphaSABR() const;
 	double GetBetaSABR() const;

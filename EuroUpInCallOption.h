@@ -16,7 +16,9 @@ class EuroUpInCallOption : public OptionBase
 {
 public:
 
+	EuroUpInCallOption(double strike, double expiry, double barrier) : strike_(strike), expiry_(expiry), barrier_(barrier) {};
 	EuroUpInCallOption(PseudoFactory& factory);
+	~EuroUpInCallOption() = default;
 
 	double ComputePayoff(double final_price) const override;
 	Eigen::VectorXd ComputePayoffs(Eigen::MatrixXd& stock_prices) const override;
@@ -27,7 +29,7 @@ private:
 
 	double expiry_{};
 	double strike_{};
-	double barrier_{}; //Barrier
+	double barrier_{};
 
 };
 

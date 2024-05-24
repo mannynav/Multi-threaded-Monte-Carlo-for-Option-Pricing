@@ -7,8 +7,8 @@ MCSimulation::MCSimulation()
 }
 
 MCSimulation::MCSimulation(PseudoFactory& factory) : gatherer_(std::make_unique<MCGatherer>()),
-                                                     number_of_paths_(factory.GetM()),
-                                                     number_of_steps_(factory.GetN()),
+                                                     number_of_paths_(factory.GetNumberOfPaths()),
+                                                     number_of_steps_(factory.GetNumberTotalSteps()),
                                                      num_threads_(factory.GetNumThreads())
 {
 }

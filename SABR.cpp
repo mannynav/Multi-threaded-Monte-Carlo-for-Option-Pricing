@@ -3,15 +3,15 @@
 #include "rv.h"
 
 SABRModel::SABRModel(PseudoFactory& factory) : S0_(factory.GetS0()), 
-											   r_(factory.Getr()),
+											   r_(factory.GetRiskFreeRate()),
 											   alpha_(factory.GetAlphaSABR()),
 											   beta_(factory.GetBetaSABR()),
 											   rho_(factory.GetRhoSABR()),
 											   nu_(factory.GetNuSABR()),
-											   N_(factory.GetN()), 
-											   T_(factory.GetT()), 
-											   M_(factory.GetM()),
-	                                           dt_(factory.GetT() / factory.GetN()),
+											   N_(factory.GetNumberTotalSteps()), 
+											   T_(factory.GetExpiry()), 
+											   M_(factory.GetNumberOfPaths()),
+	                                           dt_(factory.GetExpiry() / factory.GetNumberTotalSteps()),
 											   sqrtdt_(std::sqrt(dt_)),
 											   generator_(factory.CreateRandomBase()),
 											   path_(factory.CreateBrownianMotionPath())

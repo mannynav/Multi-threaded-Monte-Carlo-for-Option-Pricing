@@ -208,7 +208,6 @@
     <ClInclude Include="HestonModel.h" />
     <ClInclude Include="ImportanceSampledPath.h" />
     <ClInclude Include="Input.h" />
-    <ClInclude Include="LikelihoodRatioGreeks.h" />
     <ClInclude Include="MCGatherer.h" />
     <ClInclude Include="MCSimulation.h" />
     <ClInclude Include="MertonModel.h" />

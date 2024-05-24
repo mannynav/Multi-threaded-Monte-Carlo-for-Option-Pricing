@@ -10,7 +10,7 @@ class GreekVega
 
 public:
 
-	explicit GreekVega(const PseudoFactory& factory) : S0_(factory.GetS0()), strike_(factory.GetX()), sigma_(factory.Getsig()), r_(factory.Getr()), T_(factory.GetT()) {}
+	explicit GreekVega(const PseudoFactory& factory) : S0_(factory.GetS0()), strike_(factory.GetStrike()), sigma_(factory.GetVolatility()), r_(factory.GetRiskFreeRate()), T_(factory.GetExpiry()) {}
 
 	double ComputeVegaPathwise(Eigen::MatrixXd& stock_prices) const
 	{

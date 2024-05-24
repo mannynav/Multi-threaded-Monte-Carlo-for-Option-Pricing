@@ -2,9 +2,9 @@
 #include "DisplacedDiffusionModel.h"
 #include "rv.h"
 
-DisplacedDiffusionModel::DisplacedDiffusionModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.Getr()), sigmaDD_(factory.GetSigmaDD()), N_(factory.GetN()), T_(factory.GetT()), M_(factory.GetM()),a_(factory.GetADD())
+DisplacedDiffusionModel::DisplacedDiffusionModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.GetRiskFreeRate()), sigmaDD_(factory.GetVolatilityDD()), N_(factory.GetNumberTotalSteps()), T_(factory.GetExpiry()), M_(factory.GetNumberOfPaths()),a_(factory.GetAdjustment())
 {
-	dt_ = factory.GetT() / factory.GetN();
+	dt_ = factory.GetExpiry() / factory.GetNumberTotalSteps();
 
 	double shift = factory.GetShift();
 

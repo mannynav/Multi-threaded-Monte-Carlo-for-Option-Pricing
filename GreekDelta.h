@@ -10,7 +10,7 @@ class GreekDelta
 
 public:
 
-	explicit GreekDelta(const PseudoFactory& factory) : S0_(factory.GetS0()), strike_(factory.GetX()) {}
+	explicit GreekDelta(const PseudoFactory& factory) : S0_(factory.GetS0()), strike_(factory.GetStrike()) {}
 
 	double ComputeDeltaPathwise(Eigen::MatrixXd& stock_prices) const
 	{

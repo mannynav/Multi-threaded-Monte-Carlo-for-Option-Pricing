@@ -1,9 +1,9 @@
 #include "GBMModel.h"
 #include "rv.h"
 
-GBMModel::GBMModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.Getr()), sigma_(factory.Getsig()), N_(factory.GetN()), T_(factory.GetT()), M_(factory.GetM())
+GBMModel::GBMModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.GetRiskFreeRate()), sigma_(factory.GetVolatility()), N_(factory.GetNumberTotalSteps()), T_(factory.GetExpiry()), M_(factory.GetNumberOfPaths())
 {
-	dt_ = factory.GetT() / factory.GetN();
+	dt_ = factory.GetExpiry() / factory.GetNumberTotalSteps();
 
 	drift_ = (r_ - 0.5 * sigma_ * sigma_) * dt_;
 

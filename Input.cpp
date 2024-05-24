@@ -7,71 +7,76 @@
 
 Input::Input()
 {
-    s0_ = 100;
-    r_ = 0.03;
-    sig_ = 0.30;
+    s0_ = 100;                             
+    risk_free_rate = 0.03;     
 
-    x_ = 100;
-    T_ = 1;
+    strike_ = 100;                          // Strike price
+    expiry_ = 1;                            // Time to expiry
 
-    v0_ = 0.02;
-    meanreversion_ = 0.5;
-    ltmean_ = 0.05;
-    volvol_ = 0.3;
+    volatility_ = 0.30;                     // Geometric Brownian Motion parameter
+
+    v0_ = 0.02;                             // Heston model parameters
+    mean_reversion_ = 0.5;
+    long_term_mean_ = 0.05;
+    volatility_of_volatility_ = 0.3;
     correlation_ = -0.9;
 
-    corrXR_ = 0.5;
-    corrXV_ = -0.8;
+    correlation_XR_ = 0.5;                  // Correlations for Heston Hull-White
+    correlationXV_ = -0.8;
 
-    lambda_ = 1.12;
-    eta_ = 0.01;
+    mean_reversion_hw_ = 1.12;                         // Hull-White parameters
+    volatility_hw_ = 0.01;
 
-    PsiC = 1.5;
+    PsiC = 1.5;					            //Switching parameter for Heston QE scheme
 
-    uJ_ = 0.1;
-    sigmaJ_ = 0.2;
-    lambdaJ_ = 1.7913;
+    jump_mean_ = 0.1;			            // Merton parameters
+    jump_vol_ = 0.2;
+    jump_intensity = 1.7913;
 
-    aDD_ = 5;
-    sigmaDD_ = 0.2;
+    adjustment_ = 5;			            // Displaced Diffusion parameters 
+    volatility_dd_ = 0.2;
 
-    C_VG_ = 18.0968;
-    G_VG_ = 20.0276;
-    M_VG_ = 26.3971;
+    C_ = 18.0968;                           // Variance Gamma parameters using CGM representation
+    G_ = 20.0276;
+    M_ = 26.3971;
 
-	alpha_ = 0.2;
+	alpha_ = 0.2;				            // SABR parameters
 	beta_ = 0.5;
     rho_ = 0.0;
 	nu_ = 0.3;
 
-    M_ = 1500000;
-    N_ = 100;
-    num_threads_ = 3;
+    number_of_paths_ = 20;                  // Monte Carlo parameters
+    total_number_steps_ = 100;
+    number_threads_ = 1;
     seed_ = 1;
 
-    std::cout << AnalyticalFormulas::Black_Scholes_Call(s0_, x_, T_, r_, sig_) << std::endl;
+    std::cout << AnalyticalFormulas::Black_Scholes_Call(s0_, strike_, expiry_, risk_free_rate, volatility_) << std::endl;
 
-    O_type_ = 'c';   	                    // c for call,  a for asian call, 1 for up-in call option, 2 for floating lookback call, 3 fixed lookback call
+    option_type_ = 'c';   	                // c - for call,
+                                            // a - for asian call, 
+                                            // 1 - up-in call option, 
+                                            // 2 - floating lookback call, 
+                                            // 3 - fixed lookback call
 
-	P_type_ = 'g';   	                    // g for gbm, 
-                                            //h for heston sv, H for heston hull-white, 
-                                            //v for variance gamma, m for merton model with fixed grid sampling, 
-                                            //d for displaced diffusion, s for SABR model
+	model_type_ = 'g';   	                // g for gbm, 
+                                            // h for heston sv, H for heston hull-white, 
+                                            // v for variance gamma, m for merton model with fixed grid sampling, 
+                                            // d for displaced diffusion, s for SABR model
 
-    Brownian_Path_Type_ = 'p';               //p for plain brownian (All models), a for antithetic paths (GBM model), i for importance sampled path
+    brownian_path_type_ = 'p';               //p for plain brownian (All models), a for antithetic paths (GBM model)
     shift_for_drift_ = 0.0;                  //ONLY FOR IMPORTANCE SAMPLING
 
 
-	T_type_ = 'f';   	                    // f for flat term structure, s for stochastic term structure
+	term_structure_type_ = 'f';   	         // f for flat term structure, s for stochastic term structure
 
-    meth_type_ = 'm';  	                    // p for plain MC
+    pricing_method_type_ = 'm';  	         // p for plain MC
 
-    app_type_ = 'v';   	                    // v for valuation application
+    application_type_ = 'v';   	             // v for valuation application
 			
-    acc_type_ = 'p'; 	                    // p for plain accumulator
+    accumulator_type_ = 'p'; 	             // p for plain accumulator
 
-    generator_type_ = 'm';                  // m for mersenne twister
+    random_generator_type_ = 'm';            // m for mersenne twister
 
-    greek_type_ = 'p';                      // p for pathwise, l for likelihood ratio.
+    greek_type_ = 'p';                       // p for pathwise, l for likelihood ratio.
 
 }

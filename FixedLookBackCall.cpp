@@ -1,16 +1,9 @@
 #include "FixedLookBackCall.h"
 
 FixedLookBackCallOption::FixedLookBackCallOption(PseudoFactory& factory) : 
-																		strike_(factory.GetX()),
-																		expiry_(factory.GetT()),
-																		Greeks(factory.CreateGreek())
-{
-}
-
-FixedLookBackCallOption::~FixedLookBackCallOption() {
-	
-	delete Greeks;
-}
+																		strike_(factory.GetStrike()),
+																		expiry_(factory.GetExpiry())
+																		{}
 
 double FixedLookBackCallOption::ComputePayoff(double final_price) const
 {
@@ -31,7 +24,8 @@ Eigen::VectorXd FixedLookBackCallOption::ComputePayoffs(Eigen::MatrixXd& stock_p
 
 std::map<std::string, double> FixedLookBackCallOption::ComputeGreeks(Eigen::MatrixXd& stock_prices, const ModelBase& model) const
 {
-	return std::map<std::string, double>();
+	std::map<std::string, double> greek_map{};
+	return greek_map;
 }
 
 

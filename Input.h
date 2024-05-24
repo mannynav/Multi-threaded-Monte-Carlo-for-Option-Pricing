@@ -1,127 +1,126 @@
 #pragma once
 
-#ifndef InputH
-#define InputH
+#ifndef INPUTH
+#define INPUTH
 
 
 class Input
 {
 public:
+
 	Input();
 
 	double GetS0() const { return s0_; }
-	double Getr() const { return r_; }
-	double Getsig() const { return sig_; }
+	double GetRiskFreeRate() const { return risk_free_rate; }
+	double GetVolatility() const { return volatility_; }
 
-	double GetX() const { return x_; }
-	double GetT() const { return T_; }
+	double GetStrike() const { return strike_; }
+	double GetExpiry() const { return expiry_; }
 
-	long GetM() const { return M_; }
-	long GetN() const { return N_; }
-	long GetNumThreads() const { return num_threads_; }
-
+	long GetNumberOfPaths() const { return number_of_paths_; }
+	long GetTotalNumberOfSteps() const { return total_number_steps_; }
+	long GetNumThreads() const { return number_threads_; }
 
 	double GetV0() const { return v0_; }
-	double GetMeanReversion() const { return meanreversion_; }
-	double GetLtMean() const { return ltmean_; }
-	double GetVolVol() const { return volvol_; }
+	double GetMeanReversion() const { return mean_reversion_; }
+	double GetLongTermMean() const { return long_term_mean_; }
+	double GetVolVol() const { return volatility_of_volatility_; }
 	double GetCorrelation() const { return correlation_; }
 	double GetPsiC() const { return PsiC; }
 
-	double GetCorrXV() const { return corrXV_; }
-	double GetCorrXR() const { return corrXR_; }
+	double GetCorrelationXV() const { return correlationXV_; }
+	double GetCorrelationXR() const { return correlation_XR_; }
 
 
-	double GetEta() const { return eta_; }
-	double GetLambda() const { return lambda_; }
+	double GetVolatilityHW() const { return volatility_hw_; }
+	double GetMeanReversionHW() const { return mean_reversion_hw_; }
 
-	double GetUJ() const { return uJ_;}						//Merton Model Parameters
-	double GetSigmaJ() const { return sigmaJ_; }
-	double GetLambdaJ() const { return lambdaJ_; }
+	double GetJumpMean() const { return jump_mean_;}						
+	double GetJumpVol() const { return jump_vol_; }
+	double GetJumpIntensity() const { return jump_intensity; }
 
-	double GetADD() const{return aDD_;}						//Displaced Diffusion model parameters
-	double GetSigmaDD() const{return sigmaDD_;}
+	double GetAdjustment() const{return adjustment_;}						
+	double GetVolatilityDD() const{return volatility_dd_;}
 
-	double GetC_VG() const { return C_VG_; }			//Variance Gamma model parameters
-	double GetG_VG() const { return G_VG_; }
-	double GetM_VG() const { return M_VG_; }
+	double GetC() const { return C_; }							
+	double GetG() const { return G_; }	
+	double GetM() const { return M_; }
 
-	double GetAlphaSABR() const { return alpha_; }			//SABR model parameters
+	double GetAlphaSABR() const { return alpha_; }							
 	double GetBetaSABR() const { return beta_; }
 	double GetRhoSABR() const { return rho_; }
 	double GetNuSABR() const { return nu_; }
 
-	char GetPtype() const { return P_type_; }
-	char GetOptionType() const { return O_type_; }
-	char GetMethodType() const { return meth_type_; }
-	char GetTermStructureType() const { return T_type_; }
-	char GetApplicationType() const { return app_type_; }
+	char GetModelType() const { return model_type_; }
+	char GetOptionType() const { return option_type_; }
+	char GetMethodType() const { return pricing_method_type_; }
+	char GetTermStructureType() const { return term_structure_type_; }
+	char GetApplicationType() const { return application_type_; }
 
-	char GetBrownianMotionPathType() const { return Brownian_Path_Type_; }
+	char GetBrownianMotionPathType() const { return brownian_path_type_; }
 	double GetShift() const { return shift_for_drift_; }
 	
-
 	double GetSeed() const { return seed_; }
-	char GetRandomGeneratorType() const {return generator_type_; }
+	char GetRandomGeneratorType() const {return random_generator_type_; }
 
 	char GetGreekType() const { return greek_type_; }
 
 	
 
 private:
-	double s0_;
-	double r_;
-	double sig_;
+	double s0_{};
+	double risk_free_rate{};
+	double volatility_{};
 
-	double x_;
-	double T_;
+	double strike_{};
+	double expiry_{};
 
-	long M_; 
-	long N_; 
-	long num_threads_;
-	double seed_;
+	long number_of_paths_{};
+	long total_number_steps_{};
+	long number_threads_{};
+	double seed_{};
 
-	double v0_;					//Heston and Heston Hull-White model parameters
-	double meanreversion_;
-	double ltmean_;
-	double volvol_;
-	double correlation_;
-	double corrXV_;
-	double corrXR_;
-	double PsiC;
+	double v0_{};							//Heston and Heston Hull-White model parameters
+	double mean_reversion_{};
+	double long_term_mean_{};
+	double volatility_of_volatility_{};
+	double correlation_{};
+	double correlationXV_{};
+	double correlation_XR_{};
+	double PsiC{};
 
-	double eta_;				//Hull White parameters
-	double lambda_;
+	double volatility_hw_{};				//Hull White parameters
+	double mean_reversion_hw_{};
 
-	double uJ_{};				//Merton parameters	
-	double sigmaJ_{};
-	double lambdaJ_{};
+	double jump_mean_{};					//Merton parameters	
+	double jump_vol_{};
+	double jump_intensity{};
 
-	double aDD_{};				//Displaced Diffusion parameters
-	double sigmaDD_{};
+	double adjustment_{};					//Displaced Diffusion parameters
+	double volatility_dd_{};
 
-	double C_VG_{};				//Variance Gamma parameters
-	double G_VG_{};
-	double M_VG_{};
+	double C_{};							//Variance Gamma parameters
+	double G_{};
+	double M_{};
 
-	double alpha_{};			//SABR parameters
+	double alpha_{};						//SABR parameters
 	double beta_{};
 	double rho_{};
 	double nu_{};
 
-	char P_type_;				// process type
-	char O_type_;				// option type
-	char T_type_;				// term structure type
+	char model_type_;						// process type
+	char option_type_;						// option type
+	char term_structure_type_;				// term structure type
 
-	char Brownian_Path_Type_;
+	char brownian_path_type_;				// brownian path type
 	double shift_for_drift_;
 
-	char acc_type_;				// accumulator type
-	char meth_type_;			// method type
-	char app_type_;				// application type
-	char generator_type_;		// random generator type
-	char greek_type_;			//type of greeks
+	char accumulator_type_;					// accumulator type
+	char pricing_method_type_;				// method type
+	char application_type_;					// application type
+	char random_generator_type_;			// random generator type
+	char greek_type_;						//type of greeks
 };
 
 
-#endif
+# endif

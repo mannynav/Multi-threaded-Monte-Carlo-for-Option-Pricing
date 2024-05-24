@@ -2,15 +2,9 @@
 #include "FloatingLookBackCall.h"
 
 FloatingLookBackCallOption::FloatingLookBackCallOption(PseudoFactory& factory) :
-	strike_(factory.GetX()),
-	expiry_(factory.GetT()),
-	Greeks(factory.CreateGreek())
+	strike_(factory.GetStrike()),
+	expiry_(factory.GetExpiry())
 {
-}
-
-FloatingLookBackCallOption::~FloatingLookBackCallOption() {
-
-	delete Greeks;
 }
 
 double FloatingLookBackCallOption::ComputePayoff(double final_price) const
@@ -31,5 +25,6 @@ Eigen::VectorXd FloatingLookBackCallOption::ComputePayoffs(Eigen::MatrixXd& stoc
 
 std::map<std::string, double> FloatingLookBackCallOption::ComputeGreeks(Eigen::MatrixXd& stock_prices, const ModelBase& model) const
 {
-	return std::map<std::string, double>();
+	std::map<std::string, double> greek_map{};
+	return greek_map;
 }

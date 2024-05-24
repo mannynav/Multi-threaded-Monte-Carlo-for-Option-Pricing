@@ -17,18 +17,7 @@ public:
 
 	virtual void accumulate(const Eigen::VectorXd& payoffs, const ModelBase& model)
 	{
-		
-		//std::vector<double> RN = model.get_likelihood_ratio();
-
-		//Eigen::VectorXd newPayoffs = Eigen::VectorXd(payoffs.size());
-		//for (int i = 0; i < payoffs.size(); i++)
-		//{
-		//	newPayoffs[i] = payoffs[i] * RN[i];
-		//}
-		//
-
-		////payoffs for IS
-		//double mean_payoff = newPayoffs.mean();
+	
 
 		mean_payoff_ = payoffs.mean();
 

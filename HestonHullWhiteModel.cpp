@@ -9,10 +9,10 @@ HestonHullWhiteModel::HestonHullWhiteModel(PseudoFactory& factory) : S0_(factory
                                                                      corrXV_(factory.GetCorrXV()),
                                                                      volvol_(factory.GetVolVol()),
                                                                      meanreversion_(factory.GetMeanReversion()),
-                                                                     ltmean_(factory.GetLtMean()),
-                                                                     PsiC_(factory.GetPsiC()), eta_(factory.GetEta()),
-                                                                     lambda_(factory.GetLambda()), N_(factory.GetN()),
-                                                                     T_(factory.GetT()),
+                                                                     ltmean_(factory.GetLongTermMean()),
+                                                                     PsiC_(factory.GetPsiC()), eta_(factory.GetVolatilityHW()),
+                                                                     lambda_(factory.GetMeanReversionHW()), N_(factory.GetNumberTotalSteps()),
+                                                                     T_(factory.GetExpiry()),
                                                                      generator_(factory.CreateRandomBase())
 {
 	cir_path_.resize(N_ + 1);

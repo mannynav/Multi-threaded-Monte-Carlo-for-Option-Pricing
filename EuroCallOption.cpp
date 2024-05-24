@@ -4,14 +4,9 @@
 #include "PseudoFactory.h"
 
 EuroCallOption::EuroCallOption(PseudoFactory& factory) : 
-														strike_(factory.GetX()), 
-														expiry_(factory.GetT()),
-														Greeks(factory.CreateGreek())
+														strike_(factory.GetStrike()), 
+														expiry_(factory.GetExpiry())
 {}
-
-EuroCallOption::~EuroCallOption() {
-	delete Greeks;
-}
 
 double EuroCallOption::ComputePayoff(double final_price) const
 {
@@ -34,7 +29,8 @@ std::map<std::string, double> EuroCallOption::ComputeGreeks(Eigen::MatrixXd& sto
 {
 	std::cout << "Inside option greeks" << std::endl;
 
-	std::map<std::string, double> greek_map = Greeks->ComputeGreeks(stock_prices, model);
+	//std::map<std::string, double> greek_map = Greeks->ComputeGreeks(stock_prices, model);
+	std::map<std::string, double> greek_map{};
 
 	return greek_map;
 }

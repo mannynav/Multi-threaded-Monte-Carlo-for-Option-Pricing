@@ -3,7 +3,7 @@
 #include "EuroUpInCallOption.h"
 
 
-EuroUpInCallOption::EuroUpInCallOption(PseudoFactory& factory) : expiry_(factory.GetT()), strike_(factory.GetX()), barrier_(110)
+EuroUpInCallOption::EuroUpInCallOption(PseudoFactory& factory) : expiry_(factory.GetExpiry()), strike_(factory.GetStrike()), barrier_(110)
 {
 }
 
@@ -36,8 +36,6 @@ Eigen::VectorXd EuroUpInCallOption::ComputePayoffs(Eigen::MatrixXd& stock_prices
 
 std::map<std::string, double> EuroUpInCallOption::ComputeGreeks(Eigen::MatrixXd& stock_prices, const ModelBase& model) const
 {
-
-    //throw std::runtime_error("EuroUpInCallOption::ComputeGreeks: Not implemented for this option");
-
-	return std::map<std::string, double>();
+    std::map<std::string, double> greek_map{};
+	return greek_map;
 }

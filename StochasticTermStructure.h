@@ -26,6 +26,6 @@ private:
 
 inline StochasticTermStructure::StochasticTermStructure(const PseudoFactory& factory)
 {
-	T_ = factory.GetT();
-	r_ = factory.Getr();
+	T_ = factory.GetExpiry();
+	r_ = factory.GetRiskFreeRate();
 }

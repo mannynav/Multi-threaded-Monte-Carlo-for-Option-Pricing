@@ -1,8 +1,8 @@
 #include "PathwiseGreeks.h"
 
-PathwiseGreeks::PathwiseGreeks(const PseudoFactory& factory) : S0_(factory.GetS0()), X_(factory.GetX()),
-                                                               T_(factory.GetT()),
-                                                               r_(factory.Getr()), sigma_(factory.Getsig())
+PathwiseGreeks::PathwiseGreeks(const PseudoFactory& factory) : S0_(factory.GetS0()), X_(factory.GetStrike()),
+                                                               T_(factory.GetExpiry()),
+                                                               r_(factory.GetRiskFreeRate()), sigma_(factory.GetVolatility())
 
 {
 }

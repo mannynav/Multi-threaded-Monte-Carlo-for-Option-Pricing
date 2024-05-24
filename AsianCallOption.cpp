@@ -2,7 +2,7 @@
 #include "PseudoFactory.h"
 #include "AsianCallOption.h"
 
-AsianCallOption::AsianCallOption(PseudoFactory& factory) : strike_(factory.GetX()), expiry_(factory.GetT())
+AsianCallOption::AsianCallOption(PseudoFactory& factory) : strike_(factory.GetStrike()), expiry_(factory.GetExpiry())
 {
 }
 
@@ -25,5 +25,6 @@ Eigen::VectorXd AsianCallOption::ComputePayoffs(Eigen::MatrixXd& stock_prices) c
 
 std::map<std::string, double> AsianCallOption::ComputeGreeks(Eigen::MatrixXd& stock_prices, const ModelBase& model) const
 {
-	return {};
+	std::map<std::string, double> greek_map{};
+	return greek_map;
 }

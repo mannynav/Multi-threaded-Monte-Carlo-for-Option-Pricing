@@ -2,12 +2,12 @@
 #include "rv.h"
 
 VarianceGammaModel::VarianceGammaModel(PseudoFactory& factory) : s0_(factory.GetS0()),
-                                                                 r_(factory.Getr()),
+                                                                 r_(factory.GetRiskFreeRate()),
                                                                  C_(factory.GetCVG()),
                                                                  G_(factory.GetGVG()),
                                                                  M_(factory.GetMVG()), 
-																 N_(factory.GetN()),
-                                                                 T_(factory.GetT())
+																 N_(factory.GetNumberTotalSteps()),
+                                                                 T_(factory.GetExpiry())
 {
 	//convert CGM parameters to normal representation
 	nu_ = 1 / C_;
@@ -17,7 +17,7 @@ VarianceGammaModel::VarianceGammaModel(PseudoFactory& factory) : s0_(factory.Get
 	omega_ = (1 / nu_) * std::log(1 - theta_ * nu_ - nu_ * sigma_ * sigma_ / 2);
 	mu_ = omega_ + r_;
 
-	dt_ = factory.GetT() / factory.GetN();
+	dt_ = factory.GetExpiry() / factory.GetNumberTotalSteps();
 	generator_ = factory.CreateRandomBase();
 	path_ = factory.CreateBrownianMotionPath();
 	

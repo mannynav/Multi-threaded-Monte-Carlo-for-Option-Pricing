@@ -1,6 +1,6 @@
 #include "AntitheticPath.h"
 
-AntitheticPath::AntitheticPath(const PseudoFactory& factory) : T_(factory.GetT()), N_(factory.GetN()), dt_(T_ / N_), even_(true)
+AntitheticPath::AntitheticPath(const PseudoFactory& factory) : T_(factory.GetExpiry()), N_(factory.GetNumberTotalSteps()), dt_(T_ / N_), even_(true)
 {
 	drift_ = 0.0;
 	sigma_ = 0.0;

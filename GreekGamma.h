@@ -12,7 +12,7 @@ class GreekGamma
 {
 public:
 
-	explicit GreekGamma(const PseudoFactory& factory) : S0_(factory.GetS0()), strike_(factory.GetX()), sigma_(factory.Getsig()), r_(factory.Getr()), T_(factory.GetT()) {}
+	explicit GreekGamma(const PseudoFactory& factory) : S0_(factory.GetS0()), strike_(factory.GetStrike()), sigma_(factory.GetVolatility()), r_(factory.GetRiskFreeRate()), T_(factory.GetExpiry()) {}
 
 	double ComputeGammaLRPW(Eigen::MatrixXd& stock_prices) const
 	{

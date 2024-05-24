@@ -3,16 +3,16 @@
 #include "rv.h"
 #include <boost/random.hpp>
 
-HestonModel::HestonModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.Getr()), sigma_(factory.Getsig()),
+HestonModel::HestonModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.GetRiskFreeRate()), sigma_(factory.GetVolatility()),
                                                    V_0_(factory.GetV0()), corr_(factory.GetCorrelation()),
                                                    volvol_(factory.GetVolVol()),
                                                    meanreversion_(factory.GetMeanReversion()),
-                                                   ltmean_(factory.GetLtMean()), PsiC_(factory.GetPsiC()),
-                                                   N_(factory.GetN()), T_(factory.GetT())
+                                                   ltmean_(factory.GetLongTermMean()), PsiC_(factory.GetPsiC()),
+                                                   N_(factory.GetNumberTotalSteps()), T_(factory.GetExpiry())
 {
 	cir_path_.resize(N_ + 1);
 
-	dt_ = factory.GetT() / factory.GetN();
+	dt_ = factory.GetExpiry() / factory.GetNumberTotalSteps();
 	expression_ = std::exp(-meanreversion_ * dt_);
 	sqrt_expression_ = std::exp(1 - corr_ * corr_) * dt_;
 

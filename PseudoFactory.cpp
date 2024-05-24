@@ -1,4 +1,5 @@
 #include "PseudoFactory.h"
+#include <stdexcept>
 
 #include "Input.h"
 
@@ -8,14 +9,12 @@
 #include "ValuationMethodBase.h"
 #include "MCSimulation.h"
 
-
 #include "OptionBase.h"
 #include "EuroCallOption.h"
 #include "AsianCallOption.h"
 #include "EuroUpInCallOption.h"
 #include "FloatingLookBackCall.h"
 #include "FixedLookBackCall.h"
-
 
 #include "ModelBase.h"
 #include "GBMModel.h"
@@ -30,76 +29,69 @@
 #include "FlatTermStructure.h"
 #include "StochasticTermStructure.h"
 
-#include "RandomBase.h"
-
 #include "GreekBase.h"
 #include "PathwiseGreeks.h"
-//#include "LikelihoodRatioGreeks.h"
-
-#include <stdexcept>
-
 
 #include "AntitheticPath.h"
 #include "PlainBrownianPath.h"
 #include "ImportanceSampledPath.h"
 
+#include "RandomBase.h"
 #include "RandomMersenneTwister.h"
 
 
 double PseudoFactory::GetS0() const { return input_->GetS0(); }
-double PseudoFactory::Getr() const { return input_->Getr(); }
-double PseudoFactory::Getsig() const { return input_->Getsig(); }
+double PseudoFactory::GetRiskFreeRate() const { return input_->GetRiskFreeRate(); }
+double PseudoFactory::GetVolatility() const { return input_->GetVolatility(); }
 
-double PseudoFactory::GetX() const { return input_->GetX(); }
-double PseudoFactory::GetT() const { return input_->GetT(); }
+double PseudoFactory::GetStrike() const { return input_->GetStrike(); }
+double PseudoFactory::GetExpiry() const { return input_->GetExpiry(); }
 
-long PseudoFactory::GetM() const { return input_->GetM(); }
-long PseudoFactory::GetN() const { return input_->GetN(); }
+long PseudoFactory::GetNumberOfPaths() const { return input_->GetNumberOfPaths(); }
+long PseudoFactory::GetNumberTotalSteps() const { return input_->GetTotalNumberOfSteps(); }
 long PseudoFactory::GetNumThreads() const { return input_->GetNumThreads(); }
 double PseudoFactory::GetSeed() const {return input_->GetSeed();}
 
 double PseudoFactory::GetV0() const { return input_->GetV0(); }
 double PseudoFactory::GetMeanReversion() const { return input_->GetMeanReversion(); }
-double PseudoFactory::GetLtMean() const { return input_->GetLtMean(); }
+double PseudoFactory::GetLongTermMean() const { return input_->GetLongTermMean(); }
 double PseudoFactory::GetVolVol() const { return input_->GetVolVol(); } 
 double PseudoFactory::GetCorrelation() const { return input_->GetCorrelation(); }
 double PseudoFactory::GetPsiC() const { return input_->GetPsiC(); }
 
-double PseudoFactory::GetCorrXR() const { return input_->GetCorrXR(); }
-double PseudoFactory::GetCorrXV() const { return input_->GetCorrXV(); }
+double PseudoFactory::GetCorrXR() const { return input_->GetCorrelationXR(); }
+double PseudoFactory::GetCorrXV() const { return input_->GetCorrelationXV(); }
 
-double PseudoFactory::GetEta() const { return input_->GetEta(); }
-double PseudoFactory::GetLambda() const{ return input_->GetLambda();}
+double PseudoFactory::GetVolatilityHW() const { return input_->GetVolatilityHW(); }
+double PseudoFactory::GetMeanReversionHW() const{ return input_->GetMeanReversionHW();}
 
-double PseudoFactory::GetADD() const { return input_->GetADD(); }
-double PseudoFactory::GetSigmaDD() const { return input_->GetSigmaDD(); }
+double PseudoFactory::GetAdjustment() const { return input_->GetAdjustment(); }
+double PseudoFactory::GetVolatilityDD() const { return input_->GetVolatilityDD(); }
 
-double PseudoFactory::GetCVG() const {return input_->GetC_VG(); }
-double PseudoFactory::GetGVG() const { return input_->GetG_VG(); }
-double PseudoFactory::GetMVG() const { return input_->GetM_VG(); }
+double PseudoFactory::GetCVG() const {return input_->GetC(); }
+double PseudoFactory::GetGVG() const { return input_->GetG(); }
+double PseudoFactory::GetMVG() const { return input_->GetNumberOfPaths(); }
 
 double PseudoFactory::GetShift() const { return input_->GetShift(); }
-
 
 double PseudoFactory::GetAlphaSABR() const { return input_->GetAlphaSABR(); }
 double PseudoFactory::GetBetaSABR() const { return input_->GetBetaSABR(); }
 double PseudoFactory::GetRhoSABR() const { return input_->GetRhoSABR(); }
 double PseudoFactory::GetNuSABR() const { return input_->GetNuSABR(); }
 
-double PseudoFactory::GetUJ() const { return input_->GetUJ(); }
-double PseudoFactory::GetSigmaJ() const { return input_->GetSigmaJ(); }
-double PseudoFactory::GetLambdaJ() const { return input_->GetLambdaJ(); }
+double PseudoFactory::GetJumpMean() const { return input_->GetJumpMean(); }
+double PseudoFactory::GetJumpVol() const { return input_->GetJumpVol(); }
+double PseudoFactory::GetJumpIntensity() const { return input_->GetJumpIntensity(); }
 
 
-char PseudoFactory::GetPType() const { return input_->GetPtype(); }
-char PseudoFactory::GetOptionType() const { return input_->GetOptionType(); }
+char PseudoFactory::GetMType() const { return input_->GetModelType(); }
+char PseudoFactory::GetOType() const { return input_->GetOptionType(); }
 char PseudoFactory::GetGreekType() const{return input_->GetGreekType(); }
 
 
 std::unique_ptr<OptionBase> PseudoFactory::CreateOption()
 {
-	char option_type = GetOptionType();
-	std::cout << "Creating option" << '\n';
+	char option_type = input_->GetOptionType();
 
 	switch (option_type)
 	{
@@ -120,8 +112,7 @@ std::unique_ptr<OptionBase> PseudoFactory::CreateOption()
 
 std::unique_ptr<ModelBase> PseudoFactory::CreateModel()
 {
-	char p_type = input_->GetPtype();
-	std::cout << "Creating model" << '\n';
+	char p_type = input_->GetModelType();
 
 	switch (p_type)
 	{
@@ -148,8 +139,6 @@ std::unique_ptr<BrownianMotionPathBase> PseudoFactory::CreateBrownianMotionPath(
 {
 	char type = input_->GetBrownianMotionPathType();
 
-	std::cout << "Creating Brownian Path Object" << std::endl;
-
 	switch(type)
 	{
 	case 'p':
@@ -164,7 +153,6 @@ std::unique_ptr<BrownianMotionPathBase> PseudoFactory::CreateBrownianMotionPath(
 std::unique_ptr<TermStructureBase> PseudoFactory::CreateTermStructure()
 {
 	char ts_type = input_->GetTermStructureType();
-	std::cout << "Creating term structure" << '\n';
 
 	switch (ts_type)
 	{
@@ -181,7 +169,6 @@ std::unique_ptr<TermStructureBase> PseudoFactory::CreateTermStructure()
 std::unique_ptr<ValuationMethodBase> PseudoFactory::CreateValuationMethod()
 {
 	char meth_type = input_->GetMethodType();
-	std::cout << "Creating valuation method which is MC" << '\n';
 
 	switch (meth_type)
 	{
@@ -194,7 +181,6 @@ std::unique_ptr<ValuationMethodBase> PseudoFactory::CreateValuationMethod()
 std::unique_ptr<ApplicationBase> PseudoFactory::CreateApplication()
 {
 	char app_type = input_->GetApplicationType();
-	std::cout << "Creating application" << '\n';
 
 	switch (app_type)
 	{
@@ -208,7 +194,6 @@ std::unique_ptr<ApplicationBase> PseudoFactory::CreateApplication()
 std::unique_ptr<RandomBase> PseudoFactory::CreateRandomBase()
 {
 	char gen_type = input_->GetRandomGeneratorType();
-	std::cout << "Creating random" << '\n';
 
 	switch(gen_type)
 	{
@@ -219,14 +204,15 @@ std::unique_ptr<RandomBase> PseudoFactory::CreateRandomBase()
 	}
 }
 
-GreekBase* PseudoFactory::CreateGreek()
+std::unique_ptr<GreekBase> PseudoFactory::CreateGreek()
 {
 	char greek_type = input_->GetGreekType();
 
 	switch(greek_type)
 	{
 	case 'p':
-		return new PathwiseGreeks(*this);
+		return std::make_unique<PathwiseGreeks>(*this);
+		//return new PathwiseGreeks(*this);
 
 	default: throw std::runtime_error("PseudoFactory::CreateGreek:  Bad character");
 	}

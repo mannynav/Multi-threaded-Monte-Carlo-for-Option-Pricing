@@ -41,26 +41,27 @@ public:
 
 	std::unique_ptr<RandomBase> CreateRandomBase();
 
-	GreekBase* CreateGreek();
+	std::unique_ptr<GreekBase> CreateGreek();
+	//GreekBase* CreateGreek();
 
 	void SetInput(Input* inp){input_ = inp;}
 
 
 	double GetS0() const;
-	double Getr() const;
-	double Getsig() const;
+	double GetRiskFreeRate() const;
+	double GetVolatility() const;
 
-	double GetX() const;
-	double GetT() const;
+	double GetStrike() const;
+	double GetExpiry() const;
 
-	long GetM() const;
-	long GetN() const;
+	long GetNumberOfPaths() const;
+	long GetNumberTotalSteps() const;
 	long GetNumThreads() const;
 	double GetSeed() const;
 
 	double GetV0() const;
 	double GetMeanReversion() const;
-	double GetLtMean() const;
+	double GetLongTermMean() const;
 	double GetVolVol() const;
 	double GetCorrelation() const;
 	double GetPsiC() const;
@@ -68,18 +69,18 @@ public:
 	double GetCorrXR() const;
 	double GetCorrXV() const;
 
-	double GetEta() const;
-	double GetLambda() const;
+	double GetVolatilityHW() const;
+	double GetMeanReversionHW() const;
 
-	char GetPType() const;
-	char GetOptionType() const;
+	char GetMType() const;
+	char GetOType() const;
 
-	double GetUJ() const;
-	double GetSigmaJ() const;
-	double GetLambdaJ() const;
+	double GetJumpMean() const;
+	double GetJumpVol() const;
+	double GetJumpIntensity() const;
 
-	double GetADD() const;
-	double GetSigmaDD() const;
+	double GetAdjustment() const;
+	double GetVolatilityDD() const;
 
 	double GetCVG() const ;
 	double GetGVG() const;

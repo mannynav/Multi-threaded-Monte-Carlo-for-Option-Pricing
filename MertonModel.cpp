@@ -1,12 +1,12 @@
 #include "MertonModel.h"
 #include "rv.h"
 
-MertonModel::MertonModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.Getr()), sigma_(factory.Getsig()), N_(factory.GetN()), T_(factory.GetT()), M_(factory.GetM()), uJ_(factory.GetUJ()), sigmaJ(factory.GetSigmaJ()), lambdaJ_(factory.GetLambdaJ())
+MertonModel::MertonModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.GetRiskFreeRate()), sigma_(factory.GetVolatility()), N_(factory.GetNumberTotalSteps()), T_(factory.GetExpiry()), M_(factory.GetNumberOfPaths()), uJ_(factory.GetJumpMean()), sigmaJ(factory.GetJumpVol()), lambdaJ_(factory.GetJumpIntensity())
 
 {
 	nu_ = r_ - lambdaJ_ * (std::exp(uJ_ + 0.5 * sigmaJ * sigmaJ) - 1) - 0.5 * sigma_ * sigma_;	//Martingale adjustment
 
-	dt_ = factory.GetT() / factory.GetN();
+	dt_ = factory.GetExpiry() / factory.GetNumberTotalSteps();
 
 	generator_ = factory.CreateRandomBase();
 	path_ = factory.CreateBrownianMotionPath();

@@ -8,7 +8,7 @@
 
 
 
-ImportanceSampledPath::ImportanceSampledPath(const PseudoFactory& factory) : T_(factory.GetT()), N_(factory.GetN()), dt_(T_/N_)
+ImportanceSampledPath::ImportanceSampledPath(const PseudoFactory& factory) : T_(factory.GetExpiry()), N_(factory.GetNumberTotalSteps()), dt_(T_/N_)
 {
 }
 

@@ -221,9 +221,6 @@
     <ClInclude Include="PathwiseGreeks.h">
       <Filter>Header Files\Greeks</Filter>
     </ClInclude>
-    <ClInclude Include="LikelihoodRatioGreeks.h">
-      <Filter>Header Files\Greeks</Filter>
-    </ClInclude>
     <ClInclude Include="AntitheticPath.h">
       <Filter>Header Files\Models\BrownianPaths</Filter>
     </ClInclude>

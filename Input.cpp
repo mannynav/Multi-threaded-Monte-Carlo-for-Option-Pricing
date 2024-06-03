@@ -1,5 +1,4 @@
 
-
 #include "Input.h"
 #include <iostream>
 #include <ostream>
@@ -24,7 +23,7 @@ Input::Input()
     correlation_XR_ = 0.5;                  // Correlations for Heston Hull-White
     correlationXV_ = -0.8;
 
-    mean_reversion_hw_ = 1.12;                         // Hull-White parameters
+    mean_reversion_hw_ = 1.12;              // Hull-White parameters
     volatility_hw_ = 0.01;
 
     PsiC = 1.5;					            //Switching parameter for Heston QE scheme
@@ -45,7 +44,7 @@ Input::Input()
     rho_ = 0.0;
 	nu_ = 0.3;
 
-    number_of_paths_ = 20;                  // Monte Carlo parameters
+    number_of_paths_ = 10;                  // Monte Carlo parameters
     total_number_steps_ = 100;
     number_threads_ = 1;
     seed_ = 1;
@@ -58,7 +57,7 @@ Input::Input()
                                             // 2 - floating lookback call, 
                                             // 3 - fixed lookback call
 
-	model_type_ = 'g';   	                // g for gbm, 
+	model_type_ = 's';   	                // g for gbm, 
                                             // h for heston sv, H for heston hull-white, 
                                             // v for variance gamma, m for merton model with fixed grid sampling, 
                                             // d for displaced diffusion, s for SABR model

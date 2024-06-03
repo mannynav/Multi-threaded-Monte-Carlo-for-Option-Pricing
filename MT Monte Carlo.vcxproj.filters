@@ -49,6 +49,9 @@
     <Filter Include="Header Files\Method">
       <UniqueIdentifier>{08b408bc-994d-4a33-b3c6-bb6d1bd1ddee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Tests">
+      <UniqueIdentifier>{fa0fff41-d7a4-45b1-81d6-895019aedcae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FlatTermStructure.cpp">
@@ -150,11 +153,26 @@
     <ClCompile Include="SABR.cpp">
       <Filter>Source Files\Models</Filter>
     </ClCompile>
-    <ClCompile Include="TestEuroCallOption.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="FixedLookBackCall.cpp">
       <Filter>Source Files\Options</Filter>
+    </ClCompile>
+    <ClCompile Include="MCGatherer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestEuroCallOption.cpp">
+      <Filter>Source Files\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="TestAsianCallOption.cpp">
+      <Filter>Source Files\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="TestEuroUpInCallOption.cpp">
+      <Filter>Source Files\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="TestFixedLookBackCallOption.cpp">
+      <Filter>Source Files\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="TestFloatingLookBackCallOption.cpp">
+      <Filter>Source Files\Tests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

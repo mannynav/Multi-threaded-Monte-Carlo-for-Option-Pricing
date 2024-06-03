@@ -1,10 +1,7 @@
 
 #pragma once
 
-#include <memory>
-
 #include "RandomBase.h"
-#include "Eigen/Dense"
 
 #ifndef RandomMersenneTwisterH
 #define RandomMersenneTwisterH

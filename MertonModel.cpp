@@ -1,13 +1,19 @@
 #include "MertonModel.h"
 #include "rv.h"
 
-MertonModel::MertonModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.GetRiskFreeRate()), sigma_(factory.GetVolatility()), N_(factory.GetNumberTotalSteps()), T_(factory.GetExpiry()), M_(factory.GetNumberOfPaths()), uJ_(factory.GetJumpMean()), sigmaJ(factory.GetJumpVol()), lambdaJ_(factory.GetJumpIntensity())
+MertonModel::MertonModel(PseudoFactory& factory) : S0_(factory.GetS0()),
+												   r_(factory.GetRiskFreeRate()),
+												   sigma_(factory.GetVolatility()),
+												   uJ_(factory.GetJumpMean()),
+												   sigmaJ(factory.GetJumpVol()),
+												   lambdaJ_(factory.GetJumpIntensity()),
+												   M_(factory.GetNumberOfPaths()),
+												   N_(factory.GetNumberTotalSteps()),
+												   T_(factory.GetExpiry()),
+												   dt_(T_/N_)
 
 {
 	nu_ = r_ - lambdaJ_ * (std::exp(uJ_ + 0.5 * sigmaJ * sigmaJ) - 1) - 0.5 * sigma_ * sigma_;	//Martingale adjustment
-
-	dt_ = factory.GetExpiry() / factory.GetNumberTotalSteps();
-
 	generator_ = factory.CreateRandomBase();
 	path_ = factory.CreateBrownianMotionPath();
 }
@@ -22,16 +28,14 @@ void MertonModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& pa
 
 	double sqrtdt = std::sqrt(dt_);
 
-	// Simulate paths within the designated range
 	for (int i = start_idx; i < end_idx; ++i)
 	{
-		paths(i, 0) = S0_; // Set initial price
+		paths(i, 0) = S0_;
 
 		//std::vector<double> variates(N_);
 		std::vector<double> variatesPoisson(N_);
 
 		std::generate(variatesPoisson.begin(), variatesPoisson.end(), [&]() {return rv::Poisson_jumps(lambdaJ_ * dt_); });
-		
 
 		for (int j = 0; j < N_; ++j)
 		{

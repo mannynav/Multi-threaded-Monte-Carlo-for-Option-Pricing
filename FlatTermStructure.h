@@ -17,8 +17,6 @@ public:
 	{
 		double result = 1 / model.Get_MT();
 
-		std::cout << "Result: " << result << std::endl;
-
 		return result;
 	}
 

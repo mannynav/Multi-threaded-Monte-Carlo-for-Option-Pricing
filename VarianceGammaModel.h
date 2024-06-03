@@ -13,7 +13,6 @@ class VarianceGammaModel : public ModelBase
 public:
 	
 	VarianceGammaModel(PseudoFactory& factory);
-	~VarianceGammaModel() = default;
 	void simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const override;
 	double Get_MT() const override
 	{
@@ -35,11 +34,13 @@ private:
 	double mu_{};
 	double omega_{};
 
-	double dt_{};
 	double N_{};
+
 	double T_{};
+	double dt_{};
 
 	std::unique_ptr<BrownianMotionPathBase> path_{};
+	boost::gamma_distribution<> gamma_distr_;
 	std::unique_ptr<RandomBase> generator_{};
 };
 #endif // GBMMODEL_H

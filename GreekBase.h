@@ -5,9 +5,8 @@
 #define GREEKBASE_H
 
 #include "PseudoFactory.h"
+#include "ModelBase.h"
 #include <map>
-
-class ModelBase;
 
 class GreekBase
 {

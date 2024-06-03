@@ -22,9 +22,6 @@ private:
 	double ComputeVega(const Eigen::MatrixXd& prices, const ModelBase& model) const override;
 	double ComputeGamma(const Eigen::MatrixXd& prices, const ModelBase& model) const override;
 
-	//might delegate to mixedGreek class for gamma
-
-
 	double S0_{};
 	double X_{};
 	double T_{};
@@ -33,8 +30,5 @@ private:
 
 
 };
-
-
-
 
 #endif

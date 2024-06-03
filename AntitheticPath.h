@@ -30,7 +30,7 @@ private:
 	double dt_{};
 	bool even_;			//this will be the trigger for odd and even paths
 
-
+	boost::normal_distribution<> standard_norm_distro_;
 	mutable std::vector<double> W{};
 	std::vector<double> neg_path{};
 

@@ -6,6 +6,9 @@
 
 #include <vector>
 #include <boost/random/mersenne_twister.hpp>
+#include <boost/math/distributions/normal.hpp>
+#include <boost/random.hpp>
+#include <boost/random/normal_distribution.hpp>
 
 class BrownianMotionPathBase
 {

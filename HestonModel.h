@@ -13,7 +13,6 @@ class HestonModel : public ModelBase
 public:
 	
 	HestonModel(PseudoFactory& factory);
-	~HestonModel() = default;
 	void simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const override;
 	double Get_MT() const override
 	{
@@ -44,11 +43,11 @@ private:
 	double delta_;
 	double c_;
 
-	mutable std::vector<double> cir_path_;
-
-	double dt_{};
 	double N_{};
 	double T_{};
+	double dt_{};
+
+	mutable std::vector<double> cir_path_;
 
 	std::unique_ptr<RandomBase> generator_{};
 	std::vector<double> generate_CIR_path(boost::mt19937 & rng) const;

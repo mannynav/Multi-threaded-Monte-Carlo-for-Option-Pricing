@@ -70,7 +70,7 @@ double PseudoFactory::GetVolatilityDD() const { return input_->GetVolatilityDD()
 
 double PseudoFactory::GetCVG() const {return input_->GetC(); }
 double PseudoFactory::GetGVG() const { return input_->GetG(); }
-double PseudoFactory::GetMVG() const { return input_->GetNumberOfPaths(); }
+double PseudoFactory::GetMVG() const { return input_->GetM(); }
 
 double PseudoFactory::GetShift() const { return input_->GetShift(); }
 

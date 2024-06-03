@@ -4,16 +4,19 @@
 #include <boost/random.hpp>
 
 
-HestonHullWhiteModel::HestonHullWhiteModel(PseudoFactory& factory) : S0_(factory.GetS0()), V_0_(factory.GetV0()),
+HestonHullWhiteModel::HestonHullWhiteModel(PseudoFactory& factory) : S0_(factory.GetS0()),
+													                 V_0_(factory.GetV0()),
                                                                      corrXR_(factory.GetCorrXR()),
                                                                      corrXV_(factory.GetCorrXV()),
                                                                      volvol_(factory.GetVolVol()),
                                                                      meanreversion_(factory.GetMeanReversion()),
                                                                      ltmean_(factory.GetLongTermMean()),
                                                                      PsiC_(factory.GetPsiC()), eta_(factory.GetVolatilityHW()),
-                                                                     lambda_(factory.GetMeanReversionHW()), N_(factory.GetNumberTotalSteps()),
+                                                                     lambda_(factory.GetMeanReversionHW()),
+                                                                     N_(factory.GetNumberTotalSteps()),
                                                                      T_(factory.GetExpiry()),
-                                                                     generator_(factory.CreateRandomBase())
+	                                                                 dt_(T_ / N_),
+																     generator_(factory.CreateRandomBase())
 {
 	cir_path_.resize(N_ + 1);
 	pathR_.resize(N_ + 1);
@@ -22,7 +25,6 @@ HestonHullWhiteModel::HestonHullWhiteModel(PseudoFactory& factory) : S0_(factory
 
 	//pre-compute everything possible
 
-	dt_ = T_ / N_;
 	differentiationStep_ = 0.0001;
 	expression_ = std::exp(-meanreversion_ * dt_);
 
@@ -60,6 +62,9 @@ double HestonHullWhiteModel::theta(double t) const
 
 double HestonHullWhiteModel::next_v(boost::mt19937& rng, double V) const
 {
+
+	// The next v is computed using the Quadratic Exponential scheme
+
 	double m_ = ltmean_ + (V - ltmean_) * expression_;
 
 	double s2_ = (V * volvol_ * volvol_ * expression_) * (1 - expression_) / meanreversion_
@@ -116,8 +121,7 @@ void HestonHullWhiteModel::simulate_paths(int start_idx, int end_idx, Eigen::Mat
 	boost::random::uniform_real_distribution<> uniform_real_distribution(0.0, 1.0);
 
 	boost::variate_generator<boost::mt19937&, boost::normal_distribution<>> rnorm(rng, normal_distribution);
-	boost::variate_generator<boost::mt19937&, boost::random::uniform_real_distribution<>> u(
-		rng, uniform_real_distribution);
+	boost::variate_generator<boost::mt19937&, boost::random::uniform_real_distribution<>> u(rng, uniform_real_distribution);
 
 
 	// Each thread gets its own "chunk" of paths to simulate

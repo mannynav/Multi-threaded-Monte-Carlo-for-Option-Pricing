@@ -3,16 +3,21 @@
 #include "rv.h"
 #include <boost/random.hpp>
 
-HestonModel::HestonModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.GetRiskFreeRate()), sigma_(factory.GetVolatility()),
-                                                   V_0_(factory.GetV0()), corr_(factory.GetCorrelation()),
-                                                   volvol_(factory.GetVolVol()),
-                                                   meanreversion_(factory.GetMeanReversion()),
-                                                   ltmean_(factory.GetLongTermMean()), PsiC_(factory.GetPsiC()),
-                                                   N_(factory.GetNumberTotalSteps()), T_(factory.GetExpiry())
+HestonModel::HestonModel(PseudoFactory& factory) : S0_(factory.GetS0()),
+												   r_(factory.GetRiskFreeRate()),
+												   sigma_(factory.GetVolatility()),
+												   V_0_(factory.GetV0()),
+												   corr_(factory.GetCorrelation()),
+												   volvol_(factory.GetVolVol()),
+												   meanreversion_(factory.GetMeanReversion()),
+												   ltmean_(factory.GetLongTermMean()),
+												   PsiC_(factory.GetPsiC()),
+												   N_(factory.GetNumberTotalSteps()),
+												   T_(factory.GetExpiry()),
+												   dt_(T_ / N_)
 {
 	cir_path_.resize(N_ + 1);
 
-	dt_ = factory.GetExpiry() / factory.GetNumberTotalSteps();
 	expression_ = std::exp(-meanreversion_ * dt_);
 	sqrt_expression_ = std::exp(1 - corr_ * corr_) * dt_;
 
@@ -33,9 +38,8 @@ std::vector<double> HestonModel::generate_CIR_path(boost::mt19937& rng) const
 
 	for (int i = 0; i < N_; ++i)
 	{
-		double kappaBar = (4.0 * meanreversion_ * cir_path_[i] * expression_) / (volvol_ * volvol_ * (1.0 -
-			expression_));
-		kappaBar += 0.000000001;
+		double kappaBar = (4.0 * meanreversion_ * cir_path_[i] * expression_) / (volvol_ * volvol_ * (1.0 - expression_));
+		kappaBar += 0.000000001; // needed for stability in generating NonCentral_CS_Sample
 		double sample = rv::NonCentral_CS_Sample(rng, delta_, kappaBar);
 		cir_path_[i + 1] = c_ * sample;
 	}

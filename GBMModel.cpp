@@ -1,12 +1,15 @@
 #include "GBMModel.h"
 #include "rv.h"
 
-GBMModel::GBMModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.GetRiskFreeRate()), sigma_(factory.GetVolatility()), N_(factory.GetNumberTotalSteps()), T_(factory.GetExpiry()), M_(factory.GetNumberOfPaths())
+GBMModel::GBMModel(PseudoFactory& factory) : S0_(factory.GetS0()),
+                                             r_(factory.GetRiskFreeRate()),
+                                             sigma_(factory.GetVolatility()),
+                                             N_(factory.GetNumberTotalSteps()),
+	                                         T_(factory.GetExpiry()),
+									         dt_(factory.GetExpiry() / factory.GetNumberTotalSteps()),
+											 sqrtdt_(std::sqrt(dt_))
 {
-	dt_ = factory.GetExpiry() / factory.GetNumberTotalSteps();
-
 	drift_ = (r_ - 0.5 * sigma_ * sigma_) * dt_;
-
 	generator_ = factory.CreateRandomBase();
 	path_ = factory.CreateBrownianMotionPath();
 }
@@ -14,34 +17,23 @@ GBMModel::GBMModel(PseudoFactory& factory) : S0_(factory.GetS0()), r_(factory.Ge
 
 void GBMModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const
 {
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	generator_->SeedGenerator(seed);
+	boost::mt19937 rng = generator_->GetGenerator();
 
-	//unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-	//generator_->SeedGenerator(seed);
-	//boost::mt19937 rng = generator_->GetGenerator();
+	paths.col(0).setConstant(S0_);
 
-	double sqrtdt = std::sqrt(dt_);
-
-	// Simulate paths within the designated range
 	for (int i = start_idx; i < end_idx; ++i)
 	{
-		paths(i, 0) = S0_; // Set initial price
 
 		std::vector<double> variates(N_);
 
-		static std::mutex gen_mutex;
-
-		//Variates will be filled with sqrt(dt)*Z, Z is standard normal
-		//path_->GeneratePath(variates,rng);
-		{
-			std::lock_guard<std::mutex> lock(gen_mutex);
-			std::generate(variates.begin(), variates.end(), [&]() {return rv::GetNormalVariate(); });
-		}
+		path_->GeneratePath(variates,rng);
 
 		for (int j = 0; j < N_; ++j)
 		{
 			//std::cout << "Variates: " << variates[j] << std::endl;
-			paths(i, j + 1) = paths(i, j) * exp(drift_ + sigma_ * sqrtdt * variates[j]);
-
+			paths(i, j + 1) = paths(i, j) * exp(drift_ + sigma_ * sqrtdt_ * variates[j]);
 		}
 
 		if ((i + 1) % 200000 == 0)
@@ -50,4 +42,3 @@ void GBMModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths
 		}
 	}
 }
-

@@ -169,6 +169,7 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="LikelihoodRatioGreeks.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MCGatherer.cpp" />
     <ClCompile Include="MCSimulation.cpp" />
     <ClCompile Include="MertonModel.cpp" />
     <ClCompile Include="ModelBase.cpp" />
@@ -181,7 +182,11 @@
     <ClCompile Include="rv.cpp" />
     <ClCompile Include="SABR.cpp" />
     <ClCompile Include="StochasticTermStructure.cpp" />
+    <ClCompile Include="TestAsianCallOption.cpp" />
     <ClCompile Include="TestEuroCallOption.cpp" />
+    <ClCompile Include="TestEuroUpInCallOption.cpp" />
+    <ClCompile Include="TestFixedLookBackCallOption.cpp" />
+    <ClCompile Include="TestFloatingLookBackCallOption.cpp" />
     <ClCompile Include="Valuation.cpp" />
     <ClCompile Include="ValuationBase.cpp" />
     <ClCompile Include="ValuationMethodBase.cpp" />

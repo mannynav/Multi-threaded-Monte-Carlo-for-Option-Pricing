@@ -1,5 +1,4 @@
 
-
 #pragma once
 #include "ModelBase.h"
 
@@ -10,7 +9,6 @@ class SABRModel : public ModelBase
 {
 public:
 	SABRModel(PseudoFactory& factory);
-	~SABRModel() = default;
 	void simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const override;
 	double Get_MT() const override
 	{
@@ -26,12 +24,12 @@ private:
 	double rho_{};
 	double nu_{};
 
-	double dt_{};
-	double sqrtdt_{};
-
 	double M_{};
 	double N_{};
+
 	double T_{};
+	double dt_{};
+	double sqrtdt_{};
 
 	mutable std::vector<double> sigmaVec_{};
 

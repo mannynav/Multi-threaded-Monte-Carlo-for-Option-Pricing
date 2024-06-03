@@ -46,10 +46,10 @@ private:
 	double L2_{};
 
 	double expression_{};
-	double dt_{};
 	double differentiationStep_{};		//Used for numerical differentiation
 	double N_{};
 	double T_{};
+	double dt_{};
 
 	double ZCB(double t) const { return std::exp(-0.1 * t); }	//Hard coded initial bond curve
 	double GetM_T() const { return Mt_.back(); }

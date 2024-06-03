@@ -11,7 +11,6 @@ std::map<std::string, double> PathwiseGreeks::ComputeGreeks(const Eigen::MatrixX
 {
 	std::map<std::string, double> Greeks;
 
-	std::cout << "Computing greeks:" << std::endl;
 
 	Greeks["Delta"] = ComputeDelta(prices, model);
 	Greeks["Vega"] = ComputeVega(prices, model);
@@ -22,8 +21,6 @@ std::map<std::string, double> PathwiseGreeks::ComputeGreeks(const Eigen::MatrixX
 
 double PathwiseGreeks::ComputeDelta(const Eigen::MatrixXd& prices, const ModelBase& model) const
 {
-
-	std::cout << "Delta:" << std::endl;
 
 	const Eigen::VectorXd ExpiryPrice = prices.rightCols(1);
 

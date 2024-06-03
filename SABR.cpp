@@ -8,25 +8,23 @@ SABRModel::SABRModel(PseudoFactory& factory) : S0_(factory.GetS0()),
 											   beta_(factory.GetBetaSABR()),
 											   rho_(factory.GetRhoSABR()),
 											   nu_(factory.GetNuSABR()),
-											   N_(factory.GetNumberTotalSteps()), 
-											   T_(factory.GetExpiry()), 
 											   M_(factory.GetNumberOfPaths()),
-	                                           dt_(factory.GetExpiry() / factory.GetNumberTotalSteps()),
-											   sqrtdt_(std::sqrt(dt_)),
-											   generator_(factory.CreateRandomBase()),
-											   path_(factory.CreateBrownianMotionPath())
+											   N_(factory.GetNumberTotalSteps()),
+											   T_(factory.GetExpiry()),
+											   dt_(factory.GetExpiry() / factory.GetNumberTotalSteps()),
+	                                           sqrtdt_(std::sqrt(dt_)),
+											   path_(factory.CreateBrownianMotionPath()),
+											   generator_(factory.CreateRandomBase())
 
 {}
 
 
 void SABRModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const
 {
-
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 	generator_->SeedGenerator(seed);
 	boost::mt19937 rng = generator_->GetGenerator();
 
-	// Simulate paths within the designated range
 	for (int i = start_idx; i < end_idx; ++i)
 	{
 
@@ -40,7 +38,6 @@ void SABRModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& path
 
 		for (int j = 0; j < N_; ++j)
 		{
-			
 			double Z = rho_ * variates[j] + std::sqrt(1 - rho_ * rho_) * rv::GetNormalVariate();
 		
 			double F_pred = paths(i, j) + sigmaVec_[j] * std::pow(paths(i, j), beta_) * sqrtdt_ * variates[j];

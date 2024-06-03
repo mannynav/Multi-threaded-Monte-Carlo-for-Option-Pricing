@@ -8,7 +8,9 @@ VarianceGammaModel::VarianceGammaModel(PseudoFactory& factory) : s0_(factory.Get
                                                                  M_(factory.GetMVG()), 
 																 N_(factory.GetNumberTotalSteps()),
                                                                  T_(factory.GetExpiry()),
-																 dt_(T_ / N_)
+																 dt_(T_ / N_),
+																 path_(factory.CreateBrownianMotionPath()),
+														         generator_(factory.CreateRandomBase())
 {
 	//convert CGM parameters to normal representation
 	nu_ = 1 / C_;
@@ -19,9 +21,6 @@ VarianceGammaModel::VarianceGammaModel(PseudoFactory& factory) : s0_(factory.Get
 
 	omega_ = (1 / nu_) * std::log(1 - theta_ * nu_ - nu_ * sigma_ * sigma_ / 2);
 	mu_ = omega_ + r_;
-
-	generator_ = factory.CreateRandomBase();
-	path_ = factory.CreateBrownianMotionPath();
 	
 }
 

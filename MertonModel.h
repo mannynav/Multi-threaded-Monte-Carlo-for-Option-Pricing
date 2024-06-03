@@ -31,8 +31,10 @@ private:
 	double T_{};
 
 	double dt_{};
+	double sqrtdt_{};
 
 	std::unique_ptr<BrownianMotionPathBase> path_{};
+	boost::poisson_distribution<> poisson_;
 	std::unique_ptr<RandomBase> generator_{};
 
 };

@@ -10,12 +10,14 @@ MertonModel::MertonModel(PseudoFactory& factory) : S0_(factory.GetS0()),
 												   M_(factory.GetNumberOfPaths()),
 												   N_(factory.GetNumberTotalSteps()),
 												   T_(factory.GetExpiry()),
-												   dt_(T_/N_)
+												   dt_(T_/N_),
+                                                   sqrtdt_(std::sqrt(dt_)),
+												   path_(factory.CreateBrownianMotionPath()),
+											       generator_(factory.CreateRandomBase())
 
 {
 	nu_ = r_ - lambdaJ_ * (std::exp(uJ_ + 0.5 * sigmaJ * sigmaJ) - 1) - 0.5 * sigma_ * sigma_;	//Martingale adjustment
-	generator_ = factory.CreateRandomBase();
-	path_ = factory.CreateBrownianMotionPath();
+	poisson_ = boost::poisson_distribution<>(lambdaJ_ * dt_);
 }
 
 
@@ -26,22 +28,24 @@ void MertonModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& pa
 	generator_->SeedGenerator(seed);
 	boost::mt19937 rng = generator_->GetGenerator();
 
-	double sqrtdt = std::sqrt(dt_);
+	boost::variate_generator<boost::mt19937&, boost::poisson_distribution<>> poisson_variate(rng, poisson_);
+
+	paths.col(0).setConstant(S0_);
 
 	for (int i = start_idx; i < end_idx; ++i)
 	{
-		paths(i, 0) = S0_;
+		std::vector<double> variates1(N_), variates2(N_), variatesPoisson(N_);
 
-		//std::vector<double> variates(N_);
-		std::vector<double> variatesPoisson(N_);
+		path_->GeneratePath(variates1, rng);
+		path_->GeneratePath(variates2, rng);
 
-		std::generate(variatesPoisson.begin(), variatesPoisson.end(), [&]() {return rv::Poisson_jumps(lambdaJ_ * dt_); });
+		std::ranges::generate(variatesPoisson,poisson_variate);
 
 		for (int j = 0; j < N_; ++j)
 		{
-			double jump_ = uJ_ * variatesPoisson[j] + sigmaJ * std::sqrt(variatesPoisson[j]) * rv::GetNormalVariate();
+			double jump_ = uJ_ * variatesPoisson[j] + sigmaJ * std::sqrt(variatesPoisson[j]) * variates2[j];
 
-			paths(i, j + 1) = paths(i, j) * std::exp(nu_ * dt_ + sigma_ * sqrtdt * rv::GetNormalVariate() + jump_);
+			paths(i, j + 1) = paths(i, j) * std::exp(nu_ * dt_ + sigma_ * sqrtdt_ * variates1[j] + jump_);
 
 		}
 

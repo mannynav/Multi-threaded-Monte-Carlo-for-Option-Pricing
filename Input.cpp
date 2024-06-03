@@ -10,7 +10,7 @@ Input::Input()
     risk_free_rate = 0.03;     
 
     strike_ = 100;                          // Strike price
-    expiry_ = 1;                            // Time to expiry
+    expiry_ = 5;                            // Time to expiry
 
     volatility_ = 0.30;                     // Geometric Brownian Motion parameter
 
@@ -44,9 +44,9 @@ Input::Input()
     rho_ = 0.0;
 	nu_ = 0.3;
 
-    number_of_paths_ = 10;                  // Monte Carlo parameters
-    total_number_steps_ = 100;
-    number_threads_ = 1;
+    number_of_paths_ = 2600000;                  // Monte Carlo parameters
+    total_number_steps_ = 250;
+    number_threads_ = 16;
     seed_ = 1;
 
     std::cout << AnalyticalFormulas::Black_Scholes_Call(s0_, strike_, expiry_, risk_free_rate, volatility_) << std::endl;
@@ -57,7 +57,7 @@ Input::Input()
                                             // 2 - floating lookback call, 
                                             // 3 - fixed lookback call
 
-	model_type_ = 's';   	                // g for gbm, 
+	model_type_ = 'm';   	                // g for gbm, 
                                             // h for heston sv, H for heston hull-white, 
                                             // v for variance gamma, m for merton model with fixed grid sampling, 
                                             // d for displaced diffusion, s for SABR model

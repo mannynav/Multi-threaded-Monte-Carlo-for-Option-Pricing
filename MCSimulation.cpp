@@ -40,9 +40,11 @@ void MCSimulation::run(const OptionBase& option, const ModelBase& model, const T
 		th.join();
 	}
 
-	//std::cout << stock_prices << std::endl;
+	//std::cout << stock_prices << '\n';
 
 	Eigen::VectorXd payoffs = option.ComputePayoffs(stock_prices);
+
+	//std::cout << payoffs << '\n';
 
 	gatherer_->accumulate(payoffs, model);
 
@@ -62,8 +64,8 @@ void MCSimulation::OutputResults(const TermStructureBase& ts, const ModelBase& m
 {
 	std::pair<double, double> results = gatherer_->GetResults(ts, model);
 
-	std::cout << "MC price: " << results.first << std::endl;
-	std::cout << "standard error: " << results.second << std::endl;
+	std::cout << "MC price: " << results.first << '\n';
+	std::cout << "standard error: " << results.second << '\n';
 }
 
 

@@ -54,6 +54,9 @@ public:
 	double GetStrike() const;
 	double GetExpiry() const;
 
+	double GetLowerBarrier() const;
+	double GetUpperBarrier() const;
+
 	long GetNumberOfPaths() const;
 	long GetNumberTotalSteps() const;
 	long GetNumThreads() const;

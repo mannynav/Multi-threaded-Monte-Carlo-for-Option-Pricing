@@ -17,6 +17,9 @@ public:
 	double GetStrike() const { return strike_; }
 	double GetExpiry() const { return expiry_; }
 
+	double GetLowerBarrier() const { return lower_barrier_; }
+	double GetUpperBarrier() const { return upper_barrier_; }
+
 	long GetNumberOfPaths() const { return number_of_paths_; }
 	long GetTotalNumberOfSteps() const { return total_number_steps_; }
 	long GetNumThreads() const { return number_threads_; }
@@ -74,6 +77,9 @@ private:
 
 	double strike_{};
 	double expiry_{};
+
+	double lower_barrier_{};
+	double upper_barrier_{};
 
 	long number_of_paths_{};
 	long total_number_steps_{};

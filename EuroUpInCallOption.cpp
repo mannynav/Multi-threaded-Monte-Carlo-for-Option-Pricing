@@ -3,7 +3,7 @@
 #include "EuroUpInCallOption.h"
 
 
-EuroUpInCallOption::EuroUpInCallOption(PseudoFactory& factory) : expiry_(factory.GetExpiry()), strike_(factory.GetStrike()), barrier_(110)
+EuroUpInCallOption::EuroUpInCallOption(PseudoFactory& factory) : expiry_(factory.GetExpiry()), strike_(factory.GetStrike()), barrier_(factory.GetUpperBarrier())
 {
 }
 
@@ -27,6 +27,7 @@ Eigen::VectorXd EuroUpInCallOption::ComputePayoffs(Eigen::MatrixXd& stock_prices
 
             if (stock_prices(path_index, time_step) >= barrier) {
                 payoffs(path_index) = ComputePayoff(ExpiryPrice(path_index));
+                std::cout << payoffs(path_index) << std::endl;
                 break; // No need to check further time steps for this path 
             }
         }

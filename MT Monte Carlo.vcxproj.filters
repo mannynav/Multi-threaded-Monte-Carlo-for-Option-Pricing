@@ -174,6 +174,12 @@
     <ClCompile Include="TestFloatingLookBackCallOption.cpp">
       <Filter>Source Files\Tests</Filter>
     </ClCompile>
+    <ClCompile Include="DoubleBarrierKnockInCall.cpp">
+      <Filter>Source Files\Options</Filter>
+    </ClCompile>
+    <ClCompile Include="TestDoubleBarrierKnockInCall.cpp">
+      <Filter>Source Files\Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ApplicationBase.h">
@@ -285,6 +291,9 @@
       <Filter>Header Files\Models</Filter>
     </ClInclude>
     <ClInclude Include="FixedLookBackCall.h">
+      <Filter>Header Files\Options</Filter>
+    </ClInclude>
+    <ClInclude Include="DoubleBarrierKnockInCall.h">
       <Filter>Header Files\Options</Filter>
     </ClInclude>
   </ItemGroup>

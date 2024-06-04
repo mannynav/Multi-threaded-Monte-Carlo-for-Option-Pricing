@@ -156,6 +156,7 @@
     <ClCompile Include="AsianCallOption.cpp" />
     <ClCompile Include="BrownianMotionPathBase.cpp" />
     <ClCompile Include="DisplacedDiffusionModel.cpp" />
+    <ClCompile Include="DoubleBarrierKnockInCall.cpp" />
     <ClCompile Include="EuroCallOption.cpp" />
     <ClCompile Include="EuroUpInCallOption.cpp" />
     <ClCompile Include="FixedLookBackCall.cpp" />
@@ -183,6 +184,7 @@
     <ClCompile Include="SABR.cpp" />
     <ClCompile Include="StochasticTermStructure.cpp" />
     <ClCompile Include="TestAsianCallOption.cpp" />
+    <ClCompile Include="TestDoubleBarrierKnockInCall.cpp" />
     <ClCompile Include="TestEuroCallOption.cpp" />
     <ClCompile Include="TestEuroUpInCallOption.cpp" />
     <ClCompile Include="TestFixedLookBackCallOption.cpp" />
@@ -199,6 +201,7 @@
     <ClInclude Include="AsianCallOption.h" />
     <ClInclude Include="BrownianMotionPathBase.h" />
     <ClInclude Include="DisplacedDiffusionModel.h" />
+    <ClInclude Include="DoubleBarrierKnockInCall.h" />
     <ClInclude Include="EuroCallOption.h" />
     <ClInclude Include="EuroUpInCallOption.h" />
     <ClInclude Include="FixedLookBackCall.h" />

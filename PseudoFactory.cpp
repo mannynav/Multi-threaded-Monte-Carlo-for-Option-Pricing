@@ -15,6 +15,7 @@
 #include "EuroUpInCallOption.h"
 #include "FloatingLookBackCall.h"
 #include "FixedLookBackCall.h"
+#include "DoubleBarrierKnockInCall.h"
 
 #include "ModelBase.h"
 #include "GBMModel.h"
@@ -46,6 +47,9 @@ double PseudoFactory::GetVolatility() const { return input_->GetVolatility(); }
 
 double PseudoFactory::GetStrike() const { return input_->GetStrike(); }
 double PseudoFactory::GetExpiry() const { return input_->GetExpiry(); }
+
+double PseudoFactory::GetLowerBarrier() const { return input_->GetLowerBarrier(); }
+double PseudoFactory::GetUpperBarrier() const { return input_->GetUpperBarrier(); }
 
 long PseudoFactory::GetNumberOfPaths() const { return input_->GetNumberOfPaths(); }
 long PseudoFactory::GetNumberTotalSteps() const { return input_->GetTotalNumberOfSteps(); }
@@ -105,6 +109,8 @@ std::unique_ptr<OptionBase> PseudoFactory::CreateOption()
 		return std::make_unique<FloatingLookBackCallOption>(*this);
 	case '3':
 			return std::make_unique<FixedLookBackCallOption>(*this);
+	case '4':
+			return std::make_unique<DoubleBarrierKnockInCall>(*this);
 	default:
 		throw std::invalid_argument("CreateOption: Bad character. Invalid option type");
 	}

@@ -7,11 +7,11 @@ GBMModel::GBMModel(PseudoFactory& factory) : S0_(factory.GetS0()),
                                              N_(factory.GetNumberTotalSteps()),
 	                                         T_(factory.GetExpiry()),
 									         dt_(factory.GetExpiry() / factory.GetNumberTotalSteps()),
-											 sqrtdt_(std::sqrt(dt_))
+											 sqrtdt_(std::sqrt(dt_)),
+											 generator_(factory.CreateRandomBase()),
+											 path_(factory.CreateBrownianMotionPath())
 {
 	drift_ = (r_ - 0.5 * sigma_ * sigma_) * dt_;
-	generator_ = factory.CreateRandomBase();
-	path_ = factory.CreateBrownianMotionPath();
 }
 
 

@@ -2,6 +2,8 @@
 
 #ifndef ValuationH
 #define ValuationH
+
+#include "ApplicationBase.h"
 #include <memory>
 
 
@@ -12,13 +14,10 @@ class ValuationMethodBase;
 
 class PseudoFactory;
 
-#include "ApplicationBase.h"
-
 class Valuation : public ApplicationBase
 {
 public:
 	explicit Valuation(PseudoFactory& factory);
-	~Valuation();
 	void run() override;
 
 private:

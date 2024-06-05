@@ -2,9 +2,6 @@
 #include "PseudoFactory.h"
 #include <map>
 
-MCSimulation::MCSimulation()
-{
-}
 
 MCSimulation::MCSimulation(PseudoFactory& factory) : gatherer_(std::make_unique<MCGatherer>()),
                                                      number_of_paths_(factory.GetNumberOfPaths()),
@@ -40,11 +37,7 @@ void MCSimulation::run(const OptionBase& option, const ModelBase& model, const T
 		th.join();
 	}
 
-	//std::cout << stock_prices << '\n';
-
 	Eigen::VectorXd payoffs = option.ComputePayoffs(stock_prices);
-
-	//std::cout << payoffs << '\n';
 
 	gatherer_->accumulate(payoffs, model);
 

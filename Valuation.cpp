@@ -14,7 +14,6 @@ Valuation::Valuation(PseudoFactory& factory) : model_(factory.CreateModel()),
 											   method_(factory.CreateValuationMethod()),
 										       option_(factory.CreateOption())
 {}
-Valuation::~Valuation() = default;
 
 void Valuation::run()
 {

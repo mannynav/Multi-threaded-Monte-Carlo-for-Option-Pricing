@@ -23,11 +23,10 @@ Eigen::VectorXd EuroUpInCallOption::ComputePayoffs(Eigen::MatrixXd& stock_prices
 
     for (int path_index = 0; path_index < stock_prices.rows(); ++path_index) {
 
-        for (int time_step = 0; time_step < stock_prices.cols(); ++time_step) {
+        for (int time_step = 0; time_step < stock_prices.cols()-1; ++time_step) {
 
             if (stock_prices(path_index, time_step) >= barrier) {
                 payoffs(path_index) = ComputePayoff(ExpiryPrice(path_index));
-                std::cout << payoffs(path_index) << std::endl;
                 break; // No need to check further time steps for this path 
             }
         }

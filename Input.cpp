@@ -47,9 +47,9 @@ Input::Input()
     rho_ = 0.0;
 	nu_ = 0.3;
 
-    number_of_paths_ = 5000000;                  // Monte Carlo parameters
-    total_number_steps_ = 250;
-    number_threads_ = 10;
+    number_of_paths_ = 10;                  // Monte Carlo parameters
+    total_number_steps_ = 10;
+    number_threads_ = 1;
     seed_ = 1;
 
     std::cout << AnalyticalFormulas::Black_Scholes_Call(s0_, strike_, expiry_, risk_free_rate, volatility_) << std::endl;

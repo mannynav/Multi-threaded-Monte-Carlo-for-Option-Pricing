@@ -12,9 +12,7 @@ DoubleBarrierKnockInCall::DoubleBarrierKnockInCall(PseudoFactory& factory) : str
 																			 lower_barrier_(factory.GetLowerBarrier()),
 																			 upper_barrier_(factory.GetUpperBarrier()),
 																			 expiry_(factory.GetExpiry())		
-{
-	
-}
+{}
 
 
 double DoubleBarrierKnockInCall::ComputePayoff(double final_price) const
@@ -34,9 +32,9 @@ Eigen::VectorXd DoubleBarrierKnockInCall::ComputePayoffs(Eigen::MatrixXd& stock_
 
     for (int path_index = 0; path_index < stock_prices.rows(); ++path_index) {
 
-        for (int time_step = 0; time_step < stock_prices.cols(); ++time_step) {
-
-            if (stock_prices(path_index, time_step) >= upper_barrier_ || stock_prices(path_index,time_step <= lower_barrier_)) {
+        for (int time_step = 0; time_step < stock_prices.cols()-1; ++time_step)  
+        {
+            if (stock_prices(path_index, time_step) >= upper_barrier_ || stock_prices(path_index,time_step) <= lower_barrier_) {
                 payoffs(path_index) = ComputePayoff(ExpiryPrice(path_index));
                 break; // No need to check further time steps for this path 
             }

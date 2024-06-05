@@ -1,7 +1,5 @@
 #include "EuroUpInCallOption.h"
-#include <Eigen/Dense>
 #include "boost/test/unit_test.hpp"
-
 
 
 BOOST_AUTO_TEST_CASE(TestEuroUpInOutCallOptionPayoff) {
@@ -22,12 +20,12 @@ BOOST_AUTO_TEST_CASE(TestEuroUpInOutCallOptionPayoff) {
 BOOST_AUTO_TEST_CASE(TestEuroUpInOutCallComputePayoffs) {
 
 	double strike = 100;
-	double barrier = 102;
+	double barrier = 105;
 	EuroUpInCallOption option(strike, 1, barrier);
 	Eigen::MatrixXd prices(3, 3);
-	prices << 100.0, 110.0, 90.0,
-		100.0, 90.0, 80.0,
-		100.0, 100.0, 100.0;
+	prices << 100.0, 110.0, 120.0,
+		      100.0, 90.0, 130,
+		      100.0, 100.0, 100.0;
 
 	Eigen::VectorXd ExpiryPrices = prices.rightCols(1);
 	Eigen::VectorXd payoffs(prices.rows());
@@ -35,7 +33,7 @@ BOOST_AUTO_TEST_CASE(TestEuroUpInOutCallComputePayoffs) {
 
 	for(int path_index = 0; path_index < prices.rows(); ++path_index)
 	{
-		for(int step = 0; step < prices.cols(); ++step)
+		for(int step = 0; step < prices.cols()-1; ++step)
 		{
 			if(prices(path_index, step) >= barrier)
 			{

@@ -15,6 +15,8 @@ namespace AnalyticalFormulas
 	double theta(double S0, double K, double r, double sigma, double t, bool isCall);
 
 
+	double ImpliedVolatilitySABR(double F, double strike, double T, double alpha, double beta, double nu, double rho);
+
 
 
 }

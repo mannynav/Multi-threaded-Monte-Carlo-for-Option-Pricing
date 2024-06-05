@@ -6,11 +6,11 @@
 
 Input::Input()
 {
-    s0_ = 100;                             
-    risk_free_rate = 0.03;     
+    s0_ = 0.2;                             
+    risk_free_rate = 0.0;     
 
-    strike_ = 100;                          // Strike price
-    expiry_ = 1;                            // Time to expiry
+    strike_ = 0.2;                          // Strike price
+    expiry_ = 2;                            // Time to expiry
 
     lower_barrier_ = 90;                    // Double Barrier parameters
     upper_barrier_ = 110;
@@ -45,16 +45,14 @@ Input::Input()
 	alpha_ = 0.2;				            // SABR parameters
 	beta_ = 0.5;
     rho_ = 0.0;
-	nu_ = 0.3;
+	nu_ = 0.2;
 
     number_of_paths_ = 10;                  // Monte Carlo parameters
     total_number_steps_ = 10;
     number_threads_ = 1;
     seed_ = 1;
 
-    std::cout << AnalyticalFormulas::Black_Scholes_Call(s0_, strike_, expiry_, risk_free_rate, volatility_) << std::endl;
-
-    option_type_ = '4';   	                // c - for call,
+    option_type_ = 'c';   	                // c - for call,
                                             // a - for asian call, 
                                             // 1 - up-in call option, 
                                             // 2 - floating look back call, 
@@ -81,5 +79,10 @@ Input::Input()
     random_generator_type_ = 'm';            // m for mersenne twister
 
     greek_type_ = 'p';                       // p for pathwise, l for likelihood ratio.
+
+    double sabrIV = AnalyticalFormulas::ImpliedVolatilitySABR(0.3, 0.2, 2, 0.2, 0.5, 0.2, 0);
+    std::cout << sabrIV << '\n';
+    std::cout << AnalyticalFormulas::Black_Scholes_Call(s0_, strike_, expiry_, risk_free_rate, volatility_) << '\n';
+
 
 }

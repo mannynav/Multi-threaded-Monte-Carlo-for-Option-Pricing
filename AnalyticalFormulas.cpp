@@ -10,10 +10,6 @@
 
 std::pair<double, double> AnalyticalFormulas::calculate_d1_d2(double S0, double K, double T, double r, double sigma)
 {
-	//double d1{};
-	//double d2{};
-
-	//d1 = (std::log(42.0 / 40.0) + (r + (sigma * sigma)/2.0) * T) / (sigma * std::sqrt(T));
 
 	double d1 = (std::log(S0 / K) + (r + (sigma * sigma) / 2) * T) / (sigma * std::sqrt(T));
 	double d2 = d1 - sigma * sqrt(T);
@@ -79,4 +75,27 @@ double AnalyticalFormulas::theta(double S0, double K, double r, double sigma, do
 	else {
 		return -S0 * sigma * exp(-d1 * d1 / 2.0) * cdf(norm_dist, -d1) / (2.0 * sqrt(t)) + r * K * exp(-r * t) * cdf(norm_dist, -d2);
 	}
+}
+
+double AnalyticalFormulas::ImpliedVolatilitySABR(double F, double strike, double T, double alpha, double beta, double nu, double rho)
+{
+	if (F == strike) {
+		double V_atm = (alpha / pow(F, 1 - beta)) * (
+			1 + (((1 - beta) * (1 - beta) * alpha * alpha) / (24.0 * pow(F, 2 - 2 * beta)) +
+				(rho * beta * nu * alpha) / (4.0 * pow(F, 1 - beta)) +
+				((2 - 3 * rho * rho) * nu * nu) / 24.0) * T);
+		return V_atm;
+	}
+
+	double FK_beta = pow(F * strike, (1 - beta) / 2.0);
+	double log_FK = std::log(F / strike);
+	double z = nu / alpha * FK_beta * log_FK;
+	double x_z = std::log((std::sqrt(1 - 2 * rho * z + z * z) + z - rho) / (1 - rho));
+
+	double V = (alpha / FK_beta * (z / x_z) * (
+		1 + (((1 - beta) * (1 - beta) * alpha * alpha) / (24.0 * FK_beta * FK_beta) +
+			(rho * beta * nu * alpha) / (4.0 * FK_beta) +
+			((2 - 3 * rho * rho) * nu * nu) / 24.0) * T));
+
+	return V;
 }

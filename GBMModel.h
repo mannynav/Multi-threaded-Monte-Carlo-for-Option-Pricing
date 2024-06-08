@@ -1,3 +1,12 @@
+
+
+/* 
+ *
+ * This model is the Geometric Brownian Motion (The Black-Scholes model) for dynamics of the underlying asset.
+ * The discretization scheme is exact, meaning the solution to the GBM SDE is evaluated at each time step.
+ *
+ */
+ 
 #pragma once
 
 #include "ModelBase.h"

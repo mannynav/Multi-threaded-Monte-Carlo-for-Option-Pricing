@@ -45,6 +45,37 @@ double AnalyticalFormulas::Black_Scholes_Put(double S0, double K, double T, doub
 
 }
 
+double AnalyticalFormulas::Displaced_Diffusion_Call(double S0, double a, double K, double T, double r, double sigma)
+{
+	double K_new = K + a;
+	double sigmaDD = (S0 / (S0 + a))*sigma;
+
+	double d1 = (std::log((S0 + a) / K_new) + 0.5*sigmaDD * sigmaDD * T) / (sigmaDD * std::sqrt(T));
+	double d2 = d1 - sigmaDD * sigmaDD * T;
+
+	boost::math::normal_distribution<>  norm_dist(0.0, 1.0); //
+	double N_d1 = cdf(norm_dist, d1);
+	double N_d2 = cdf(norm_dist, d2);
+
+	return std::exp(-r * T) * ((S0 + a) * N_d1 - K_new * N_d2);
+
+}
+
+double AnalyticalFormulas::Displaced_Diffusion_Put(double S0, double a, double K, double T, double r, double sigma)
+{
+	double K_new = K + a;
+	double sigmaDD = (S0 / (S0 + a)) * sigma;
+
+	double d1 = (std::log((S0 + a) / K_new) + 0.5 * sigmaDD * sigmaDD * T) / (sigmaDD * std::sqrt(T));
+	double d2 = d1 - sigmaDD * sigmaDD * T;
+
+	boost::math::normal_distribution<>  norm_dist(0.0, 1.0); //
+	double N_d1 = cdf(norm_dist, -d1);
+	double N_d2 = cdf(norm_dist, -d2);
+
+	return std::exp(-r * T) * (K_new * N_d2 - (S0 + a) * N_d1);
+}
+
 double AnalyticalFormulas::delta(double S0, double K, double r, double sigma, double t, bool isCall)
 {
 	boost::math::normal_distribution<>  norm_dist(0.0, 1.0); //

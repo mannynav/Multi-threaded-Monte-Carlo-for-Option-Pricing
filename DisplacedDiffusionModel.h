@@ -1,4 +1,14 @@
 
+
+/*
+ *
+ * This model is the Displaced Diffusion model for dynamics of the underlying asset.
+ * The model is capable of modelling skewed implied volatility structures.
+ * Closed form solutions for plain vanilla options are available, see Rebonato 2002.
+ *
+ */
+
+
 #pragma once
 #include "ModelBase.h"
 #include "RandomBase.h"

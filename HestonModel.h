@@ -1,8 +1,16 @@
-#pragma once
 
+/*
+ *
+ * This model is the Heston Stochastic Vol model.
+ * The model can capture skew or smile based implied volatility.
+ * Numerous discretization schemes available.
+ * The scheme used here is the Almost Exact Scheme, sampling directly from a non-central chi-squared distribution.
+ *
+ */
+
+#pragma once
 #include "ModelBase.h"
 #include "RandomBase.h"
-
 
 #ifndef HESTONMODEL_H
 #define HESTONMODEL_H
@@ -34,9 +42,6 @@ private:
 	double k0_{};
 	double k1_{};
 	double k2_{};
-
-	double y1_ = 0.5;
-	double y2_ = 0.5;
 
 	double expression_;
 	double sqrt_expression_;

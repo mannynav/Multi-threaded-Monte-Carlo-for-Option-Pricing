@@ -1,5 +1,14 @@
-#pragma once
 
+/*
+ *
+ * This model is the Merton Model for dynamics of the underlying asset.
+ * The jump diffusion models can generate an implied volatility skew or smile (steep). Useful for short dated FX options.
+ * Closed form solutions for plain vanilla options are available as sums of the Black-Scholes formula.
+ *
+ */
+
+
+#pragma once
 #include "ModelBase.h"
 #include "RandomBase.h"
 

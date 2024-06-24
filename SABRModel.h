@@ -1,4 +1,13 @@
 
+/*
+ *
+ * This model is the Stochastic Alpha Beta Rho model (SABR) for dynamics of the underlying asset (see Hagan, et al. 2002).
+ * A market standard model in various asset classes that is able to capture implied vol smiles.
+ * The implementation here uses the predictor-corrector scheme to evolve the asset price through time.
+ * Prices using the Monte Carlo method have been tested against the analytical solution for European options provided the SABR apporximation.
+ *
+ */
+
 #pragma once
 #include "ModelBase.h"
 
@@ -36,4 +45,4 @@ private:
 	std::unique_ptr<BrownianMotionPathBase> path_{};
 	std::unique_ptr<RandomBase> generator_{};
 };
-#endif // GBMMODEL_H
+#endif

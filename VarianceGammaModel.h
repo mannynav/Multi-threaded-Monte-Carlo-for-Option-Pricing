@@ -1,5 +1,14 @@
-#pragma once
+/*
+ *
+ * This model is the Variance Gamma model for dynamics of the underlying asset.
+ * The CGM representation is used for the input but are converted back for the implementation.
+ * The characteristic function is known for this model in closed form.
+ * 
+ *
+ */
 
+
+#pragma once
 #include "ModelBase.h"
 #include "RandomBase.h"
 
@@ -43,4 +52,4 @@ private:
 	boost::gamma_distribution<> gamma_distr_;
 	std::unique_ptr<RandomBase> generator_{};
 };
-#endif // GBMMODEL_H
+#endif

@@ -1,3 +1,6 @@
+
+
+
 #include "AnalyticalFormulas.h"
 
 #include <random>
@@ -8,10 +11,10 @@
 #include <numbers>
 #include <cmath>
 
-std::pair<double, double> AnalyticalFormulas::calculate_d1_d2(double S0, double K, double T, double r, double sigma)
+std::pair<double, double> AnalyticalFormulas::calculate_d1_d2(double S0, double K, double T, double r, double d, double sigma)
 {
 
-	double d1 = (std::log(S0 / K) + (r + (sigma * sigma) / 2) * T) / (sigma * std::sqrt(T));
+	double d1 = (std::log(S0 / K) + ((r-d) + (sigma * sigma) / 2) * T) / (sigma * std::sqrt(T));
 	double d2 = d1 - sigma * sqrt(T);
 
 	std::pair<double, double> pair{ d1,d2 };
@@ -20,13 +23,13 @@ std::pair<double, double> AnalyticalFormulas::calculate_d1_d2(double S0, double 
 }
 
 
-double AnalyticalFormulas::Black_Scholes_Call(double S0, double K, double T, double r, double sigma)
+double AnalyticalFormulas::Black_Scholes_Call(double S0, double K, double T, double r, double d, double sigma)
 {
 	if (S0 <= 0.0 || K <= 0.0 || T <= 0.0)
 	{
 		throw std::invalid_argument("Invalid input parameters (spot price, strike price, or time to maturity must be positive).");
 	}
-	std::pair<double, double> d1_d2 = AnalyticalFormulas::calculate_d1_d2(S0, K, T, r, sigma);
+	std::pair<double, double> d1_d2 = AnalyticalFormulas::calculate_d1_d2(S0, K, T, r, d, sigma);
 	double d1 = d1_d2.first;
 	double d2 = d1_d2.second;
 
@@ -38,10 +41,10 @@ double AnalyticalFormulas::Black_Scholes_Call(double S0, double K, double T, dou
 	return S0 * N_d1 - K * exp(-r * T) * N_d2;
 }
 
-double AnalyticalFormulas::Black_Scholes_Put(double S0, double K, double T, double r, double sigma)
+double AnalyticalFormulas::Black_Scholes_Put(double S0, double K, double T, double r, double d, double sigma)
 {
 	//just using put call parity
-	return K * std::exp(-r * T) - S0 + Black_Scholes_Call(S0, K, T, r, sigma);
+	return K * std::exp(-r * T) - S0 + Black_Scholes_Call(S0, K, T, r,d, sigma);
 
 }
 

@@ -7,7 +7,9 @@
 Input::Input()
 {
     s0_ = 0.2;                             
-    risk_free_rate = 0.0;     
+    risk_free_rate = 0.0;
+    dividend_ = 0.0;
+
 
     strike_ = 0.2;                          // Strike price
     expiry_ = 2;                            // Time to expiry
@@ -82,7 +84,7 @@ Input::Input()
 
     double sabrIV = AnalyticalFormulas::ImpliedVolatilitySABR(0.3, 0.2, 2, 0.2, 0.5, 0.2, 0);
     std::cout << sabrIV << '\n';
-    std::cout << AnalyticalFormulas::Black_Scholes_Call(s0_, strike_, expiry_, risk_free_rate, volatility_) << '\n';
+    std::cout << AnalyticalFormulas::Black_Scholes_Call(s0_, strike_, expiry_, risk_free_rate, dividend_, volatility_) << '\n';
 
 
 }

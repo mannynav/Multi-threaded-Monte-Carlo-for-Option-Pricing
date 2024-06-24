@@ -74,6 +74,7 @@ private:
 	double s0_{};
 	double risk_free_rate{};
 	double volatility_{};
+	double dividend_{};
 
 	double strike_{};
 	double expiry_{};

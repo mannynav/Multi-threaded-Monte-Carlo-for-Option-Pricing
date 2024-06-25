@@ -157,7 +157,7 @@ void HestonHullWhiteModel::simulate_paths(int start_idx, int end_idx, Eigen::Mat
 
 		if ((i + 1) % 200000 == 0)
 		{
-			std::cout << "Paths simulated: " << i + 1 << std::endl;
+			std::cout << "Paths simulated: " << i + 1 << '\n';
 		}
 	}
 }

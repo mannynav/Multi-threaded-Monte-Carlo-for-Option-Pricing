@@ -25,7 +25,6 @@ void GBMModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths
 
 	for (int i = start_idx; i < end_idx; ++i)
 	{
-
 		std::vector<double> variates(N_);
 
 		path_->GeneratePath(variates,rng);

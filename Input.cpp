@@ -6,23 +6,22 @@
 
 Input::Input()
 {
-    s0_ = 0.2;                             
-    risk_free_rate = 0.0;
+    s0_ = 100;                             
+    risk_free_rate = 0.1;
     dividend_ = 0.0;
 
-
-    strike_ = 0.2;                          // Strike price
-    expiry_ = 2;                            // Time to expiry
+    strike_ = 100;                          // Strike price
+    expiry_ = 1;                            // Time to expiry
 
     lower_barrier_ = 90;                    // Double Barrier parameters
     upper_barrier_ = 110;
 
     volatility_ = 0.30;                     // Geometric Brownian Motion parameter
 
-    v0_ = 0.02;                             // Heston model parameters
+    v0_ = 0.04;                             // Heston model parameters
     mean_reversion_ = 0.5;
-    long_term_mean_ = 0.05;
-    volatility_of_volatility_ = 0.3;
+    long_term_mean_ = 0.04;
+    volatility_of_volatility_ = 1;
     correlation_ = -0.9;
 
     correlation_XR_ = 0.5;                  // Correlations for Heston Hull-White
@@ -49,9 +48,9 @@ Input::Input()
     rho_ = 0.0;
 	nu_ = 0.2;
 
-    number_of_paths_ = 10;                  // Monte Carlo parameters
-    total_number_steps_ = 10;
-    number_threads_ = 1;
+    number_of_paths_ = 5000000;                  // Monte Carlo parameters
+    total_number_steps_ = 250;
+    number_threads_ = 16;
     seed_ = 1;
 
     option_type_ = 'c';   	                // c - for call,
@@ -61,7 +60,7 @@ Input::Input()
                                             // 3 - fixed look back call
 											// 4 - double barrier knock in call
 
-	model_type_ = 'g';   	                // g for gbm, 
+	model_type_ = 'h';   	                // g for gbm, 
                                             // h for heston sv, H for heston hull-white, 
                                             // v for variance gamma, m for merton model with fixed grid sampling, 
                                             // d for displaced diffusion, s for SABR model
@@ -83,7 +82,7 @@ Input::Input()
     greek_type_ = 'p';                       // p for pathwise, l for likelihood ratio.
 
     double sabrIV = AnalyticalFormulas::ImpliedVolatilitySABR(0.3, 0.2, 2, 0.2, 0.5, 0.2, 0);
-    std::cout << sabrIV << '\n';
+    //std::cout << sabrIV << '\n';
     std::cout << AnalyticalFormulas::Black_Scholes_Call(s0_, strike_, expiry_, risk_free_rate, dividend_, volatility_) << '\n';
 
 

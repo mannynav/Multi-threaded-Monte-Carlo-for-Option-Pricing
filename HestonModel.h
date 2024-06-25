@@ -53,9 +53,9 @@ private:
 	double dt_{};
 
 	mutable std::vector<double> cir_path_;
-
+	std::unique_ptr<BrownianMotionPathBase> path_{};
 	std::unique_ptr<RandomBase> generator_{};
-	std::vector<double> generate_CIR_path(boost::mt19937 & rng) const;
+	void generate_CIR_path(std::vector<double>& vec, boost::mt19937 & rng) const;
 
 };
 #endif // HESTONMODEL_H

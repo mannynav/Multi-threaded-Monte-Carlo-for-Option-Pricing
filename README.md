@@ -15,7 +15,7 @@ Greeks calculations are not currently implemented but the structure is there for
 There are two term structure classes that inherit from a single base class. The flat term term structure is used for the GBM, VG and HSV models while the stochastic term structure is used for the Heston Hull-White hybrid model since the short rate will follow the Hull-White process and needs to be accumulated and used for discounting.
 
 # Tests #
-Tests are currently implemented only for the option payoffs using Boost test. Test Driven Developemnt will be used for any new option payoffs.
+Tests are currently implemented only for the option payoffs using Boost test. Test Driven Development will be used for any new option payoffs.
 
 
 

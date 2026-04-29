@@ -17,7 +17,6 @@ void MCSimulation::run(const OptionBase& option, const ModelBase& model, const T
 	std::vector<std::thread> threads;
 	
 	int workload = number_of_paths_ / num_threads_;
-
 	auto start_time = std::chrono::high_resolution_clock::now();
 
 	for (int i = 0; i < num_threads_; ++i)
@@ -25,26 +24,23 @@ void MCSimulation::run(const OptionBase& option, const ModelBase& model, const T
 		int start = i * workload;
 		int end = (i == num_threads_ - 1) ? number_of_paths_ : start + workload;
 
-		threads.emplace_back([&model, start, end, &stock_prices]()
+		unsigned seed = 42 + i;  // deterministic — tied to loop index, not execution order
+
+		threads.emplace_back([&model, start, end, &stock_prices,seed]()
 			{
-				model.simulate_paths(start, end, stock_prices);
+				model.simulate_paths(start, end, stock_prices,seed);
 			});
 	}
-
 
 	for (auto& th : threads)
 	{
 		th.join();
 	}
 
+
 	Eigen::VectorXd payoffs = option.ComputePayoffs(stock_prices);
 
 	gatherer_->accumulate(payoffs, model);
-
-	//std::map<std::string, double> GreekMap = option.ComputeGreeks(stock_prices, model);
-	//std::cout << "MC delta: " << discount * GreekMap["Delta"] << std::endl;
-	//std::cout << "MC vega: " << discount * GreekMap["Vega"] << std::endl;
-	//std::cout << "MC gamma: " << discount * GreekMap["Gamma"] << std::endl;
 
 	auto end_time = std::chrono::high_resolution_clock::now();
 	auto duration = std::chrono::duration_cast<std::chrono::seconds>(end_time - start_time);

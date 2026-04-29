@@ -25,10 +25,10 @@ VarianceGammaModel::VarianceGammaModel(PseudoFactory& factory) : s0_(factory.Get
 }
 
 
-void VarianceGammaModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const
+void VarianceGammaModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths, unsigned seed) const
 {
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-	generator_->SeedGenerator(seed);
+	/*unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	generator_->SeedGenerator(seed);*/
 	boost::mt19937 rng = generator_->GetGenerator();
 
 	boost::variate_generator<boost::mt19937&, boost::gamma_distribution<>> rgamma(rng, gamma_distr_);
@@ -40,7 +40,7 @@ void VarianceGammaModel::simulate_paths(int start_idx, int end_idx, Eigen::Matri
 	{
 
 		std::vector<double> variates(N_);
-		path_->GeneratePath(variates, rng);
+		path_->fill_vector(variates, rng);
 
 		std::vector<double> gamma_variates(N_);
 		std::ranges::generate(gamma_variates, rgamma);

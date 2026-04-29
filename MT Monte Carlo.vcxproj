@@ -90,6 +90,9 @@
     <LibraryPath>C:\Users\manny\Boost\boost_1_84_0\boost_1_84_0\libs;C:\Users\manny\Eigen\eigen-3.4.0;$(LibraryPath)</LibraryPath>
     <ExternalIncludePath>$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
+  <PropertyGroup Label="Vcpkg">
+    <VcpkgEnableManifest>false</VcpkgEnableManifest>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -151,10 +154,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AmericanOption.cpp" />
     <ClCompile Include="AnalyticalFormulas.cpp" />
-    <ClCompile Include="AntitheticPath.cpp" />
     <ClCompile Include="AsianCallOption.cpp" />
-    <ClCompile Include="BrownianMotionPathBase.cpp" />
+    <ClCompile Include="BasisFunction.cpp" />
     <ClCompile Include="DisplacedDiffusionModel.cpp" />
     <ClCompile Include="DoubleBarrierKnockInCall.cpp" />
     <ClCompile Include="EuroCallOption.cpp" />
@@ -163,27 +166,22 @@
     <ClCompile Include="FlatTermStructure.cpp" />
     <ClCompile Include="FloatingLookBackCall.cpp" />
     <ClCompile Include="GBMModel.cpp" />
-    <ClCompile Include="GreekBase.cpp" />
     <ClCompile Include="HestonHullWhiteModel.cpp" />
     <ClCompile Include="HestonModel.cpp" />
-    <ClCompile Include="ImportanceSampledPath.cpp" />
     <ClCompile Include="Input.cpp" />
-    <ClCompile Include="LikelihoodRatioGreeks.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MCGatherer.cpp" />
     <ClCompile Include="MCSimulation.cpp" />
     <ClCompile Include="MertonModel.cpp" />
     <ClCompile Include="ModelBase.cpp" />
     <ClCompile Include="OptionBase.cpp" />
-    <ClCompile Include="PathwiseGreeks.cpp" />
-    <ClCompile Include="PlainBrownianPath.cpp" />
     <ClCompile Include="PseudoFactory.cpp" />
     <ClCompile Include="RandomBase.cpp" />
     <ClCompile Include="RandomMersenneTwister.cpp" />
     <ClCompile Include="rv.cpp" />
     <ClCompile Include="SABR.cpp" />
+    <ClCompile Include="SamplingMethod.cpp" />
     <ClCompile Include="StochasticTermStructure.cpp" />
-    <ClCompile Include="TestAsianCallOption.cpp" />
     <ClCompile Include="TestDoubleBarrierKnockInCall.cpp" />
     <ClCompile Include="TestEuroCallOption.cpp" />
     <ClCompile Include="TestEuroUpInCallOption.cpp" />
@@ -195,11 +193,11 @@
     <ClCompile Include="VarianceGammaModel.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AmericanOption.h" />
     <ClInclude Include="AnalyticalFormulas.h" />
-    <ClInclude Include="AntitheticPath.h" />
     <ClInclude Include="ApplicationBase.h" />
     <ClInclude Include="AsianCallOption.h" />
-    <ClInclude Include="BrownianMotionPathBase.h" />
+    <ClInclude Include="BasisFunction.h" />
     <ClInclude Include="DisplacedDiffusionModel.h" />
     <ClInclude Include="DoubleBarrierKnockInCall.h" />
     <ClInclude Include="EuroCallOption.h" />
@@ -208,26 +206,20 @@
     <ClInclude Include="FlatTermStructure.h" />
     <ClInclude Include="FloatingLookBackCall.h" />
     <ClInclude Include="GBMModel.h" />
-    <ClInclude Include="GreekBase.h" />
-    <ClInclude Include="GreekDelta.h" />
-    <ClInclude Include="GreekGamma.h" />
-    <ClInclude Include="GreekVega.h" />
     <ClInclude Include="HestonHullWhiteModel.h" />
     <ClInclude Include="HestonModel.h" />
-    <ClInclude Include="ImportanceSampledPath.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="MCGatherer.h" />
     <ClInclude Include="MCSimulation.h" />
     <ClInclude Include="MertonModel.h" />
     <ClInclude Include="ModelBase.h" />
     <ClInclude Include="OptionBase.h" />
-    <ClInclude Include="PathwiseGreeks.h" />
-    <ClInclude Include="PlainBrownianPath.h" />
     <ClInclude Include="PseudoFactory.h" />
     <ClInclude Include="RandomBase.h" />
     <ClInclude Include="RandomMersenneTwister.h" />
     <ClInclude Include="rv.h" />
     <ClInclude Include="SABRModel.h" />
+    <ClInclude Include="SamplingMethods.h" />
     <ClInclude Include="StochasticTermStructure.h" />
     <ClInclude Include="TermStructureBase.h" />
     <ClInclude Include="Valuation.h" />

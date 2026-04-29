@@ -18,10 +18,9 @@ DisplacedDiffusionModel::DisplacedDiffusionModel(PseudoFactory& factory) : S0_(f
 }
 
 
-void DisplacedDiffusionModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const
+void DisplacedDiffusionModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths, unsigned seed) const
 {
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-	generator_->SeedGenerator(seed);
+
 	boost::mt19937 rng = generator_->GetGenerator();
 
 	paths.col(0).setConstant(S0_ + a_);
@@ -32,7 +31,7 @@ void DisplacedDiffusionModel::simulate_paths(int start_idx, int end_idx, Eigen::
 
 		std::vector<double> variates(N_);
 
-		path_->GeneratePath(variates, rng);
+		path_->fill_vector(variates, rng);
 
 		for (int j = 0; j < N_; ++j)
 		{

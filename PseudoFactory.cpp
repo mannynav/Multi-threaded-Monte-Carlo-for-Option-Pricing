@@ -16,6 +16,7 @@
 #include "FloatingLookBackCall.h"
 #include "FixedLookBackCall.h"
 #include "DoubleBarrierKnockInCall.h"
+#include "AmericanOption.h"
 
 #include "ModelBase.h"
 #include "GBMModel.h"
@@ -30,12 +31,7 @@
 #include "FlatTermStructure.h"
 #include "StochasticTermStructure.h"
 
-#include "GreekBase.h"
-#include "PathwiseGreeks.h"
-
-#include "AntitheticPath.h"
-#include "PlainBrownianPath.h"
-#include "ImportanceSampledPath.h"
+#include "SamplingMethods.h"
 
 #include "RandomBase.h"
 #include "RandomMersenneTwister.h"
@@ -90,7 +86,6 @@ double PseudoFactory::GetJumpIntensity() const { return input_->GetJumpIntensity
 
 char PseudoFactory::GetMType() const { return input_->GetModelType(); }
 char PseudoFactory::GetOType() const { return input_->GetOptionType(); }
-char PseudoFactory::GetGreekType() const{return input_->GetGreekType(); }
 
 
 std::unique_ptr<OptionBase> PseudoFactory::CreateOption()
@@ -111,6 +106,10 @@ std::unique_ptr<OptionBase> PseudoFactory::CreateOption()
 			return std::make_unique<FixedLookBackCallOption>(*this);
 	case '4':
 			return std::make_unique<DoubleBarrierKnockInCall>(*this);
+	case '5':
+		return std::make_unique<AmericanPutOption>(GetStrike(), GetRiskFreeRate(), GetExpiry(), GetNumberTotalSteps());
+	case '6':
+		return std::make_unique<AmericanCallOption>(GetStrike(), GetRiskFreeRate(), GetExpiry(), GetNumberTotalSteps());
 	default:
 		throw std::invalid_argument("CreateOption: Bad character. Invalid option type");
 	}
@@ -141,16 +140,22 @@ std::unique_ptr<ModelBase> PseudoFactory::CreateModel()
 	}
 }
 
-std::unique_ptr<BrownianMotionPathBase> PseudoFactory::CreateBrownianMotionPath()
+std::unique_ptr<SamplingMethod> PseudoFactory::CreateBrownianMotionPath()
 {
 	char type = input_->GetBrownianMotionPathType();
 
 	switch(type)
 	{
-	case 'p':
-		return std::make_unique<PlainBrownianPath>();
-	case 'a':
-		return std::make_unique<AntitheticPath>(*this);
+	case '1':
+		return std::make_unique<StandardMCSampler>(*this);
+	case '2':
+		return std::make_unique<AntitheticSampler>(*this);
+	case '3':
+		return std::make_unique<HaltonSampler>(*this);
+	case '4':
+		return std::make_unique<TerminalStratifiedSampler>(*this);
+	case '5':
+		return std::make_unique<AdaptiveImportanceSampler>(*this);
 
 	default: throw std::runtime_error("PseudoFactory::CreateModel: Bad character");
 	}
@@ -210,16 +215,3 @@ std::unique_ptr<RandomBase> PseudoFactory::CreateRandomBase()
 	}
 }
 
-std::unique_ptr<GreekBase> PseudoFactory::CreateGreek()
-{
-	char greek_type = input_->GetGreekType();
-
-	switch(greek_type)
-	{
-	case 'p':
-		return std::make_unique<PathwiseGreeks>(*this);
-		//return new PathwiseGreeks(*this);
-
-	default: throw std::runtime_error("PseudoFactory::CreateGreek:  Bad character");
-	}
-}

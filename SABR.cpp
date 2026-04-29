@@ -16,13 +16,20 @@ SABRModel::SABRModel(PseudoFactory& factory) : S0_(factory.GetS0()),
 											   path_(factory.CreateBrownianMotionPath()),
 											   generator_(factory.CreateRandomBase())
 
-{}
-
-
-void SABRModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const
 {
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-	generator_->SeedGenerator(seed);
+	variates1.resize(N_+1);
+	std::cout << variates1.size() << std::endl;
+	variates2.resize(N_+1);
+	std::cout << variates2.size() << std::endl;
+	sigmaVec_.resize(N_+1);
+
+}
+
+
+void SABRModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths, unsigned seed) const
+{
+	/*unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	generator_->SeedGenerator(seed);*/
 	boost::mt19937 rng = generator_->GetGenerator();
 
 	paths.col(0).setConstant(S0_); //Spot price
@@ -30,10 +37,10 @@ void SABRModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& path
 	for (int i = start_idx; i < end_idx; ++i)
 	{
 
-		std::vector<double> variates1(N_), variates2(N_), sigmaVec_(N_);
+		//std::vector<double> variates1(N_), variates2(N_), sigmaVec_(N_);
 
-		path_->GeneratePath(variates1, rng);
-		path_->GeneratePath(variates2, rng);
+		path_->fill_vector(variates1, rng);
+		path_->fill_vector(variates2, rng);
 
 		sigmaVec_[0] = alpha_; // Spot volatility
 

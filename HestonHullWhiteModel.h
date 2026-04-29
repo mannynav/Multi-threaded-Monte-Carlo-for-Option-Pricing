@@ -1,11 +1,57 @@
+
+/*
+ * Heston Hull-White Model
+ *
+ * Jointly models stochastic volatility and stochastic interest rates:
+ *
+ *   dS_t = r_t * S_t * dt + sqrt(V_t) * S_t * dW_t^1
+ *   dV_t = kappa * (theta - V_t) * dt + xi * sqrt(V_t) * dW_t^2
+ *   dr_t = lambda * (theta_t - r_t) * dt + eta * dW_t^3
+ *
+ * where theta_t is calibrated to the initial yield curve via the
+ * instantaneous forward rate f(0,t).
+ *
+ * Correlations:
+ *   corrXV - Correlation between spot and variance (W^1, W^2)
+ *   corrXR - Correlation between spot and short rate (W^1, W^3)
+ *
+ * Discretization:
+ *   The variance process V_t is discretized using the Quadratic Exponential
+ *   (QE) scheme (Andersen 2007), which avoids the instability of Euler
+ *   discretization near zero variance. The short rate r_t is discretized
+ *   exactly using the Hull-White analytical solution.
+ *
+ * Validation:
+ *   European call prices match those obtained via the COS method.
+ *   See Fang & Oosterlee (2008) and Grzelak & Oosterlee (2019).
+ *
+ * Note: Multi-threading is not yet implemented for this model.
+ *
+ * Heston Parameters:
+ *   S0             - Initial spot price
+ *   V0             - Initial instantaneous variance
+ *   meanreversion  - Speed of variance mean reversion (kappa)
+ *   ltmean         - Long-term mean of the variance process (theta)
+ *   volvol         - Volatility of the variance process (xi)
+ *   corrXV         - Correlation between spot and variance
+ *   corrXR         - Correlation between spot and short rate
+ *   PsiC           - Threshold parameter for QE scheme; controls switching
+ *                    between the exponential and quadratic branches
+ *
+ * Hull-White Parameters:
+ *   eta            - Volatility of the short rate process
+ *   lambda         - Mean reversion speed of the short rate
+ *
+ * Simulation Parameters:
+ *   T              - Time to expiry in years
+ *   N              - Number of time steps
+ *   dt             - Time step size (T / N)
+ *   k0, k1, k2, k3 - Precomputed constants for the log-spot update
+ *   L1, L2         - Precomputed constants for the Hull-White rate update
+ *   expression     - Precomputed exp(-kappa * dt) for the QE scheme
+ */
+
 #pragma once
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// This class implements the Heston Hull-White model using the Quadratic Exponential discretization scheme for the variance process.
-// Prices obtained for European call options match those obtained with the COS method outlined in Oosterlee and Grezlak, 2019.
-// This class is not (yet) implemented for multi-threading.
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 #include "ModelBase.h"
 #include "RandomBase.h"
 
@@ -17,7 +63,7 @@ class HestonHullWhiteModel : public ModelBase
 public:
 	HestonHullWhiteModel(PseudoFactory& factory);
 	~HestonHullWhiteModel() override = default;
-	void simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const override;
+	void simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths, unsigned seed) const override;
 
 	double Get_MT() const override
 	{

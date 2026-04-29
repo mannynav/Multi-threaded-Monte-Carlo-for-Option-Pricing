@@ -6,12 +6,10 @@
 #include "RandomBase.h"
 #include <memory>
 
-#include "PlainBrownianPath.h"
-
 class OptionBase;
 class ModelBase;
 class TermStructureBase;
-class BrownianMotionPathBase;
+class SamplingMethod;
 
 class ValuationMethodBase;
 class ApplicationBase;
@@ -22,27 +20,23 @@ class RandomBase;
 class Input;
 class Output;
 
-class GreekBase;
-
 class PseudoFactory
 {
 
 public:
 	std::unique_ptr<ApplicationBase> CreateApplication();
+
 	std::unique_ptr<ValuationMethodBase> CreateValuationMethod();
 
 	std::unique_ptr<OptionBase> CreateOption();
 
 	std::unique_ptr<ModelBase> CreateModel();
 
-	std::unique_ptr<BrownianMotionPathBase> CreateBrownianMotionPath();
+	std::unique_ptr<SamplingMethod> CreateBrownianMotionPath();
 
 	std::unique_ptr<TermStructureBase> CreateTermStructure();
 
 	std::unique_ptr<RandomBase> CreateRandomBase();
-
-	std::unique_ptr<GreekBase> CreateGreek();
-	//GreekBase* CreateGreek();
 
 	void SetInput(Input* inp){input_ = inp;}
 
@@ -95,8 +89,6 @@ public:
 	double GetNuSABR() const;
 
 	double GetShift() const;
-
-	char GetGreekType() const;
 
 private:
 

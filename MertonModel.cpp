@@ -21,11 +21,11 @@ MertonModel::MertonModel(PseudoFactory& factory) : S0_(factory.GetS0()),
 }
 
 
-void MertonModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const
+void MertonModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths, unsigned seed) const
 {
 
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-	generator_->SeedGenerator(seed);
+	/*unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	generator_->SeedGenerator(seed);*/
 	boost::mt19937 rng = generator_->GetGenerator();
 
 	boost::variate_generator<boost::mt19937&, boost::poisson_distribution<>> poisson_variate(rng, poisson_);
@@ -36,13 +36,15 @@ void MertonModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& pa
 	{
 		std::vector<double> variates1(N_), variates2(N_), variatesPoisson(N_);
 
-		path_->GeneratePath(variates1, rng);
-		path_->GeneratePath(variates2, rng);
+		path_->fill_vector(variates1, rng);
+		path_->fill_vector(variates2, rng);
 
 		std::ranges::generate(variatesPoisson,poisson_variate);
+		
 
 		for (int j = 0; j < N_; ++j)
 		{
+
 			double jump_ = uJ_ * variatesPoisson[j] + sigmaJ * std::sqrt(variatesPoisson[j]) * variates2[j];
 
 			paths(i, j + 1) = paths(i, j) * std::exp(nu_ * dt_ + sigma_ * sqrtdt_ * variates1[j] + jump_);

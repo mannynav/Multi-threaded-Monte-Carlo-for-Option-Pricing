@@ -16,9 +16,6 @@
     <Filter Include="Header Files\Models">
       <UniqueIdentifier>{88e86d4c-a723-41bf-be6c-ca0a1d109bec}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Models\BrownianPaths">
-      <UniqueIdentifier>{3bc93481-7fb7-42f3-9581-29f9b109ee3c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Models">
       <UniqueIdentifier>{daa2cb6e-61f1-4556-81ea-c80141051bcb}</UniqueIdentifier>
     </Filter>
@@ -33,12 +30,6 @@
     </Filter>
     <Filter Include="Header Files\Input/Output">
       <UniqueIdentifier>{0376dbea-8167-45f0-a653-d37d8e1150ce}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Models\BrownianPath">
-      <UniqueIdentifier>{aa84b933-d532-46ff-8b3c-6db8a85ba760}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Greeks">
-      <UniqueIdentifier>{5388b7c3-6d2b-402e-b058-c41fa93e816c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Greeks">
       <UniqueIdentifier>{c6efc42a-71c1-4abf-bd61-e21869a17ade}</UniqueIdentifier>
@@ -117,29 +108,8 @@
     <ClCompile Include="Input.cpp">
       <Filter>Source Files\I/O</Filter>
     </ClCompile>
-    <ClCompile Include="BrownianMotionPathBase.cpp">
-      <Filter>Source Files\Models\BrownianPath</Filter>
-    </ClCompile>
-    <ClCompile Include="PlainBrownianPath.cpp">
-      <Filter>Source Files\Models\BrownianPath</Filter>
-    </ClCompile>
-    <ClCompile Include="ImportanceSampledPath.cpp">
-      <Filter>Source Files\Models\BrownianPath</Filter>
-    </ClCompile>
     <ClCompile Include="StochasticTermStructure.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GreekBase.cpp">
-      <Filter>Source Files\Greeks</Filter>
-    </ClCompile>
-    <ClCompile Include="PathwiseGreeks.cpp">
-      <Filter>Source Files\Greeks</Filter>
-    </ClCompile>
-    <ClCompile Include="LikelihoodRatioGreeks.cpp">
-      <Filter>Source Files\Greeks</Filter>
-    </ClCompile>
-    <ClCompile Include="AntitheticPath.cpp">
-      <Filter>Source Files\Models\BrownianPath</Filter>
     </ClCompile>
     <ClCompile Include="EuroUpInCallOption.cpp">
       <Filter>Source Files\Options</Filter>
@@ -162,9 +132,6 @@
     <ClCompile Include="TestEuroCallOption.cpp">
       <Filter>Source Files\Tests</Filter>
     </ClCompile>
-    <ClCompile Include="TestAsianCallOption.cpp">
-      <Filter>Source Files\Tests</Filter>
-    </ClCompile>
     <ClCompile Include="TestEuroUpInCallOption.cpp">
       <Filter>Source Files\Tests</Filter>
     </ClCompile>
@@ -179,6 +146,15 @@
     </ClCompile>
     <ClCompile Include="TestDoubleBarrierKnockInCall.cpp">
       <Filter>Source Files\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="SamplingMethod.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BasisFunction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AmericanOption.cpp">
+      <Filter>Source Files\Options</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -203,15 +179,6 @@
     <ClInclude Include="RandomMersenneTwister.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GreekDelta.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GreekVega.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GreekGamma.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AnalyticalFormulas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -224,29 +191,11 @@
     <ClInclude Include="VarianceGammaModel.h">
       <Filter>Header Files\Models</Filter>
     </ClInclude>
-    <ClInclude Include="BrownianMotionPathBase.h">
-      <Filter>Header Files\Models\BrownianPaths</Filter>
-    </ClInclude>
-    <ClInclude Include="PlainBrownianPath.h">
-      <Filter>Header Files\Models\BrownianPaths</Filter>
-    </ClInclude>
     <ClInclude Include="HestonHullWhiteModel.h">
       <Filter>Header Files\Models</Filter>
     </ClInclude>
-    <ClInclude Include="ImportanceSampledPath.h">
-      <Filter>Header Files\Models\BrownianPaths</Filter>
-    </ClInclude>
     <ClInclude Include="ModelBase.h">
       <Filter>Header Files\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="GreekBase.h">
-      <Filter>Header Files\Greeks</Filter>
-    </ClInclude>
-    <ClInclude Include="PathwiseGreeks.h">
-      <Filter>Header Files\Greeks</Filter>
-    </ClInclude>
-    <ClInclude Include="AntitheticPath.h">
-      <Filter>Header Files\Models\BrownianPaths</Filter>
     </ClInclude>
     <ClInclude Include="EuroCallOption.h">
       <Filter>Header Files\Options</Filter>
@@ -294,6 +243,15 @@
       <Filter>Header Files\Options</Filter>
     </ClInclude>
     <ClInclude Include="DoubleBarrierKnockInCall.h">
+      <Filter>Header Files\Options</Filter>
+    </ClInclude>
+    <ClInclude Include="SamplingMethods.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BasisFunction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AmericanOption.h">
       <Filter>Header Files\Options</Filter>
     </ClInclude>
   </ItemGroup>

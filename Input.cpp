@@ -7,21 +7,21 @@
 Input::Input()
 {
     s0_ = 100;                             
-    risk_free_rate = 0.1;
+    risk_free_rate = 0.05;
     dividend_ = 0.0;
 
     strike_ = 100;                          // Strike price
-    expiry_ = 1;                            // Time to expiry
+    expiry_ = 1.0;                            // Time to expiry
 
     lower_barrier_ = 90;                    // Double Barrier parameters
     upper_barrier_ = 110;
 
-    volatility_ = 0.30;                     // Geometric Brownian Motion parameter
+    volatility_ = 0.15;                     // Geometric Brownian Motion parameter
 
     v0_ = 0.04;                             // Heston model parameters
     mean_reversion_ = 0.5;
     long_term_mean_ = 0.04;
-    volatility_of_volatility_ = 1;
+    volatility_of_volatility_ = 1.0;
     correlation_ = -0.9;
 
     correlation_XR_ = 0.5;                  // Correlations for Heston Hull-White
@@ -32,9 +32,9 @@ Input::Input()
 
     PsiC = 1.5;					            //Switching parameter for Heston QE scheme
 
-    jump_mean_ = 0.1;			            // Merton parameters
-    jump_vol_ = 0.2;
-    jump_intensity = 1.7913;
+    jump_mean_ = -0.9;			            // Merton parameters
+    jump_vol_ = 0.45;
+    jump_intensity = 0.1;
 
     adjustment_ = 5;			            // Displaced Diffusion parameters 
     volatility_dd_ = 0.2;
@@ -43,35 +43,38 @@ Input::Input()
     G_ = 20.0276;
     M_ = 26.3971;
 
-	alpha_ = 0.2;				            // SABR parameters
-	beta_ = 0.5;
-    rho_ = 0.0;
-	nu_ = 0.2;
+	alpha_ = 0.30;				            // SABR parameters, alpha is spot vol, nu_ is volvol, beta is CEV param
+	beta_ = 1.0;
+    rho_ = -0.5;
+	nu_ = 1.0;
 
-    number_of_paths_ = 5000000;                  // Monte Carlo parameters
-    total_number_steps_ = 250;
-    number_threads_ = 16;
+    number_of_paths_ = 1000000;                  // Monte Carlo parameters
+    total_number_steps_ = 50;
+    number_threads_ = 10;
     seed_ = 1;
 
-    option_type_ = 'c';   	                // c - for call,
+    option_type_ = '5';   	                // c - for call,
                                             // a - for asian call, 
                                             // 1 - up-in call option, 
                                             // 2 - floating look back call, 
                                             // 3 - fixed look back call
 											// 4 - double barrier knock in call
+                                            // 5 - American Put 
+                                            // 6 - American Call
 
-	model_type_ = 'h';   	                // g for gbm, 
+
+	model_type_ = 'g';   	                // g for gbm, 
                                             // h for heston sv, H for heston hull-white, 
                                             // v for variance gamma, m for merton model with fixed grid sampling, 
                                             // d for displaced diffusion, s for SABR model
 
-    brownian_path_type_ = 'p';               //p for plain brownian (All models), a for antithetic paths (GBM model)
+    brownian_path_type_ = '1';               //1 for plain brownian (All models), 2 for antithetic paths (GBM model)
     shift_for_drift_ = 0.0;                  //ONLY FOR IMPORTANCE SAMPLING
 
 
 	term_structure_type_ = 'f';   	         // f for flat term structure, s for stochastic term structure
 
-    pricing_method_type_ = 'm';  	         // p for plain MC
+    pricing_method_type_ = 'm';  	         // m for plain MC
 
     application_type_ = 'v';   	             // v for valuation application
 			
@@ -83,7 +86,9 @@ Input::Input()
 
     double sabrIV = AnalyticalFormulas::ImpliedVolatilitySABR(0.3, 0.2, 2, 0.2, 0.5, 0.2, 0);
     //std::cout << sabrIV << '\n';
+
     std::cout << AnalyticalFormulas::Black_Scholes_Call(s0_, strike_, expiry_, risk_free_rate, dividend_, volatility_) << '\n';
+    std::cout << AnalyticalFormulas::Black_Scholes_Put(s0_, strike_, expiry_, risk_free_rate, dividend_, volatility_) << '\n';
 
 
 }

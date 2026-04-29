@@ -18,10 +18,9 @@ HestonModel::HestonModel(PseudoFactory& factory) : S0_(factory.GetS0()),
                                                    path_(factory.CreateBrownianMotionPath()),
                                                    generator_(factory.CreateRandomBase())
 {
-	cir_path_.resize(N_ + 1);
+
 
 	expression_ = std::exp(-meanreversion_ * dt_);
-	sqrt_expression_ = std::exp(1 - corr_ * corr_) * dt_;
 
 	k0_ = (r_ - corr_ * meanreversion_ * ltmean_ / volvol_) * dt_;
 	k1_ = (((corr_ * meanreversion_) / volvol_) - 0.5) * dt_ - corr_ / volvol_;
@@ -34,53 +33,45 @@ HestonModel::HestonModel(PseudoFactory& factory) : S0_(factory.GetS0()),
 
 void HestonModel::generate_CIR_path(std::vector<double>& vec, boost::mt19937& rng) const
 {
-	//cir_path_[0] = V_0_;
 	vec[0] = V_0_;
 
 	for (int i = 0; i < N_; ++i)
 	{
 		double kappaBar = (4.0 * meanreversion_ * vec[i] * expression_) / (volvol_ * volvol_ * (1.0 - expression_));
-		kappaBar += 0.000000001; // needed for stability in generating NonCentral_ChiSquared_Sample
+		kappaBar += 0.00000001; // needed for stability in generating NonCentral_ChiSquared_Sample
 		double sample = rv::NonCentral_CS_Sample(rng, delta_, kappaBar);
-		//cir_path_[i + 1] = c_ * sample;
 		vec[i + 1] = c_ * sample;
 	}
 }
 
 
-void HestonModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths) const
+void HestonModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths, unsigned seed) const
 {
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-	generator_->SeedGenerator(seed);
-	boost::mt19937 rng = generator_->GetGenerator();
+	std::cout << "simulated paths" << std::endl; 
+
+
+	std::vector<double> variates(N_ + 1);
+	std::vector<double> variates_CIR(N_ + 1);
+
+	boost::mt19937 rng(seed);
 
 	boost::normal_distribution<> nd(0.0, 1.0);
-	//boost::variate_generator<boost::mt19937&, boost::normal_distribution<>> rnorm(rng, nd);
 
 	// Simulate paths within the designated range
 	for (int i = start_idx; i < end_idx; ++i)
 	{
+
 		paths(i, 0) = S0_;
 
-		std::vector<double> variates(N_);
-		std::vector<double> variates_CIR(N_);
-
-		path_->GeneratePath(variates, rng);
-		//std::vector<double> variates_CIR{generate_CIR_path(CSvariates,rng)};
+		path_->fill_vector(variates, rng);
 		generate_CIR_path(variates_CIR,rng);
-
 
 		for (int j = 0; j < N_; ++j)
 		{
 			paths(i, j + 1) = paths(i, j) * std::exp(
-				k0_ + k1_ * variates_CIR[j] + k2_ * variates_CIR[j + 1] + std::sqrt(
-					(1 - corr_ * corr_) * dt_ * variates_CIR[j]) * variates[j]);
+				k0_ + k1_ * variates_CIR[j] + k2_ * variates_CIR[j + 1] + std::sqrt((1 - corr_ * corr_) * dt_ * variates_CIR[j]) * variates[j]);
 		}
 
-
-		//if ((i + 1) % 200000 == 0)
-		//{
-			//std::cout << "Paths simulated: " << i + 1 << std::endl;
-		//}
 	}
+
 }

@@ -53,7 +53,7 @@ Input::Input()
     number_threads_ = 10;
     seed_ = 1;
 
-    option_type_ = '5';   	                // c - for call,
+    option_type_ = 'c';   	                // c - for call,
                                             // a - for asian call, 
                                             // 1 - up-in call option, 
                                             // 2 - floating look back call, 

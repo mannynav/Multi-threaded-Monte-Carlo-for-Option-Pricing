@@ -1,5 +1,4 @@
 #include "EuroCallOption.h"
-#include "GreekBase.h"
 #include "PseudoFactory.h"
 
 EuroCallOption::EuroCallOption(PseudoFactory& factory) : 

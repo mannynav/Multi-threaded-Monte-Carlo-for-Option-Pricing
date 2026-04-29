@@ -29,7 +29,6 @@ GBMModel::GBMModel(PseudoFactory& factory) : S0_(factory.GetS0()),
 											 generator_(factory.CreateRandomBase()),
 											 path_(factory.CreateBrownianMotionPath())
 {
-	//drift_ = (r_ - 0.5 * sigma_ * sigma_) * dt_;
 
 	drift_ = (r_ - 0.5 * sigma_ * sigma_) * dt_;
 	if (auto* importance = dynamic_cast<AdaptiveImportanceSampler*>(path_.get())) {
@@ -45,11 +44,8 @@ void GBMModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths
 	//generator_->SeedGenerator(seed);
 	boost::mt19937 rng(seed);
 
-	auto local_path = paths;
-
 	// Set initial column
 	paths.col(0).segment(start_idx, end_idx - start_idx).setConstant(S0_);
-
 
 
 	for (int i = start_idx; i < end_idx; ++i)
@@ -65,7 +61,5 @@ void GBMModel::simulate_paths(int start_idx, int end_idx, Eigen::MatrixXd& paths
 			paths(i, j + 1) = paths(i, j) * exp(drift_ + sigma_ * sqrtdt_ * variates[j]);
 
 		}
-
-
 	}
 }
